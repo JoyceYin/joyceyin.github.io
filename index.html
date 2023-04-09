@@ -2,25 +2,35 @@
 <html lang="en">
 <head>
 	<title>JoyceYin - My Personal Website</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<meta charset="utf-8">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="statics/bootstrap/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="statics/bootstrap/css/bootstrap.min.css"> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+	<!-- Icon -->
+	<link type="text/css" rel="stylesheet" href="https://unpkg.com/octicons-html@1/dist/octicons-html.css">
+	<script src="https://unpkg.com/octicons-html@1/dist/octicons-html.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
+	<style>
+		td {
+			border:none;
+		}
+	</style>
+
 </head>
 
 <body style="background-color: black; color: black">
 	<div class="container-fluid">
-		<div class="row">
 
-			<div class="container">
+			<div class="row">
 				<div class="col align-self-center" style="padding: 20px;border: solid; border-color: black;"></div>
 			</div>
 
 			<!-- Main content col-6 d-flex justify-content-center-->
-			<div class="flexBox" style="display: flex; flex-flow: row wrap; justify-content: center;">
-
-				<div class="container">
-				<div class="d-flex justify-content-center" style="display:inline-flex;flex-flow: row nowrap;">
+			<div class="container flexBox" style="display: flex; flex-flow: row wrap; justify-content: center;">
+				<!-- <div class="d-flex justify-content-center" style="display:inline-flex;flex-flow: row nowrap;"> -->
 					
 					<!-- Left Column -->
 					<div class="border-left-0" style="width: 25%; float: left; padding: 20px; background-color: white; opacity: 0.6; border:10px solid;border-radius: 25px;"> 
@@ -28,10 +38,30 @@
 
 							<div class="card">
 								<div class="card-body">
+
 							    <img src="statics/images/mood.jpg" class="img-responsive"> 
 							    <br>
 							    <p style="font-size: 20px; text-align: center;">Joyce Yin</p>
 							    <p style="text-align: center; font-size: 15px; border-radius: 10px;background-color: lightblue; opacity: 0.8; padding: 5px; margin:20px;">NYU Grad Student</p>
+
+							    <!-- Personal Information -->
+							    <table class="table">
+							    	<thead><tr><th scope="col" style="font-size: 15px;"><span data-octicon="mail" style="margin-right: 10px;"></span>Email</th></tr>
+							    	</thead>
+							    	<tbody><tr><td>joyceyinxh@gmail.com</td></tr></tbody>
+							    </table>
+
+							    <table class="table">
+							    	<thead><tr><th scope="col" style="font-size: 15px;"><span data-octicon="location" style="margin-right: 10px;"></span>Location</th></tr></thead>
+							    	<tbody><tr><td>New York, NY</td></tr></tbody>
+							    </table>
+
+							    <div class="text-center">
+							    	<a href="https://github.com/JoyceYin"><span data-octicon="mark-github" style="width:24px; height:24px;"></span></a>
+							    	<a href="https://www.linkedin.com/in/xiaohe-yin-85618324a/"><i class="bi bi-linkedin" style="font-size: 2rem; padding: 20px;"></i></a>
+							    </div>
+
+
 								</div>
 							</div>
 							
@@ -39,44 +69,85 @@
 					</div>
 						
 					<!-- Right Columns -->
-					<div class="border-right-0" style="width: 70%; float: right; padding: 20px;background-color: white; opacity: 0.6;border:10px solid;border-radius: 25px;">
-						<div class="d-inline-block">
+					<div class="border-right-0" style="width: 60%; float: left; padding: 20px;background-color: white; opacity: 0.6;border:10px solid;border-radius: 25px;">
+						<!-- <div class="d-inline-block"> -->
 
 							<!-- navbar -->
-							<nav class="navbar navbar-light" style="height: 50px;">
-									<ul class="nav nav-tabs navbar-right">
-									<li class="nav-item">
-										<a class="nav-link" href="#">About Me</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" href="#">Resume</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" href="#">Projects</a>
-									</li>
-									</ul>
-							</nav>
+							<ul class="nav nav-tabs">
+							<li class="active"><a href="#aboutme" data-toggle="tab">About Me</a></li>
+							<li><a href="#resume" data-toggle="tab">Resume</a></li>
+							<li><a href="#projects" data-toggle="tab">Projects</a></li>
+							</ul>
 
+							<!-- Main Content -->
+							<div class="tab-content">
 
-							<div>
-								<h2> About Me</h2>
-								<p> I am Xiaohe Yin from NYU CUSP.</p>
-								<h3>Projects</h3>
-								<li>
-									<a href="projects/ChinaVis2021/home.html" style="color:purple;">ChinaVis2021: Air Pollutants Analysis in China</a>
-								</li>
-								<li>
-									<a href="projects/CapstoneSubway/intro.html" style="color:purple;">CUSP Capstone: Multimodal Machine Learning for Spatiotemporal Identification of Sound Sources in the NYC Subway System</a>
-								</li>
+								<!-- First Section: About Me -->
+								<div id="aboutme" class="tab-pane fade in active">
+									<br>
+									<h2> About Me</h2>
+									<p> I am Xiaohe Yin from NYU CUSP. Seeking for Jobs.</p>
+								</div>
+
+								<!-- Second Section: Resume -->
+								<div id="resume" class="tab-pane fade">
+									<br>
+									<table class="table border-0">
+										<!-- Education -->
+										<tbody>
+											<tr><td style="border:none;"><h4><b>Education</b></h4></td></tr>
+											<tr>
+											<th scope="row" style="border:none; border-right: 3px solid; ">Sep. 2018 – May 2022</th>
+											<td style="border:none;">
+												<p><b>Beijing Normal University-Hong Kong Baptist University (UIC)</b><br>
+													<i>Bachelor of Science in Data Science</i>
+												</p>
+											</td>
+											</tr>
+
+											<tr>
+											<th scope="row" style="border:none; border-right: 3px solid">Sept. 2022 – Current</th>
+											<td style="border:none;">
+												<p><b>New York University (NYU) Tandon School of Engineering</b><br>
+													<i>Master of Applied Urban Science and Informatics</i>
+												</p>
+											</td>
+											</tr>
+
+											<!-- Work Experience -->
+											<tr>
+												<td style="border:none;"><h4><b>Work Experience</b></h4></td>
+											</tr>
+
+											<tr>
+											<th scope="row" style="border:none; border-right: 3px solid">Jun. 2020 – Aug. 2020</th>
+											<td style="border:none;">
+												<p><b>Capol International Planning and Design Institute</b><br>
+													<i>Innovation and Research Intern</i>
+												</p>
+											</td>
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+
+								<!-- Third Section: Projects -->
+								<div id="projects" class="tab-pane fade">
+									<h3>Projects</h3>
+									<li>
+										<a href="projects/ChinaVis2021/home.html" style="color:purple;">ChinaVis2021: Air Pollutants Analysis in China</a>
+									</li>
+									<li>
+										<a href="projects/CapstoneSubway/intro.html" style="color:purple;">CUSP Capstone: Multimodal Machine Learning for Spatiotemporal Identification of Sound Sources in the NYC Subway System</a>
+									</li>
+								</div>
+
 							</div>
 
-						</div>
 					</div>
-					
-					
-				</div></div>
+			</div>
 
-		</div>
 	</div>
 
 
