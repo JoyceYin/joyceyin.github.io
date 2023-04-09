@@ -5,27 +5,75 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="statics/bootstrap/css/bootstrap.min.css">
 </head>
 
 <body style="background-color: black; color: black">
 	<div class="container-fluid">
 		<div class="row">
 
+			<div class="container">
+				<div class="col align-self-center" style="padding: 20px;border: solid; border-color: black;"></div>
+			</div>
+
 			<!-- Main content col-6 d-flex justify-content-center-->
-			<div class="flexBox" style="display: flex; flex-flow: row wrap; justify-content: center; background-color: white; opacity: 0.5;">
-				<!-- border: solid; border-color: yellow; -->
-				<div class="row center-block; border: solid; border-color: yellow;">
-					<h1>About Me</h1>
-					<p>I'm hosted with GitHub Pages.</p>
-					<h3>Projects</h3>
-						<li>
-							<a href="projects/ChinaVis2021/home.html" style="color:purple;">ChinaVis2021: Air Pollutants Analysis in China</a>
-						</li>
-						<li>
-							<a href="projects/CapstoneSubway/intro.html" style="color:purple;">CUSP Capstone: Multimodal Machine Learning for Spatiotemporal Identification of Sound Sources in the NYC Subway System</a>
-						</li>
-				</div>
+			<div class="flexBox" style="display: flex; flex-flow: row wrap; justify-content: center;">
+
+				<div class="container">
+				<div class="d-flex justify-content-center" style="display:inline-flex;flex-flow: row nowrap;">
+					
+					<!-- Left Column -->
+					<div class="border-left-0" style="width: 25%; float: left; padding: 20px; background-color: white; opacity: 0.6; border:10px solid;border-radius: 25px;"> 
+						<div class="d-inline-block">
+
+							<div class="card">
+							  <div class="card-body">
+							    <img src="statics/images/mood.jpg" class="img-responsive"> 
+							    <br>
+							    <p style="font-size: 20px; text-align: center;">Joyce Yin</p>
+							  </div>
+							</div>
+							
+						</div>
+					</div>
+						
+					<!-- Right Columns -->
+					<div class="border-right-0" style="width: 70%; float: right; padding: 20px;background-color: white; opacity: 0.6;border:10px solid;border-radius: 25px;">
+						<div class="d-inline-block">
+
+							<!-- navbar -->
+							<nav class="navbar navbar-light" style="background-color: ghostwhite; height: 50px;">
+									<ul class="nav nav-tabs navbar-right">
+									<li class="nav-item">
+										<a class="nav-link" href="#">About Me</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#">Resume</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#">Projects</a>
+									</li>
+									</ul>
+							</nav>
+
+
+							<div>
+								<h2> About Me</h2>
+								<p> I am Xiaohe Yin from NYU CUSP.</p>
+								<h3>Projects</h3>
+								<li>
+									<a href="projects/ChinaVis2021/home.html" style="color:purple;">ChinaVis2021: Air Pollutants Analysis in China</a>
+								</li>
+								<li>
+									<a href="projects/CapstoneSubway/intro.html" style="color:purple;">CUSP Capstone: Multimodal Machine Learning for Spatiotemporal Identification of Sound Sources in the NYC Subway System</a>
+								</li>
+							</div>
+
+						</div>
+					</div>
+					
+					
+				</div></div>
 
 		</div>
 	</div>
