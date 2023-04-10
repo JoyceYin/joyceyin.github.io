@@ -3,6 +3,7 @@
 <head>
 	<title>JoyceYin - My Personal Website</title>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 	<!-- <link rel="stylesheet" href="statics/bootstrap/css/bootstrap.min.css"> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -12,6 +13,9 @@
 	<link type="text/css" rel="stylesheet" href="https://unpkg.com/octicons-html@1/dist/octicons-html.css">
 	<script src="https://unpkg.com/octicons-html@1/dist/octicons-html.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
+	<!-- Chart -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
 	<style>
 		td {
@@ -29,11 +33,10 @@
 			</div>
 
 			<!-- Main content col-6 d-flex justify-content-center-->
-			<div class="container flexBox" style="display: flex; flex-flow: row wrap; justify-content: center;">
-				<!-- <div class="d-flex justify-content-center" style="display:inline-flex;flex-flow: row nowrap;"> -->
+			<div class="container flexBox" style="display: flex; flex-flow:row nowrap; justify-content:center;">
 					
 					<!-- Left Column -->
-					<div class="border-left-0" style="width: 25%; float: left; padding: 20px; background-color: white; opacity: 0.6; border:10px solid;border-radius: 25px;"> 
+					<div class="border-left-0 align-self-start" style="width: 25%; float: left; padding: 20px; background-color: white; opacity: 0.7; border:10px solid;border-radius: 25px;"> 
 						<div class="d-inline-block">
 
 							<div class="card">
@@ -67,13 +70,13 @@
 							
 						</div>
 					</div>
-						
+
 					<!-- Right Columns -->
-					<div class="border-right-0" style="width: 60%; float: left; padding: 20px;background-color: white; opacity: 0.6;border:10px solid;border-radius: 25px;">
+					<div class="border-right-0" style="width: 60%; float: left; padding: 20px;background-color: white; opacity: 0.7;border:10px solid;border-radius: 25px;">
 						<!-- <div class="d-inline-block"> -->
 
 							<!-- navbar -->
-							<ul class="nav nav-tabs">
+							<ul class="nav nav-tabs navbar-right">
 							<li class="active"><a href="#aboutme" data-toggle="tab">About Me</a></li>
 							<li><a href="#resume" data-toggle="tab">Resume</a></li>
 							<li><a href="#projects" data-toggle="tab">Projects</a></li>
@@ -85,8 +88,32 @@
 								<!-- First Section: About Me -->
 								<div id="aboutme" class="tab-pane fade in active">
 									<br>
-									<h2> About Me</h2>
-									<p> I am Xiaohe Yin from NYU CUSP. Seeking for Jobs.</p>
+									<table class="table">
+										<tbody>
+											<tr><td style="border:none;"><h3><b> About Me</b></h3></td></tr>
+											<tr>
+												<td style="border:none;">
+												<p style="font-size:14px; text-align: justify;">I am a graduate student from NYU, CUSP with a background in data science and urban science. I enjoy providing data-driven insights for urban problems to shape the future of the city.</p>
+												<p style="font-size:14px; text-align: justify;">I have developed a strong foundation in statistics, programming, and data analysis skills. I have also had the opportunity to utilize these skills through various projects and internships, where I have gained hands-on experience with large datasets and extracted valuable insights from them.</p>
+												</td>
+											</tr>
+											<tr></tr>
+											<tr><td style="border:none;"><h3><b>WHAT I'M DOING</b></h3></td></tr>
+											<tr><td style="border:none; align-self: center;">
+												<div class="row">
+													<div class="col-md-5 .col-md-offset-2" style="background-color: grey; border-radius: 25px;"><p style="text-align:center;"><b>Overview of NYC Building Stock</b></p></div>
+													<div class="col-md-5" style="background-color: grey; border-radius: 25px;"><p style="text-align:center;"><b>Big Data</b></p></div>
+												</div>
+
+												<br>
+												<div class="row">
+													<div class="col-md-5 .col-md-offset-2" style="background-color: grey; border-radius: 25px;"><p style="text-align:center;"><b>Kaggle Competition: Parkinson's Freezing of Gait Prediction</b></p></div>
+													<div class="col-md-5" style="background-color: grey; border-radius: 25px;"><p style="text-align:center;"><b>Capstone Project: Multimodal Machine Learning for Sound Sources in the NYC Subway System</b></p></div>
+												</div>
+
+											</td></tr>
+										</tbody>
+									</table>
 								</div>
 
 								<!-- Second Section: Resume -->
@@ -95,16 +122,32 @@
 									<table class="table border-0">
 										<!-- Education -->
 										<tbody>
+
+											<!-- Undergraduate -->
 											<tr><td style="border:none;"><h4><b>Education</b></h4></td></tr>
 											<tr>
 											<th scope="row" style="border:none; border-right: 3px solid; ">Sep. 2018 – May 2022</th>
 											<td style="border:none;">
-												<p><b>Beijing Normal University-Hong Kong Baptist University (UIC)</b><br>
+												<p><b>Beijing Normal University-Hong Kong Baptist University (UIC)</b>
+													<br>
 													<i>Bachelor of Science in Data Science</i>
 												</p>
 											</td>
 											</tr>
 
+											<tr>
+												<th scope="row" style="border:none; border-right: 3px solid;"></th>
+												<td style="border:none; background: lightblue;">
+												<p>
+													<b>Relevant Courses</b> <br>
+														<b>Statistics</b>: Advanced Statistics, Optimization, Numerical Analysis, Regression <br>
+														<b>Programming</b>: Data Structures and Algorithms, Foundamentals of Database System<br>
+														<b>Data Analysis</b>: Data Mining, Machine Learning, Text Mining and Analytics
+												</p>
+												</td>
+											</tr>
+
+											<!-- Master -->
 											<tr>
 											<th scope="row" style="border:none; border-right: 3px solid">Sept. 2022 – Current</th>
 											<td style="border:none;">
@@ -114,13 +157,25 @@
 											</td>
 											</tr>
 
+											<tr>
+												<th scope="row" style="border:none; border-right: 3px solid;"></th>
+												<td style="border:none; background: lightblue;">
+												<p>
+													<b>Relevant Courses</b> <br>
+														<b>Data Analysis</b>: Urban Informatics, Applied Data Science, Machine Learning for Cities, Big Data Management <br>
+														<b>Spatial Analysis</b>: Urban Spatial Analytics<br>
+														<b>Urban Policy</b>: Civic Analytics and Urban Intelligence
+												</p>
+												</td>
+											</tr>
+
 											<!-- Work Experience -->
 											<tr>
 												<td style="border:none;"><h4><b>Work Experience</b></h4></td>
 											</tr>
 
 											<tr>
-											<th scope="row" style="border:none; border-right: 3px solid">Jun. 2020 – Aug. 2020</th>
+											<th scope="row" style="border:none; border-right: 3px solid;">Jun. 2020 – Aug. 2020</th>
 											<td style="border:none;">
 												<p><b>Capol International Planning and Design Institute</b><br>
 													<i>Innovation and Research Intern</i>
@@ -128,19 +183,191 @@
 											</td>
 											</tr>
 
+											<tr>
+												<td style="border:none;"><h4><b>Skills</b></h4></td>
+											</tr>
+
 										</tbody>
 									</table>
+
+									<!-- Skills -->
+									<div class="container-fluid">
+										<div class="row">
+											<!-- Programming Language -->
+											<div class="col-md-6" style="background-color:aliceblue; border: solid 2px skyblue; border-radius: 25px;">
+												<h5><b>Programming Language</b></h5>
+												<hr>
+												<div class="row">
+													<div class="col-md-3"><p>Python</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+																<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
+														</div></div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-3"><p>R</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+																<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 70%;">
+														</div></div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-3"><p>JavaScript</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+																<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+														</div></div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-3"><p>C++</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+																<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+														</div></div>
+													</div>
+												</div>
+											</div>
+
+											<!-- Data Storage -->
+											<div class="col-md-6" style="background-color:aliceblue; border: solid 2px skyblue; border-radius: 25px;">
+												<h5><b>Data Storage</b></h5>
+												<hr>
+												<div class="row">
+													<div class="col-md-3"><p>SQL</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
+														</div></div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-3"><p>Pyspark</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 70%;">
+														</div></div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-3"><p>Hadoop</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+														</div></div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-3"><p>MongoDB</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+														</div></div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-6" style="background-color:aliceblue; border: solid 2px skyblue; border-radius: 25px;">
+												<h5><b>Spatial Analysis</b></h5>
+												<hr>
+												<div class="row">
+													<div class="col-md-3"><p>Geopandas</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
+														</div></div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-3"><p>ArcGIS</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
+														</div></div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-3"><p>Geoda</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+														</div></div>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-6" style="background-color:aliceblue; border: solid 2px skyblue; border-radius: 25px;">
+												<h5><b>Spoken Language</b></h5>
+												<hr>
+												<div class="row">
+													<div class="col-md-3"><p>Mandarin Chinese</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+														</div></div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-3"><p>English</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">
+														</div></div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-3"><p>Cantonese</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 85%;">
+														</div></div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-3"><p>Spanish</p></div>
+													<div class="col-md-9">
+														<div class="progress">
+														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
+														</div></div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
 								</div>
 
 								<!-- Third Section: Projects -->
 								<div id="projects" class="tab-pane fade">
-									<h3>Projects</h3>
-									<li>
-										<a href="projects/ChinaVis2021/home.html" style="color:purple;">ChinaVis2021: Air Pollutants Analysis in China</a>
-									</li>
-									<li>
-										<a href="projects/CapstoneSubway/intro.html" style="color:purple;">CUSP Capstone: Multimodal Machine Learning for Spatiotemporal Identification of Sound Sources in the NYC Subway System</a>
-									</li>
+									<br>
+
+									<table class="table">
+										<tbody>
+											<tr><td style="border:none;"><h4><b>Projects</b></h4></td></tr>
+											<tr>
+												<td style="border:none;">
+												<p style="font-size:15px; text-align: justify;"><a href="projects/ChinaVis2021/home.html" style="color:purple;">ChinaVis2021: Air Pollutants Analysis in China</a></p>
+												</td>
+											</tr>
+											<tr>
+												<td style="border:none;">
+												<p style="font-size:15px; text-align: justify;"><a href="projects/CapstoneSubway/intro.html" style="color:purple;">CUSP Capstone: Multimodal Machine Learning for Spatiotemporal Identification of Sound Sources in the NYC Subway System</a></p>
+												</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
 
 							</div>
@@ -149,6 +376,11 @@
 			</div>
 
 	</div>
+
+
+<script>
+	
+</script>
 
 
 </body>
