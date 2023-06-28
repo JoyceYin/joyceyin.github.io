@@ -160,6 +160,7 @@ d3.json(zipcodeURL).then(
 								.on("mouseleave", mouseleave)
 								.on("click", function(d){
 									console.log('click',d.properties.url)
+									d3.select("#picTitle").html(d['properties'].name)
 									d3.select("#picShow")
 									.attr("src", d.properties.url)
 									.attr("width", 400)
