@@ -6,20 +6,33 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="style.css">
+	<script src="static/jquery/jquery-3.5.1.js"></script>
+	<script src="static/jquery/jquery.min.js"></script>
+	<link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
 	<script src="https://d3js.org/d3.v5.min.js"></script>
 	<script src="https://d3js.org/topojson.v1.min.js"></script>
+	<script src="static/bootstrap/js/bootstrap.min.js"></script>
 	<title>Map</title>
 </head>
 
 <body>
-	<h2 id='title'> NYC Subway Station Noise Overview</h2>
+
+<div class="container-fluid">
+	<h2 id='title'> NYC Subway Station Noise Overview </h2>
 	<div id='description'>
 		Display Station Crowd, Noise, and station structure
 	</div>
 	<br>
 
-	<div id='canvas'>
+	<div class="row">
+	<div id='canvas'></div>
+	<div class="col-4">
+		<img id='picShow'>
+		<!-- <img src="https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1489619472654-OOKBIWBA719JUTQIRUHU/02+Times+Square+Image.jpg?format=400w" alt="Picture Portal"> -->
 	</div>
+	</div>
+
+</div>
 
 	
 </body>
