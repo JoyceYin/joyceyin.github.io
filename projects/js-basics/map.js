@@ -46,6 +46,10 @@ for (i=0; i<stationName.length; i++) {
 
 // let crowdData
 // let noiseData
+var overviewData = [{"crowd":15,"noise":-10},
+					{"crowd":10,"noise":-30},
+					{"crowd":25,"noise":-25},
+					{"crowd":20,"noise":-35}]
 
 
 d3.json(zipcodeURL).then(
@@ -93,8 +97,8 @@ d3.json(zipcodeURL).then(
 						console.log(selectedSbwy);
 
 
-						const width = 900;
-						const height = 600;
+						const width = 800;
+						const height = 700;
 
 						var projection = d3.geoMercator()
 									.fitSize([width,height], {type:'FeatureCollection',features:selectedSbwy});
@@ -116,13 +120,54 @@ d3.json(zipcodeURL).then(
 							.style("opacity", .7)
 							.attr('d', path)
 
+						// Scatter Plot for noise level and crowd
+						// var margin = {top: 10, right: 30, bottom: 30, left: 60},
+						// width = 460 - margin.left - margin.right,
+						// height = 400 - margin.top - margin.bottom;
+						var spacing = 120
+
+						var ScatterContain = d3.select("#scatter")
+							.attr("width", 400)
+							.attr("height", 400)
+							.style("background","pink")
+							.append("g")
+							.attr("transform","translate(" + spacing/2 + "," + spacing/2 + ")");
+
+						  // Add X axis
+						var xScale = d3.scaleLinear()
+							.domain([d3.min(overviewData, function(d){return d.crowd;})-1,
+								d3.max(overviewData, function(d){return d.crowd})+1])
+							.range([ 0, 400-spacing ]);
+
+						// Add Y axis
+						var yScale = d3.scaleLinear()
+						.domain([d3.min(overviewData, function(d){return d.noise}),
+							d3.max(overviewData, function(d){return d.noise})])
+						.range([ 400-spacing, 0]);
+
+						var xAxis = d3.axisBottom(xScale);
+						var yAxis = d3.axisLeft(yScale);
+
+						ScatterContain.append("g")
+							.attr("transform","translate(0,"+ (400-spacing) +")")
+							.call(xAxis);
+						ScatterContain.append("g").call(yAxis);
+
+						  // // Add dots
+						ScatterContain.append('g').selectAll("dot")
+							.data(overviewData).enter().append("circle")
+							.attr("cx", function (d) { return xScale(d.crowd); } )
+							.attr("cy", function (d) { return yScale(d.noise); } )
+							.attr("r", 5)
+							.style("fill", "#69b3a2")
+
 						// let tooltip = d3.select('#tooltip')
 
 						// create a tooltip
 						var Tooltip = svgContainer
 							.append("div")
 							.attr("class", "tooltip")
-							.style("opacity", 1)
+							.style("opacity", 0)
 							.style("background-color", "white")
 							.style("border", "solid")
 							.style("border-width", "2px")
@@ -160,12 +205,14 @@ d3.json(zipcodeURL).then(
 								.on("mouseleave", mouseleave)
 								.on("click", function(d){
 									console.log('click',d.properties.url)
+									d3.select("#scatter").remove()
 									d3.select("#picTitle").html(d['properties'].name)
 									d3.select("#picShow")
 									.attr("src", d.properties.url)
 									.attr("width", 400)
 									.attr("height", 400);
 								})
+
 				}})
 			//if fetch zipcode data, then continue to get the other data
 
