@@ -41,7 +41,6 @@ function filterStation(data, subwaydata) {
 	}
 	return selectedSbwy;
 }
-
 // draw map
 function drawMap(selectedData, zipdata, width, height, container) {
 	var projection = d3.geoMercator()
@@ -61,9 +60,8 @@ function drawMap(selectedData, zipdata, width, height, container) {
 				.attr('d', path)
 	return [canvas, projection]
 }
-
 // customize circle
-function drawCircleInMap(container, canvas, selectedData, projection){
+function drawCircleInMap(container, canvas, selectedData, projection,crowdData){
 	// Tooltip
 	var Tooltip = container
 		.append("div")
@@ -80,7 +78,7 @@ function drawCircleInMap(container, canvas, selectedData, projection){
 	  Tooltip.style("opacity", 1)
 	}
 	var mousemove = function(d) {
-		console.log(d['properties'])
+		// console.log(d['properties'])
 		Tooltip
 			.html(d['properties'].name + "<br>" + d['properties'].line)
 			.style("left", (d3.mouse(this)[0]+10) + "px")
@@ -112,85 +110,178 @@ function drawCircleInMap(container, canvas, selectedData, projection){
 				.attr("src", d.properties.url)
 				.attr("width", 400)
 				.attr("height", 400);
+
+				d3.select('#selectButton').remove()
+				d3.select('#StationLineTS').remove()
+				d3.select('#EachLineChart').html('<select id="selectButton"></select><div id="StationLineTS"></div>')
+				drawLineChart(d.properties.name, crowdData);
 			})
 }
+// For transposing array in timeseries
+function transposeArr(A) {
+	const result = [];
+	for (let i=0; i<A[0].length;i++){
+		const col=[];
+		for (let j=0; j<A.length;j++){
+			col.push(A[j][i]);
+		}
+		result.push(col);
+	}
+	return result
+}
+// draw line chart for noise and crowd for each line in station
+function drawLineChart(input, crowdData){
+	let GroupLineData = [];
+	let LineName = [];
+	var idx = 0;
+	for (i=0; i<crowdData.length;i++) {
+		if (crowdData[i]['properties'].Station === input) {
+			GroupLineData[idx] = crowdData[i]['timeseries']
+			LineName[idx] = crowdData[i]['properties'].Line;
+			idx++;
+		}
+	}
+	// set the dimensions and margins of the graph
+	var margin = {top: 10, right: 100, bottom: 30, left: 30},
+		w1 = 460 - margin.left - margin.right,
+		h1 = 400 - margin.top - margin.bottom;
 
-d3.json(crowdDataURL).then(
-	(data) => {
-		console.log('crowd')
-		console.log(data);
+// append the svg object to the body of the page
+	var svg = d3.select("#StationLineTS").append("svg")
+		.attr("width", w1 + margin.left + margin.right)
+		.attr("height", h1 + margin.top + margin.bottom)
+		.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// add the options to the button
+	d3.select("#selectButton")
+		.selectAll('myOptions').data(LineName)
+		.enter().append('option')
+		.text(function (d) { return d; }) // text showed in the menu
+		.attr("value", function (d) { return d; }) // corresponding value returned by the button
+
+	// A color scale: one color for each group
+	var myColor = d3.scaleOrdinal()
+		.domain(LineName)
+		.range(d3.schemeSet2);
+
+// Add X axis --> it is a date format
+	var x = d3.scaleLinear().domain([0,20])
+				.range([ 0, w1 ]);
+	svg.append("g")
+		.attr("transform", "translate(0," + h1 + ")")
+		.call(d3.axisBottom(x));
+
+	// Add Y axis
+	var y = d3.scaleLinear().domain( [0,11]).range([ h1, 0 ]);
+	svg.append("g").call(d3.axisLeft(y));
+
+	let initialData = GroupLineData[0]
+	// Initialize line with group a
+	var line = svg.append('g').append("path")
+			.datum(initialData).attr("d", d3.line()
+				.x(function(d) { return x(+d[0]) })
+				.y(function(d) { return y(+d[1]) })
+			)
+	.attr("stroke", function(d){ return myColor(LineName[0]) })
+	.style("stroke-width", 4)
+	.style("fill", "none")
+
+	// A function that update the chart
+	function updateLineChart(selectedGroup) {
+
+		// Create new data with the selection?
+		var StationIdx = LineName.indexOf(selectedGroup)
+		const dataFilter = GroupLineData[StationIdx]
+
+		// Give these new data to update line
+		line.datum(dataFilter).transition()
+		.duration(1000).attr("d", d3.line()
+		.x(function(d) { return x(+d[0]) })
+		.y(function(d) { return y(+d[1]) })
+		)
+		.attr("stroke", function(d){ return myColor(selectedGroup) })
+	}
+
+	// When the button is changed, run the updateChart function
+	d3.select("#selectButton").on("change", function(event,d) {
+		// recover the option that has been chosen
+		const selectedOpt = d3.select(this).property("value")
+		// run the updateChart function with this selected option
+		console.log(selectedOpt)
+		updateLineChart(selectedOpt)
 	})
+}
 
-d3.json(zipcodeURL).then(
-	(data) =>{
-		let zipdata = data;
-		console.log(zipdata)
 
-		d3.json(stationURL).then(
-			(data,error) => {
-				if (error) {
-					console.log(log)
-				}else{
-					let subwayData = data.features;
-					// console.log(subwayData);
+d3.json(zipcodeURL).then((data) =>{
+	let zipdata = data;
 
-					d3.json(stationNameURL).then(
-						(data) => {
-							let stationName = data['Structure']
-							let selectedSbwy = filterStation(stationName, subwayData)
+	d3.json(stationURL).then((data,error) => {
+		if (error) {
+			console.log(log)
+		}else{
+			let subwayData = data.features;
 
-							const width = 800;
-							const height = 700;
-							var svgContainer = d3.select('#canvas');
+			d3.json(stationNameURL).then((data) => {
+				let stationName = data['Structure']
+				let selectedSbwy = filterStation(stationName, subwayData)
 
-							// Map
-							let mapData = drawMap(selectedSbwy, zipdata, width, height, svgContainer);
-							canvas = mapData[0];
-							projection = mapData[1];
-							drawCircleInMap(svgContainer, canvas, selectedSbwy, projection);
+				d3.json(crowdDataURL).then((data) => {
+					let crowdData = data;
 
-							// Scatter Plot for noise level and crowd
-							// var margin = {top: 10, right: 30, bottom: 30, left: 60},
-							// width = 460 - margin.left - margin.right,
-							// height = 400 - margin.top - margin.bottom;
-							var spacing = 120
+					const width = 800;
+					const height = 700;
+					var svgContainer = d3.select('#canvas');
 
-							var ScatterContain = d3.select("#scatter")
-								.attr("width", 400)
-								.attr("height", 400)
-								.style("background","pink")
-								.append("g")
-								.attr("transform","translate(" + spacing/2 + "," + spacing/2 + ")");
+					// Map
+					let mapData = drawMap(selectedSbwy, zipdata, width, height, svgContainer);
+					canvas = mapData[0];
+					projection = mapData[1];
+					drawCircleInMap(svgContainer, canvas, selectedSbwy, projection,crowdData);
 
-							  // Add X axis
-							var xScale = d3.scaleLinear()
-								.domain([d3.min(overviewData, function(d){return d.crowd;})-1,
-									d3.max(overviewData, function(d){return d.crowd})+1])
-								.range([ 0, 400-spacing ]);
+					// Scatter Plot for noise level and crowd
+					// var margin = {top: 10, right: 30, bottom: 30, left: 60},
+					// width = 460 - margin.left - margin.right,
+					// height = 400 - margin.top - margin.bottom;
+					var spacing = 120
 
-							// Add Y axis
-							var yScale = d3.scaleLinear()
-							.domain([d3.min(overviewData, function(d){return d.noise}),
-								d3.max(overviewData, function(d){return d.noise})])
-							.range([ 400-spacing, 0]);
+					var ScatterContain = d3.select("#scatter")
+						.attr("width", 400)
+						.attr("height", 400)
+						.style("background","pink")
+						.append("g")
+						.attr("transform","translate(" + spacing/2 + "," + spacing/2 + ")");
 
-							var xAxis = d3.axisBottom(xScale);
-							var yAxis = d3.axisLeft(yScale);
+					  // Add X axis
+					var xScale = d3.scaleLinear()
+						.domain([d3.min(overviewData, function(d){return d.crowd;})-1,
+							d3.max(overviewData, function(d){return d.crowd})+1])
+						.range([ 0, 400-spacing ]);
 
-							ScatterContain.append("g")
-								.attr("transform","translate(0,"+ (400-spacing) +")")
-								.call(xAxis);
-							ScatterContain.append("g").call(yAxis);
+					// Add Y axis
+					var yScale = d3.scaleLinear()
+					.domain([d3.min(overviewData, function(d){return d.noise}),
+						d3.max(overviewData, function(d){return d.noise})])
+					.range([ 400-spacing, 0]);
 
-							  // // Add dots
-							ScatterContain.append('g').selectAll("dot")
-								.data(overviewData).enter().append("circle")
-								.attr("cx", function (d) { return xScale(d.crowd); } )
-								.attr("cy", function (d) { return yScale(d.noise); } )
-								.attr("r", 5)
-								.style("fill", "#69b3a2")
+					var xAxis = d3.axisBottom(xScale);
+					var yAxis = d3.axisLeft(yScale);
 
-						})
-				}
+					ScatterContain.append("g")
+						.attr("transform","translate(0,"+ (400-spacing) +")")
+						.call(xAxis);
+					ScatterContain.append("g").call(yAxis);
+
+					  // // Add dots
+					ScatterContain.append('g').selectAll("dot")
+						.data(overviewData).enter().append("circle")
+						.attr("cx", function (d) { return xScale(d.crowd); } )
+						.attr("cy", function (d) { return yScale(d.noise); } )
+						.attr("r", 5)
+						.style("fill", "#69b3a2")
+				})
+
 			})
+		}
+		})
 	})

@@ -10,7 +10,8 @@ body{
 }
 
 svg{
-    background-color: #305555;
+/*    background-color: #305555;*/
+    background-color: whitesmoke;
     /*box-shadow: 0px 3px 15px rgba(0,0,0,0.2); */
     /*border-radius: 5px; */
     padding: 10px;
