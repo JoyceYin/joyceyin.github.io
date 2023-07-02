@@ -1,4 +1,6 @@
-[
+{
+	"Structure":
+	[
 	{"Station": "Times Sq - 42nd St", "Line":"N,Q,R,W,S,1,2,3,7","id":["197","359","80","147"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1489619472654-OOKBIWBA719JUTQIRUHU/02+Times+Square+Image.jpg?format=1500w"},
 	{"Station": "42nd St - Port Authority Bus Term", "Line":"A,C,E","id":["362"],"URL":null},
 	{"Station": "Grand Central - 42nd St", "Line":"S,4,5,6,7","id":["31","81","204"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1448456297288-3XYHEXHTFQOSV12Q1GQL/08+Grand+Central+Image.jpg?format=1500w"},
@@ -26,9 +28,11 @@
 	{"Station": "DeKalb Ave", "Line":"B,Q,R","id":["15"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1528678049652-KW4L9F70X3DJB7B40X5O/28+Dekalb.jpg?format=1500w"},
 	{"Station": "5th Ave - 53rd St", "Line":"E,M","id":["142"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1469908613798-PKXH673NP10EM27PRK6T/14+5th+Avenue+53rd+Street+Image.jpg?format=1500w"},
 	{"Station": "34th St - Hudson Yards", "Line":"7","id":["470"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1469908612565-0JTJ8ICIY1WS9FEDF6LS/11+34th+Street+Hudson+Yards+Image.jpg?format=1500w"},
+	{"Station": "7th Ave", "Line":"B,D,E","id":["348"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1469908613609-ZXG1XM4BR3LIHR4PWNWK/13+7th+Avenue+Image.jpg?format=2500w"},
 	{"Station": "Hoyt - Schermerhorn Sts", "Line":"A,C,G","id":["367"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1528678049219-G5DYPMFI7FPYBY4MV9HU/27+Hoyt+Street+-+Schermerhorn+Street.jpg?format=1500w"},
 	{"Station": "Nevins St", "Line":"2,3,4,5","id":["128"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1528678049791-IWP0YGQDB62C6IWJADWL/29+Nevins+Street.jpg?format=1500w"},
 	{"Station": "Hoyt St", "Line":"2,3","id":["405"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1528678049175-LWLQ3ZUKFNJRC9H4TCL1/26+Hoyt.jpg?format=1500w"},
 	{"Station": "Fulton St", "Line":"G","id":["118"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1528678050091-WMY9P122L3V828ZH88OU/30+Fulton+Street.jpg?format=2500w"},
 	{"Station": "Lafayette Ave", "Line":"C","id":["454"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1528678050181-U87SZSOLO7UL827F7NHF/31+Lafayette+ave.jpg?format=2500w"}
 ]
+}
