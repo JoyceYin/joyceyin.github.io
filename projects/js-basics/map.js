@@ -62,7 +62,7 @@ function drawMap(selectedData, zipdata, width, height, container) {
 	return [canvas, projection]
 }
 // customize circle
-function drawCircleInMap(container, canvas, selectedData, projection,crowdData, noiseData){
+function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowdData){
 	// Tooltip
 	var Tooltip = container
 		.append("div")
@@ -115,7 +115,7 @@ function drawCircleInMap(container, canvas, selectedData, projection,crowdData, 
 				d3.select('#selectButton').remove()
 				d3.select('#StationLineTS').remove()
 				d3.select('#EachLineChart').html('<select id="selectButton"></select><div id="StationLineTS"></div>')
-				drawLineChart(d.properties.name, crowdData, noiseData);
+				drawLineChart(d.properties.name, NoiseCrowdData);
 			})
 }
 // For transposing array in timeseries
@@ -131,15 +131,16 @@ function transposeArr(A) {
 	return result
 }
 // draw line chart for noise and crowd for each line in station
-function drawLineChart(input, crowdData, noiseData){
-	let GroupLineData = [];
+function drawLineChart(input, NoiseCrowdData){
+	let GroupCrowdData = [];
 	let GroupNoiseData = []
 	let LineName = [];
 	var idx = 0;
-	for (i=0; i<crowdData.length;i++) {
-		if (crowdData[i]['properties'].Station === input) {
-			GroupLineData[idx] = crowdData[i]['timeseries']
-			LineName[idx] = crowdData[i]['properties'].Line;
+	for (i=0; i<NoiseCrowdData.length;i++) {
+		if (NoiseCrowdData[i].Station === input) {
+			GroupCrowdData[idx] = NoiseCrowdData[i].CrowdTS
+			GroupNoiseData[idx] = NoiseCrowdData[i].NoiseTS
+			LineName[idx] = NoiseCrowdData[i].Line;
 			idx++;
 		}
 	}
@@ -162,29 +163,47 @@ function drawLineChart(input, crowdData, noiseData){
 		.attr("value", function (d) { return d; }) // corresponding value returned by the button
 
 	// A color scale: one color for each group
-	var myColor = d3.scaleOrdinal()
-		.domain(LineName)
-		.range(d3.schemeSet2);
+	// var myColor = d3.scaleOrdinal().domain(LineName).range(d3.schemeSet2);
+	let crowdColor = d3.schemeSet2[0]
+	let noiseColor = d3.schemeSet2[1]
 
-// Add X axis --> it is a date format
-	var x = d3.scaleLinear().domain([0,20])
+	// Add Y and X axis and set domain based on min and max
+	let minY = Math.round(Math.min(...transposeArr(GroupNoiseData[0])[1]))-1
+	let maxY = Math.max(...transposeArr(GroupCrowdData[0])[1])+1
+	let Xrange = Math.max(...transposeArr(GroupNoiseData[0])[0])
+	let transX = Math.round((maxY/(maxY-minY))*h1)
+
+	// Add X axis --> it is a date format
+	var x = d3.scaleLinear().domain([0,Xrange])
 				.range([ 0, w1 ]);
-	svg.append("g")
-		.attr("transform", "translate(0," + h1 + ")")
+	xAxis = svg.append("g")
+		.attr("transform", "translate(0," + transX + ")")
 		.call(d3.axisBottom(x));
 
-	// Add Y axis
-	var y = d3.scaleLinear().domain( [0,11]).range([ h1, 0 ]);
-	svg.append("g").call(d3.axisLeft(y));
+	var y0 = d3.scaleLinear().domain( [minY,maxY] ).range([ h1, 0 ]);
+	y0Axis = svg.append("g").call(d3.axisLeft(y0));
 
-	let initialData = GroupLineData[0]
-	// Initialize line with group a
-	var line = svg.append('g').append("path")
-			.datum(initialData).attr("d", d3.line()
+	var y1 = d3.scaleLinear().domain( [minY,maxY] ).range([ h1, 0 ]);
+	y1Axis = svg.append("g").attr("transform", "translate(" + w1 + ",0)").call(d3.axisRight(y1));
+
+	// let initialData = GroupLineData[0]
+	// Initialize line with crowd line chart
+	var line0 = svg.append('g').append("path")
+			.datum(GroupCrowdData[0]).attr("d", d3.line()
 				.x(function(d) { return x(+d[0]) })
-				.y(function(d) { return y(+d[1]) })
+				.y(function(d) { return y0(+d[1]) })
 			)
-	.attr("stroke", function(d){ return myColor(LineName[0]) })
+	.attr("stroke", function(d){ return crowdColor })
+	.style("stroke-width", 4)
+	.style("fill", "none")
+
+	// Initialize line with noise line chart
+	var line1 = svg.append('g').append("path")
+			.datum(GroupNoiseData[0]).attr("d", d3.line()
+				.x(function(d) { return x(+d[0]) })
+				.y(function(d) { return y1(+d[1]) })
+			)
+	.attr("stroke", function(d){ return noiseColor })
 	.style("stroke-width", 4)
 	.style("fill", "none")
 
@@ -193,15 +212,33 @@ function drawLineChart(input, crowdData, noiseData){
 
 		// Create new data with the selection?
 		var StationIdx = LineName.indexOf(selectedGroup)
-		const dataFilter = GroupLineData[StationIdx]
+		const crowdFilter = GroupCrowdData[StationIdx]
+		const noiseFilter = GroupNoiseData[StationIdx]
+
+		let minY = Math.round(Math.min(...transposeArr(noiseFilter)[1]))-1
+		let maxY = Math.max(...transposeArr(crowdFilter)[1])+1
+		let Xrange = Math.max(...transposeArr(crowdFilter)[0])
+		let transX = Math.round((maxY/(maxY-minY))*h1)
+
+		x.domain([0,Xrange])
+		xAxis.attr("transform", "translate(0," + transX + ")").transition().duration(1000).call(d3.axisBottom(x))
+		y0.domain([minY,maxY])
+		y0Axis.transition().duration(1000).call(d3.axisLeft(y0))
+		y1.domain([minY,maxY])
+		y1Axis.transition().duration(1000).call(d3.axisRight(y1))
 
 		// Give these new data to update line
-		line.datum(dataFilter).transition()
-		.duration(1000).attr("d", d3.line()
+		line0.datum(crowdFilter).transition().duration(1000).attr("d", d3.line()
 		.x(function(d) { return x(+d[0]) })
-		.y(function(d) { return y(+d[1]) })
+		.y(function(d) { return y0(+d[1]) })
 		)
-		.attr("stroke", function(d){ return myColor(selectedGroup) })
+		.attr("stroke", function(d){ return crowdColor })
+
+		line1.datum(noiseFilter).transition().duration(1000).attr("d", d3.line()
+		.x(function(d) { return x(+d[0]) })
+		.y(function(d) { return y1(+d[1]) })
+		)
+		.attr("stroke", function(d){ return noiseColor })
 	}
 
 	// When the button is changed, run the updateChart function
@@ -275,9 +312,9 @@ d3.json(zipcodeURL).then((data) =>{
 					d3.json(noiseDataURL).then((data) => {
 						let noiseData = data;
 
+						// Coombine Data
 						let NoiseCrowdData = []
 						for (var i=0; i<crowdData.length;i++) {
-							count = 0
 							for (var j=0; j<noiseData.length;j++) {
 								let cdStat = crowdData[i]['properties']
 								let nsStat = noiseData[j]['properties']
@@ -286,11 +323,7 @@ d3.json(zipcodeURL).then((data) =>{
 													'CrowdTS': crowdData[i]['timeseries'],
 													'NoiseTS': noiseData[j]['properties'].Timeseries}
 									NoiseCrowdData.push(newData)
-									count ++;
 								}
-							}
-							if (count==0){
-								console.log(crowdData[i]['properties'])
 							}
 						}
 						console.log(NoiseCrowdData);
@@ -303,7 +336,7 @@ d3.json(zipcodeURL).then((data) =>{
 						let mapData = drawMap(selectedSbwy, zipdata, width, height, svgContainer);
 						canvas = mapData[0];
 						projection = mapData[1];
-						drawCircleInMap(svgContainer, canvas, selectedSbwy, projection, crowdData, noiseData);
+						drawCircleInMap(svgContainer, canvas, selectedSbwy, projection, NoiseCrowdData);
 
 						drawOverviewScatter(overviewData);
 
