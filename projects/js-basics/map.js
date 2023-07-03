@@ -274,10 +274,10 @@ d3.json(zipcodeURL).then((data) =>{
 
 					d3.json(noiseDataURL).then((data) => {
 						let noiseData = data;
-						console.log(noiseData, crowdData)
 
 						let NoiseCrowdData = []
 						for (var i=0; i<crowdData.length;i++) {
+							count = 0
 							for (var j=0; j<noiseData.length;j++) {
 								let cdStat = crowdData[i]['properties']
 								let nsStat = noiseData[j]['properties']
@@ -286,7 +286,11 @@ d3.json(zipcodeURL).then((data) =>{
 													'CrowdTS': crowdData[i]['timeseries'],
 													'NoiseTS': noiseData[j]['properties'].Timeseries}
 									NoiseCrowdData.push(newData)
+									count ++;
 								}
+							}
+							if (count==0){
+								console.log(crowdData[i]['properties'])
 							}
 						}
 						console.log(NoiseCrowdData);
