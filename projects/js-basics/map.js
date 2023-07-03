@@ -6,11 +6,7 @@ let stationNameURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github
 let crowdDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/js-basics/data/CrowdData.json'
 let noiseDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/js-basics/data/NoiseData.json'
 
-var overviewData = [{"crowd":15,"noise":-10},
-					{"crowd":10,"noise":-30},
-					{"crowd":25,"noise":-25},
-					{"crowd":20,"noise":-35}]
-
+let overviewDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/js-basics/data/StationOverview.json'
 
 // only analyze the subway station with structure images 
 // combine station locations with the same structure (connected stations)
@@ -86,7 +82,7 @@ function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowd
 			.style("top", (d3.mouse(this)[1]) + "px")
 	}
 	var mouseleave = function(d) {
-		Tooltip.style("opacity", 0)
+		Tooltip.transition().duration(200).style("opacity", 0)
 	}
 
 	canvas.selectAll('circle')
@@ -252,46 +248,70 @@ function drawLineChart(input, NoiseCrowdData){
 }
 // Scatter Plot for noise level and crowd
 function drawOverviewScatter(overviewData){
-	// var margin = {top: 10, right: 30, bottom: 30, left: 60},
-	// width = 460 - margin.left - margin.right,
-	// height = 400 - margin.top - margin.bottom;
-	var spacing = 120
+	var margin = {top: 10, right: 30, bottom: 30, left: 60},
+	width = 460 - margin.left - margin.right,
+	height = 450 - margin.top - margin.bottom;
 
-	var ScatterContain = d3.select("#scatter")
-		.attr("width", 400)
-		.attr("height", 400)
-		.style("background","pink")
-		.append("g")
-		.attr("transform","translate(" + spacing/2 + "," + spacing/2 + ")");
+	// append the svg object to the body of the page
+	var ScatterContain = d3.select("#scatter").append("svg")
+	.attr("width", width + margin.left + margin.right)
+	.attr("height", height + margin.top + margin.bottom)
+	.append("g")
+	.attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
 	// Add X axis
 	var xScale = d3.scaleLinear()
-		.domain([d3.min(overviewData, function(d){return d.crowd;})-1,
-			d3.max(overviewData, function(d){return d.crowd})+1])
-		.range([ 0, 400-spacing ]);
+		.domain([d3.min(overviewData, function(d){return d.value[0]['count_people'];})-1,
+			d3.max(overviewData, function(d){return d.value[0]['count_people']})+1])
+		.range([ 0, width ]);
+	ScatterContain.append("g")
+		.attr("transform", "translate(0," + 0 + ")")
+		.call(d3.axisBottom(xScale));
 
 	// Add Y axis
 	var yScale = d3.scaleLinear()
-	.domain([d3.min(overviewData, function(d){return d.noise}),
-		d3.max(overviewData, function(d){return d.noise})])
-	.range([ 400-spacing, 0]);
+	.domain([d3.min(overviewData, function(d){return d.value[0]['max_intensity']}),
+		d3.max(overviewData, function(d){return d.value[0]['max_intensity']})])
+	.range([ height, 0]);
+	ScatterContain.append("g").call(d3.axisLeft(yScale));
 
-	var xAxis = d3.axisBottom(xScale);
-	var yAxis = d3.axisLeft(yScale);
+	// Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
+	var tooltip = d3.select("#scatter").append("div")
+	.style("opacity", 0).attr("class", "tooltip")
+	.style("background-color", "white")
+	.style("border", "solid")
+	.style("border-width", "1px")
+	.style("border-radius", "5px")
+	.style("padding", "10px")
 
-	ScatterContain.append("g")
-		.attr("transform","translate(0,"+ (400-spacing) +")")
-		.call(xAxis);
-	ScatterContain.append("g").call(yAxis);
+	var mouseover = function(d) { tooltip.style("opacity", 1) }
+	var mousemove = function(d) {
+		console.log(d3.mouse(this)[0])
+		tooltip.html(d.station +"<br>Line:" + d.line)
+		.style("left", (d3.mouse(this)[0]+950) + "px")
+		.style("top", (d3.mouse(this)[1]) + "px")
+	}
+	var mouseleave = function(d) { tooltip.transition().duration(200).style("opacity", 0) }
 
 	  // // Add dots
 	ScatterContain.append('g').selectAll("dot")
 		.data(overviewData).enter().append("circle")
-		.attr("cx", function (d) { return xScale(d.crowd); } )
-		.attr("cy", function (d) { return yScale(d.noise); } )
-		.attr("r", 5)
+		.attr('class','scatterPt')
+		.attr("cx", function (d) { return xScale(d.value[0]['count_people']); } )
+		.attr("cy", function (d) { return yScale(d.value[0]['max_intensity']); } )
+		.attr("r", 7)
 		.style("fill", "#69b3a2")
+		.style("opacity", 0.3)
+		.on("mouseover", mouseover )
+		.on("mousemove", mousemove )
+		.on("mouseleave", mouseleave )
 }
+
+d3.json(overviewDataURL).then((data) => {
+	let scatterData = data;
+	console.log(scatterData);
+	drawOverviewScatter(scatterData);
+})
 
 d3.json(zipcodeURL).then((data) =>{
 	let zipdata = data;
@@ -338,7 +358,7 @@ d3.json(zipcodeURL).then((data) =>{
 						projection = mapData[1];
 						drawCircleInMap(svgContainer, canvas, selectedSbwy, projection, NoiseCrowdData);
 
-						drawOverviewScatter(overviewData);
+						// drawOverviewScatter(overviewData);
 
 					})
 				})
