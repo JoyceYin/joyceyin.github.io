@@ -4,7 +4,7 @@ let stationURL = 'https://data.cityofnewyork.us/api/geospatial/arq3-7z49?method=
 let stationNameURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/js-basics/data/StructSta.json'
 
 let crowdDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/js-basics/data/CrowdData.json'
-// let noiseData
+let noiseDataURL = ''
 var overviewData = [{"crowd":15,"noise":-10},
 					{"crowd":10,"noise":-30},
 					{"crowd":25,"noise":-25},
@@ -212,6 +212,10 @@ function drawLineChart(input, crowdData){
 	})
 }
 
+// d3.json(noiseDataURL).then((data) =>{
+// 	let noiseData = data;
+	
+// })
 
 d3.json(zipcodeURL).then((data) =>{
 	let zipdata = data;
