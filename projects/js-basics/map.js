@@ -4,7 +4,8 @@ let stationURL = 'https://data.cityofnewyork.us/api/geospatial/arq3-7z49?method=
 let stationNameURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/js-basics/data/StructSta.json'
 
 let crowdDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/js-basics/data/CrowdData.json'
-let noiseDataURL = ''
+let noiseDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/js-basics/data/NoiseData.json'
+
 var overviewData = [{"crowd":15,"noise":-10},
 					{"crowd":10,"noise":-30},
 					{"crowd":25,"noise":-25},
@@ -61,7 +62,7 @@ function drawMap(selectedData, zipdata, width, height, container) {
 	return [canvas, projection]
 }
 // customize circle
-function drawCircleInMap(container, canvas, selectedData, projection,crowdData){
+function drawCircleInMap(container, canvas, selectedData, projection,crowdData, noiseData){
 	// Tooltip
 	var Tooltip = container
 		.append("div")
@@ -114,7 +115,7 @@ function drawCircleInMap(container, canvas, selectedData, projection,crowdData){
 				d3.select('#selectButton').remove()
 				d3.select('#StationLineTS').remove()
 				d3.select('#EachLineChart').html('<select id="selectButton"></select><div id="StationLineTS"></div>')
-				drawLineChart(d.properties.name, crowdData);
+				drawLineChart(d.properties.name, crowdData, noiseData);
 			})
 }
 // For transposing array in timeseries
@@ -130,8 +131,9 @@ function transposeArr(A) {
 	return result
 }
 // draw line chart for noise and crowd for each line in station
-function drawLineChart(input, crowdData){
+function drawLineChart(input, crowdData, noiseData){
 	let GroupLineData = [];
+	let GroupNoiseData = []
 	let LineName = [];
 	var idx = 0;
 	for (i=0; i<crowdData.length;i++) {
@@ -211,11 +213,48 @@ function drawLineChart(input, crowdData){
 		updateLineChart(selectedOpt)
 	})
 }
+// Scatter Plot for noise level and crowd
+function drawOverviewScatter(overviewData){
+	// var margin = {top: 10, right: 30, bottom: 30, left: 60},
+	// width = 460 - margin.left - margin.right,
+	// height = 400 - margin.top - margin.bottom;
+	var spacing = 120
 
-// d3.json(noiseDataURL).then((data) =>{
-// 	let noiseData = data;
-	
-// })
+	var ScatterContain = d3.select("#scatter")
+		.attr("width", 400)
+		.attr("height", 400)
+		.style("background","pink")
+		.append("g")
+		.attr("transform","translate(" + spacing/2 + "," + spacing/2 + ")");
+
+	// Add X axis
+	var xScale = d3.scaleLinear()
+		.domain([d3.min(overviewData, function(d){return d.crowd;})-1,
+			d3.max(overviewData, function(d){return d.crowd})+1])
+		.range([ 0, 400-spacing ]);
+
+	// Add Y axis
+	var yScale = d3.scaleLinear()
+	.domain([d3.min(overviewData, function(d){return d.noise}),
+		d3.max(overviewData, function(d){return d.noise})])
+	.range([ 400-spacing, 0]);
+
+	var xAxis = d3.axisBottom(xScale);
+	var yAxis = d3.axisLeft(yScale);
+
+	ScatterContain.append("g")
+		.attr("transform","translate(0,"+ (400-spacing) +")")
+		.call(xAxis);
+	ScatterContain.append("g").call(yAxis);
+
+	  // // Add dots
+	ScatterContain.append('g').selectAll("dot")
+		.data(overviewData).enter().append("circle")
+		.attr("cx", function (d) { return xScale(d.crowd); } )
+		.attr("cy", function (d) { return yScale(d.noise); } )
+		.attr("r", 5)
+		.style("fill", "#69b3a2")
+}
 
 d3.json(zipcodeURL).then((data) =>{
 	let zipdata = data;
@@ -233,56 +272,38 @@ d3.json(zipcodeURL).then((data) =>{
 				d3.json(crowdDataURL).then((data) => {
 					let crowdData = data;
 
-					const width = 800;
-					const height = 700;
-					var svgContainer = d3.select('#canvas');
+					d3.json(noiseDataURL).then((data) => {
+						let noiseData = data;
+						console.log(noiseData, crowdData)
 
-					// Map
-					let mapData = drawMap(selectedSbwy, zipdata, width, height, svgContainer);
-					canvas = mapData[0];
-					projection = mapData[1];
-					drawCircleInMap(svgContainer, canvas, selectedSbwy, projection,crowdData);
+						let NoiseCrowdData = []
+						for (var i=0; i<crowdData.length;i++) {
+							for (var j=0; j<noiseData.length;j++) {
+								let cdStat = crowdData[i]['properties']
+								let nsStat = noiseData[j]['properties']
+								if ((cdStat.Station === nsStat.Station) && (cdStat.Line === nsStat.Line)) {
+									var newData = {'Station':cdStat.Station, 'Line':cdStat.Line,
+													'CrowdTS': crowdData[i]['timeseries'],
+													'NoiseTS': noiseData[j]['properties'].Timeseries}
+									NoiseCrowdData.push(newData)
+								}
+							}
+						}
+						console.log(NoiseCrowdData);
 
-					// Scatter Plot for noise level and crowd
-					// var margin = {top: 10, right: 30, bottom: 30, left: 60},
-					// width = 460 - margin.left - margin.right,
-					// height = 400 - margin.top - margin.bottom;
-					var spacing = 120
+						const width = 800;
+						const height = 700;
+						var svgContainer = d3.select('#canvas');
 
-					var ScatterContain = d3.select("#scatter")
-						.attr("width", 400)
-						.attr("height", 400)
-						.style("background","pink")
-						.append("g")
-						.attr("transform","translate(" + spacing/2 + "," + spacing/2 + ")");
+						// Map
+						let mapData = drawMap(selectedSbwy, zipdata, width, height, svgContainer);
+						canvas = mapData[0];
+						projection = mapData[1];
+						drawCircleInMap(svgContainer, canvas, selectedSbwy, projection, crowdData, noiseData);
 
-					  // Add X axis
-					var xScale = d3.scaleLinear()
-						.domain([d3.min(overviewData, function(d){return d.crowd;})-1,
-							d3.max(overviewData, function(d){return d.crowd})+1])
-						.range([ 0, 400-spacing ]);
+						drawOverviewScatter(overviewData);
 
-					// Add Y axis
-					var yScale = d3.scaleLinear()
-					.domain([d3.min(overviewData, function(d){return d.noise}),
-						d3.max(overviewData, function(d){return d.noise})])
-					.range([ 400-spacing, 0]);
-
-					var xAxis = d3.axisBottom(xScale);
-					var yAxis = d3.axisLeft(yScale);
-
-					ScatterContain.append("g")
-						.attr("transform","translate(0,"+ (400-spacing) +")")
-						.call(xAxis);
-					ScatterContain.append("g").call(yAxis);
-
-					  // // Add dots
-					ScatterContain.append('g').selectAll("dot")
-						.data(overviewData).enter().append("circle")
-						.attr("cx", function (d) { return xScale(d.crowd); } )
-						.attr("cy", function (d) { return yScale(d.noise); } )
-						.attr("r", 5)
-						.style("fill", "#69b3a2")
+					})
 				})
 
 			})
