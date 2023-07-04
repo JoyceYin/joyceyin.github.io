@@ -99,7 +99,6 @@ function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowd
 			.attr('r', function(d){
 				ratio = (d.value['count_people']-minCount)/(maxCount-minCount);
 				if (isNaN(ratio)){ratio=0;};
-				console.log(ratio);
 				return 5+(15-5)*ratio;
 			})
 			.style("fill", function(d){ 
