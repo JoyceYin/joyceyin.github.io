@@ -85,14 +85,25 @@ function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowd
 		Tooltip.transition().duration(200).style("opacity", 0)
 	}
 
+	let maxCount = d3.max(selectedData, function(d){return d.value['count_people'];})
+	let minCount = d3.min(selectedData, function(d){return d.value['count_people'];})
+	let maxMaxInten = d3.max(selectedData, function(d){return d.value['max_intensity'];})
+	let minMaxInten = d3.min(selectedData, function(d){return d.value['max_intensity'];})
+
+	// color refer: https://github.com/d3/d3-scale-chromatic
+
 	canvas.selectAll('circle')
 			.data(selectedData)
 			.enter().append('circle')
 			.attr('class','stationPt')
-			.attr('r',8)
-			.style("fill", "69b3a2")
-			.attr("stroke", "#69b3a2")
-			.attr("stroke-width", 3)
+			.attr('r', function(d){
+				ratio = (d.value['count_people']-minCount)/(maxCount-minCount);
+				if (isNaN(ratio)){ratio=0;};
+				console.log(ratio);
+				return 5+(15-5)*ratio;
+			})
+			.style("fill", function(d){ 
+				return d3.interpolateReds((d.value['max_intensity']-minMaxInten)/(maxMaxInten-minMaxInten)); })
 			.attr("fill-opacity", .4)
 			.attr('cx',function(d) { return projection(d.geometry.coordinates)[0]})
 			.attr('cy',function(d) { return projection(d.geometry.coordinates)[1]})
@@ -103,6 +114,7 @@ function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowd
 				console.log('click',d.properties.url)
 				d3.select("#scatter").remove()
 				d3.select("#picTitle").html(d['properties'].name)
+				d3.select('a.imageurl').attr("href",d.properties.url)
 				d3.select("#picShow")
 				.attr("src", d.properties.url)
 				.attr("width", 400)
@@ -141,7 +153,7 @@ function drawLineChart(input, NoiseCrowdData){
 		}
 	}
 	// set the dimensions and margins of the graph
-	var margin = {top: 10, right: 100, bottom: 30, left: 30},
+	var margin = {top: 10, right: 65, bottom: 30, left: 40},
 		w1 = 460 - margin.left - margin.right,
 		h1 = 400 - margin.top - margin.bottom;
 
@@ -167,7 +179,8 @@ function drawLineChart(input, NoiseCrowdData){
 	let minY = Math.round(Math.min(...transposeArr(GroupNoiseData[0])[1]))-1
 	let maxY = Math.max(...transposeArr(GroupCrowdData[0])[1])+1
 	let Xrange = Math.max(...transposeArr(GroupNoiseData[0])[0])
-	let transX = Math.round((maxY/(maxY-minY))*h1)
+	// let transX = Math.round((maxY/(maxY-minY))*h1)
+	let transX = h1-30
 
 	// Add X axis --> it is a date format
 	var x = d3.scaleLinear().domain([0,Xrange])
@@ -176,11 +189,28 @@ function drawLineChart(input, NoiseCrowdData){
 		.attr("transform", "translate(0," + transX + ")")
 		.call(d3.axisBottom(x));
 
-	var y0 = d3.scaleLinear().domain( [minY,maxY] ).range([ h1, 0 ]);
+	var y0 = d3.scaleLinear().domain( [0,maxY] ).range([ h1-30, 0 ]);
 	y0Axis = svg.append("g").call(d3.axisLeft(y0));
 
-	var y1 = d3.scaleLinear().domain( [minY,maxY] ).range([ h1, 0 ]);
+	var y1 = d3.scaleLinear().domain( [minY,0] ).range([ h1-30, 0 ]);
 	y1Axis = svg.append("g").attr("transform", "translate(" + w1 + ",0)").call(d3.axisRight(y1));
+
+	// Add X axis label:
+	svg.append("text")
+		.attr("x", w1/2).attr("y", h1 + margin.top-6)
+		.style("font-size", 12)
+		.style("text-anchor", "middle").text("TimeStamp (s)");
+
+	// Y axis label:
+	svg.append("text").attr("text-anchor", "end")
+		.attr("transform", "rotate(-90)").style("font-size", 12)
+		.attr("y", -margin.left+10).attr("x", -margin.top)
+		.text("People Counting")
+
+	svg.append("text").attr("text-anchor", "end")
+		.attr("transform", "rotate(90)").style("font-size", 12)
+		.attr("y", -w1-margin.left+5).attr("x", -margin.top+150)
+		.text("Max Noise Intensity (dB)")
 
 	// let initialData = GroupLineData[0]
 	// Initialize line with crowd line chart
@@ -217,10 +247,10 @@ function drawLineChart(input, NoiseCrowdData){
 		let transX = Math.round((maxY/(maxY-minY))*h1)
 
 		x.domain([0,Xrange])
-		xAxis.attr("transform", "translate(0," + transX + ")").transition().duration(1000).call(d3.axisBottom(x))
-		y0.domain([minY,maxY])
+		xAxis.transition().duration(1000).call(d3.axisBottom(x))
+		y0.domain([0,maxY])
 		y0Axis.transition().duration(1000).call(d3.axisLeft(y0))
-		y1.domain([minY,maxY])
+		y1.domain([minY,0])
 		y1Axis.transition().duration(1000).call(d3.axisRight(y1))
 
 		// Give these new data to update line
@@ -265,15 +295,26 @@ function drawOverviewScatter(overviewData){
 			d3.max(overviewData, function(d){return d.value[0]['count_people']})+1])
 		.range([ 0, width ]);
 	ScatterContain.append("g")
-		.attr("transform", "translate(0," + 0 + ")")
+		.attr("transform", "translate(0," + 20 + ")")
 		.call(d3.axisBottom(xScale));
 
 	// Add Y axis
 	var yScale = d3.scaleLinear()
 	.domain([d3.min(overviewData, function(d){return d.value[0]['max_intensity']}),
 		d3.max(overviewData, function(d){return d.value[0]['max_intensity']})])
-	.range([ height, 0]);
+	.range([ height, 20]);
 	ScatterContain.append("g").call(d3.axisLeft(yScale));
+
+	// Add X axis label:
+	ScatterContain.append("text")
+		.attr("x", width/2).attr("y", margin.top)
+		.style("text-anchor", "middle").text("People Count");
+
+	// Y axis label:
+	ScatterContain.append("text").attr("text-anchor", "end")
+		.attr("transform", "rotate(-90)")
+		.attr("y", -margin.left+20).attr("x", -margin.top)
+		.text("Max Noise Intensity (dB)")
 
 	// Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
 	var tooltip = d3.select("#scatter").append("div")
@@ -307,12 +348,6 @@ function drawOverviewScatter(overviewData){
 		.on("mouseleave", mouseleave )
 }
 
-d3.json(overviewDataURL).then((data) => {
-	let scatterData = data;
-	console.log(scatterData);
-	drawOverviewScatter(scatterData);
-})
-
 d3.json(zipcodeURL).then((data) =>{
 	let zipdata = data;
 
@@ -332,34 +367,57 @@ d3.json(zipcodeURL).then((data) =>{
 					d3.json(noiseDataURL).then((data) => {
 						let noiseData = data;
 
-						// Coombine Data
-						let NoiseCrowdData = []
-						for (var i=0; i<crowdData.length;i++) {
-							for (var j=0; j<noiseData.length;j++) {
-								let cdStat = crowdData[i]['properties']
-								let nsStat = noiseData[j]['properties']
-								if ((cdStat.Station === nsStat.Station) && (cdStat.Line === nsStat.Line)) {
-									var newData = {'Station':cdStat.Station, 'Line':cdStat.Line,
-													'CrowdTS': crowdData[i]['timeseries'],
-													'NoiseTS': noiseData[j]['properties'].Timeseries}
-									NoiseCrowdData.push(newData)
+						d3.json(overviewDataURL).then((data) => {
+							let scatterData = data;
+							drawOverviewScatter(scatterData);
+
+							// Coombine Data
+							let NoiseCrowdData = []
+							for (var i=0; i<crowdData.length;i++) {
+								for (var j=0; j<noiseData.length;j++) {
+									let cdStat = crowdData[i]['properties']
+									let nsStat = noiseData[j]['properties']
+									if ((cdStat.Station === nsStat.Station) && (cdStat.Line === nsStat.Line)) {
+										var newData = {'Station':cdStat.Station, 'Line':cdStat.Line,
+														'CrowdTS': crowdData[i]['timeseries'],
+														'NoiseTS': noiseData[j]['properties'].Timeseries}
+										NoiseCrowdData.push(newData)
+									}
 								}
 							}
-						}
-						console.log(NoiseCrowdData);
+							console.log(NoiseCrowdData);
 
-						const width = 800;
-						const height = 700;
-						var svgContainer = d3.select('#canvas');
+							const width = 800;
+							const height = 700;
+							var svgContainer = d3.select('#canvas');
 
-						// Map
-						let mapData = drawMap(selectedSbwy, zipdata, width, height, svgContainer);
-						canvas = mapData[0];
-						projection = mapData[1];
-						drawCircleInMap(svgContainer, canvas, selectedSbwy, projection, NoiseCrowdData);
+							// Map
+							// let testData = []
+							for (var i=0; i<selectedSbwy.length;i++) {
+								var avgValue = {'count_people': 0, 'max_intensity':0,
+												'mean_intensity':0,'min_intensity':0};
+								let count = 0;
+								for (var j=0; j<scatterData.length;j++) {
+									if (selectedSbwy[i].properties.name === scatterData[j].station){
+										avgValue['count_people'] += scatterData[j].value[0]['count_people']
+										avgValue['max_intensity'] += scatterData[j].value[0]['max_intensity']
+										avgValue['mean_intensity'] += scatterData[j].value[0]['mean_intensity']
+										avgValue['min_intensity'] += scatterData[j].value[0]['min_intensity']
+										count++;
+									}
+								}
+								avgValue['count_people'] = Math.round(avgValue['count_people']/count);
+								avgValue['max_intensity'] = Math.round(avgValue['max_intensity']/count);
+								avgValue['mean_intensity'] = Math.round(avgValue['mean_intensity']/count);
+								avgValue['min_intensity'] = Math.round(avgValue['min_intensity']/count);
+								selectedSbwy[i]['value'] = avgValue;
+							}
 
-						// drawOverviewScatter(overviewData);
-
+							let mapData = drawMap(selectedSbwy, zipdata, width, height, svgContainer);
+							canvas = mapData[0];
+							projection = mapData[1];
+							drawCircleInMap(svgContainer, canvas, selectedSbwy, projection, NoiseCrowdData);
+						})
 					})
 				})
 
