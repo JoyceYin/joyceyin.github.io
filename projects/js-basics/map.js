@@ -175,6 +175,13 @@ function drawLineChart(input, NoiseCrowdData){
 	let crowdColor = d3.schemeSet2[0]
 	let noiseColor = d3.schemeSet2[1]
 
+	// Handmade legend
+	svg.append("circle").attr("cx",w1-60).attr("cy",10).attr("r", 6).style("fill", crowdColor)
+	svg.append("circle").attr("cx",w1-60).attr("cy",10+30).attr("r", 6).style("fill", noiseColor)
+	svg.append("text").attr("x", w1-60+10).attr("y", 10).text("People").style("font-size", "15px").attr("alignment-baseline","middle")
+	svg.append("text").attr("x", w1-60+10).attr("y", 10+30).text("Noise").style("font-size", "15px").attr("alignment-baseline","middle")
+
+
 	// Add Y and X axis and set domain based on min and max
 	let minY = Math.round(Math.min(...transposeArr(GroupNoiseData[0])[1]))-1
 	let maxY = Math.max(...transposeArr(GroupCrowdData[0])[1])+1
@@ -221,7 +228,7 @@ function drawLineChart(input, NoiseCrowdData){
 			)
 	.attr("stroke", function(d){ return crowdColor })
 	.style("stroke-width", 4)
-	.style("fill", "none")
+	.style("fill", "none").style("opacity", 0.5)
 
 	// Initialize line with noise line chart
 	var line1 = svg.append('g').append("path")
@@ -231,7 +238,7 @@ function drawLineChart(input, NoiseCrowdData){
 			)
 	.attr("stroke", function(d){ return noiseColor })
 	.style("stroke-width", 4)
-	.style("fill", "none")
+	.style("fill", "none").style("opacity", 0.5)
 
 	// A function that update the chart
 	function updateLineChart(selectedGroup) {
