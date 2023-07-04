@@ -104,6 +104,8 @@ function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowd
 			.style("fill", function(d){ 
 				return d3.interpolateReds((d.value['max_intensity']-minMaxInten)/(maxMaxInten-minMaxInten)); })
 			.attr("fill-opacity", .4)
+			.attr("stroke", "black")
+			.attr("stroke-width", "1px")
 			.attr('cx',function(d) { return projection(d.geometry.coordinates)[0]})
 			.attr('cy',function(d) { return projection(d.geometry.coordinates)[1]})
 			.on("mouseover", mouseover)
@@ -112,7 +114,7 @@ function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowd
 			.on("click", function(d){
 				console.log('click',d.properties.url)
 				d3.select("#scatter").remove()
-				d3.select("#picTitle").html(d['properties'].name)
+				d3.select("#picTitle").html(d['properties'].name).style("font-size","20px")
 				d3.select('a.imageurl').attr("href",d.properties.url)
 				d3.select("#picShow")
 				.attr("src", d.properties.url)
@@ -211,12 +213,12 @@ function drawLineChart(input, NoiseCrowdData){
 	svg.append("text").attr("text-anchor", "end")
 		.attr("transform", "rotate(-90)").style("font-size", 12)
 		.attr("y", -margin.left+10).attr("x", -margin.top)
-		.text("People Counting")
+		.text("Number of People")
 
 	svg.append("text").attr("text-anchor", "end")
 		.attr("transform", "rotate(90)").style("font-size", 12)
-		.attr("y", -w1-margin.left+5).attr("x", -margin.top+150)
-		.text("Max Noise Intensity (dB)")
+		.attr("y", -w1-margin.left+5).attr("x", -margin.top+170)
+		.text("Maximum Noise Intensity (dB)")
 
 	// let initialData = GroupLineData[0]
 	// Initialize line with crowd line chart
@@ -314,13 +316,13 @@ function drawOverviewScatter(overviewData){
 	// Add X axis label:
 	ScatterContain.append("text")
 		.attr("x", width/2).attr("y", margin.top)
-		.style("text-anchor", "middle").text("People Count");
+		.style("text-anchor", "middle").text("Number of People");
 
 	// Y axis label:
 	ScatterContain.append("text").attr("text-anchor", "end")
 		.attr("transform", "rotate(-90)")
 		.attr("y", -margin.left+20).attr("x", -margin.top)
-		.text("Max Noise Intensity (dB)")
+		.text("Maximum Noise Intensity (dB)")
 
 	// Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
 	var tooltip = d3.select("#scatter").append("div")
