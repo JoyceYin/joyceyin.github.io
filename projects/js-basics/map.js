@@ -103,7 +103,7 @@ function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowd
 			})
 			.style("fill", function(d){ 
 				return d3.interpolateReds((d.value['max_intensity']-minMaxInten)/(maxMaxInten-minMaxInten)); })
-			.attr("fill-opacity", .4)
+			.attr("fill-opacity", .6)
 			.attr("stroke", "black")
 			.attr("stroke-width", "1px")
 			.attr('cx',function(d) { return projection(d.geometry.coordinates)[0]})
