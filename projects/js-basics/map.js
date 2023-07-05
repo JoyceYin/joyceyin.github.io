@@ -114,6 +114,7 @@ function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowd
 			.on("click", function(d){
 				console.log('click',d.properties.url)
 				d3.select("#scatter").remove()
+				d3.select("#scatterButton").remove()
 				d3.select("#picTitle").html(d['properties'].name).style("font-size","20px")
 				d3.select('a.imageurl').attr("href",d.properties.url)
 				d3.select("#picShow")
@@ -325,35 +326,83 @@ function drawOverviewScatter(overviewData){
 		.text("Maximum Noise Intensity (dB)")
 
 	// Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
-	var tooltip = d3.select("#scatter").append("div")
-	.style("opacity", 0).attr("class", "tooltip")
-	.style("background-color", "white")
-	.style("border", "solid")
-	.style("border-width", "1px")
-	.style("border-radius", "5px")
-	.style("padding", "10px")
+	function ScatterTooltip() {
+		var tooltip = d3.select("#scatter").append("div")
+			.style("opacity", 0).attr("class", "tooltip")
+			.style("background-color", "white")
+			.style("border", "solid")
+			.style("border-width", "1px")
+			.style("border-radius", "5px")
+			.style("padding", "10px")
 
-	var mouseover = function(d) { tooltip.style("opacity", 1) }
-	var mousemove = function(d) {
-		console.log(d3.mouse(this)[0])
-		tooltip.html(d.station +"<br>Line:" + d.line)
-		.style("left", (d3.mouse(this)[0]+950) + "px")
-		.style("top", (d3.mouse(this)[1]) + "px")
+			var mouseover = function(d) { tooltip.style("opacity", 1) }
+			var mousemove = function(d) {
+				tooltip.html(d.station +"<br>Line:" + d.line)
+				.style("left", (d3.mouse(this)[0]+950) + "px")
+				.style("top", (d3.mouse(this)[1]) + "px")
+			}
+			var mouseleave = function(d) { tooltip.transition().duration(200).style("opacity", 0) }
+		return [mouseover, mousemove, mouseleave]
 	}
-	var mouseleave = function(d) { tooltip.transition().duration(200).style("opacity", 0) }
+	var mouse = ScatterTooltip()
+	var mouseover = mouse[0]
+	var mousemove = mouse[1]
+	var mouseleave = mouse[2]
 
-	  // // Add dots
-	ScatterContain.append('g').selectAll("dot")
+	var LineName = []
+	for (var i=0; i<overviewData.length;i++){
+		LineName.push(overviewData[i].line)
+	}
+	LineName = d3.set(LineName).values();
+	var myColor = d3.scaleOrdinal().domain(LineName).range(d3.schemeSet2);
+
+	d3.select("#scatterButton")
+		.selectAll('myOptions1').data(LineName)
+		.enter().append('option')
+		.text(function (d) { return d; }) // text showed in the menu
+		.attr("value", function (d) { return d; }) // corresponding value returned by the button
+
+	  // // Add dots "#69b3a2"
+	ScatterContain.append('g').selectAll("circle")
 		.data(overviewData).enter().append("circle")
 		.attr('class','scatterPt')
 		.attr("cx", function (d) { return xScale(d.value[0]['count_people']); } )
 		.attr("cy", function (d) { return yScale(d.value[0]['max_intensity']); } )
 		.attr("r", 7)
-		.style("fill", "#69b3a2")
-		.style("opacity", 0.3)
+		.style("fill", "#69b3a2") 
+		.style("opacity", 0.4)
 		.on("mouseover", mouseover )
 		.on("mousemove", mousemove )
 		.on("mouseleave", mouseleave )
+
+	// A function that update the chart
+	function updateScatter(selectedGroup) {
+
+		// Create new data with the selection?
+		let ScatterFilter = []
+		for (var i=0;i<overviewData.length;i++) {
+			if (overviewData[i].line === selectedGroup) {ScatterFilter.push(overviewData[i])}
+			}
+
+		// Give these new data to update line
+		ScatterContain.selectAll('circle').remove()
+		ScatterContain.selectAll('circle').data(ScatterFilter).enter().append('circle')
+		.transition().duration(1000)
+		.attr("cx", function (d) { return xScale(d.value[0]['count_people']); } )
+		.attr("cy", function (d) { return yScale(d.value[0]['max_intensity']); } )
+		.attr("r", 7)
+		.style("opacity", 0.4)
+		.style("fill", "#69b3a2") 
+	}
+
+	// When the button is changed, run the updateChart function
+	d3.select("#scatterButton").on("change", function(event,d) {
+		// recover the option that has been chosen
+		const selectedOpt = d3.select(this).property("value")
+		// run the updateChart function with this selected option
+		console.log(selectedOpt) 
+		updateScatter(selectedOpt);
+	})
 }
 
 d3.json(zipcodeURL).then((data) =>{
