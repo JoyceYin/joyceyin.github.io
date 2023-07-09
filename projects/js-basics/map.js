@@ -477,6 +477,8 @@ d3.json(zipcodeURL).then((data) =>{
 							let mapData = drawMap(selectedSbwy, zipdata, width, height, svgContainer);
 							canvas = mapData[0];
 							projection = mapData[1];
+							selectedSbwy = selectedSbwy.filter(item => item['properties'].name!='66th St - Lincoln Ctr');
+							selectedSbwy = selectedSbwy.filter(item => item['properties'].name!='Union St');
 							drawCircleInMap(svgContainer, canvas, selectedSbwy, projection, NoiseCrowdData);
 						})
 					})
