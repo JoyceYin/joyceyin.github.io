@@ -185,9 +185,13 @@ function drawLineChart(input, NoiseCrowdData){
 
 
 	// Add Y and X axis and set domain based on min and max
+	
 	let minY = Math.round(Math.min(...transposeArr(GroupNoiseData[0])[1]))-1
-	let maxY = Math.max(...transposeArr(GroupCrowdData[0])[1])+1
 	let Xrange = Math.max(...transposeArr(GroupNoiseData[0])[0])
+
+	var InitalCrowdData = GroupCrowdData[0].slice(0, Xrange+1); 
+	let maxY = Math.max(...transposeArr(InitalCrowdData)[1])+1
+	
 	// let transX = Math.round((maxY/(maxY-minY))*h1)
 	let transX = h1-30
 
@@ -224,7 +228,7 @@ function drawLineChart(input, NoiseCrowdData){
 	// let initialData = GroupLineData[0]
 	// Initialize line with crowd line chart
 	var line0 = svg.append('g').append("path")
-			.datum(GroupCrowdData[0]).attr("d", d3.line()
+			.datum(InitalCrowdData).attr("d", d3.line()
 				.x(function(d) { return x(+d[0]) })
 				.y(function(d) { return y0(+d[1]) })
 			)
@@ -254,6 +258,7 @@ function drawLineChart(input, NoiseCrowdData){
 		let maxY = Math.max(...transposeArr(crowdFilter)[1])+1
 		let Xrange = Math.max(...transposeArr(crowdFilter)[0])
 		let transX = Math.round((maxY/(maxY-minY))*h1)
+		console.log(Xrange)
 
 		x.domain([0,Xrange])
 		xAxis.transition().duration(1000).call(d3.axisBottom(x))
@@ -449,7 +454,6 @@ d3.json(zipcodeURL).then((data) =>{
 							var svgContainer = d3.select('#canvas');
 
 							// Map
-							// let testData = []
 							for (var i=0; i<selectedSbwy.length;i++) {
 								var avgValue = {'count_people': 0, 'max_intensity':0,
 												'mean_intensity':0,'min_intensity':0};

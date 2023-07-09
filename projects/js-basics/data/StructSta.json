@@ -33,6 +33,8 @@
 	{"Station": "Nevins St", "Line":"2,3,4,5","id":["128"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1528678049791-IWP0YGQDB62C6IWJADWL/29+Nevins+Street.jpg?format=1500w"},
 	{"Station": "Hoyt St", "Line":"2,3","id":["405"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1528678049175-LWLQ3ZUKFNJRC9H4TCL1/26+Hoyt.jpg?format=1500w"},
 	{"Station": "Fulton St", "Line":"G","id":["118"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1528678050091-WMY9P122L3V828ZH88OU/30+Fulton+Street.jpg?format=2500w"},
-	{"Station": "Lafayette Ave", "Line":"C","id":["454"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1528678050181-U87SZSOLO7UL827F7NHF/31+Lafayette+ave.jpg?format=2500w"}
+	{"Station": "Lafayette Ave", "Line":"C","id":["454"],"URL": "https://images.squarespace-cdn.com/content/v1/55ababf2e4b064e8b6004ad2/1528678050181-U87SZSOLO7UL827F7NHF/31+Lafayette+ave.jpg?format=2500w"},
+	{"Station": "66th St - Lincoln Ctr", "Line":"1","id":["88"],"URL": null},
+	{"Station": "Union St", "Line":"R","id":["36"],"URL": null}
 ]
 }
