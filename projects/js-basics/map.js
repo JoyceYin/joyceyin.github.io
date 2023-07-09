@@ -354,7 +354,7 @@ function drawOverviewScatter(overviewData){
 	var mousemove = mouse[1]
 	var mouseleave = mouse[2]
 
-	var LineName = []
+	var LineName = ['All Lines']
 	for (var i=0; i<overviewData.length;i++){
 		LineName.push(overviewData[i].line)
 	}
@@ -374,21 +374,22 @@ function drawOverviewScatter(overviewData){
 		.attr("cx", function (d) { return xScale(d.value[0]['count_people']); } )
 		.attr("cy", function (d) { return yScale(d.value[0]['max_intensity']); } )
 		.attr("r", 7)
-		.style("fill", "#69b3a2") 
+		.style("fill", function(d){ return myColor(d.line); } ) 
 		.style("opacity", 0.4)
 		.on("mouseover", mouseover )
 		.on("mousemove", mousemove )
 		.on("mouseleave", mouseleave )
 
 	// A function that update the chart
-	function updateScatter(selectedGroup) {
-
+	function updateScatter(selectedGroup, myColor) {
 		// Create new data with the selection?
-		let ScatterFilter = []
-		for (var i=0;i<overviewData.length;i++) {
-			if (overviewData[i].line === selectedGroup) {ScatterFilter.push(overviewData[i])}
-			}
-
+		let ScatterFilter;
+		if (selectedGroup !='All Lines') {
+			ScatterFilter = overviewData.filter(item => item.line == selectedGroup)
+		}else{
+			ScatterFilter = overviewData
+		}
+		
 		// Give these new data to update line
 		ScatterContain.selectAll('circle').remove()
 		ScatterContain.selectAll('circle').data(ScatterFilter).enter().append('circle')
@@ -396,8 +397,13 @@ function drawOverviewScatter(overviewData){
 		.attr("cx", function (d) { return xScale(d.value[0]['count_people']); } )
 		.attr("cy", function (d) { return yScale(d.value[0]['max_intensity']); } )
 		.attr("r", 7)
-		.style("opacity", 0.4)
-		.style("fill", "#69b3a2") 
+		.style("fill", function(d){ return myColor(d.line);} ) 
+
+		if (selectedGroup !='All Lines') {
+			ScatterContain.selectAll('circle').style("opacity", 0.8)
+		} else{
+			ScatterContain.selectAll('circle').style("opacity", 0.4)
+		}
 	}
 
 	// When the button is changed, run the updateChart function
@@ -405,8 +411,8 @@ function drawOverviewScatter(overviewData){
 		// recover the option that has been chosen
 		const selectedOpt = d3.select(this).property("value")
 		// run the updateChart function with this selected option
-		console.log(selectedOpt) 
-		updateScatter(selectedOpt);
+		console.log(selectedOpt);
+		updateScatter(selectedOpt,myColor);
 	})
 }
 
@@ -449,7 +455,7 @@ d3.json(zipcodeURL).then((data) =>{
 							}
 							console.log(NoiseCrowdData);
 
-							const width = 800;
+							const width = 600;
 							const height = 700;
 							var svgContainer = d3.select('#canvas');
 
