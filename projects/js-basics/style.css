@@ -22,8 +22,9 @@ svg{
 #canvas{
     display: flex;
     justify-content: center;
+/*    align-items: center;*/
     min-width: 1000px;
-    min-height: 600px
+    min-height: 700px
 }
 
 /*#tooltip{
@@ -52,6 +53,7 @@ svg{
   display: flex;
 /*  border: 2px solid blueviolet;*/
   justify-content: center;
+  align-items: center;
   margin: 0px;
 }
 
@@ -60,7 +62,7 @@ svg{
   display: flex;
 /*  border: 2px solid blueviolet;*/
   justify-content: center;
-  margin: 0px;
+  margin: 20px;
 }
 
 

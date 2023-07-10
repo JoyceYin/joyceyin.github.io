@@ -55,6 +55,7 @@ function drawMap(selectedData, zipdata, width, height, container) {
 				.style("stroke", "black")
 				.style("opacity", .7)
 				.attr('d', path)
+
 	return [canvas, projection]
 }
 // customize circle
@@ -124,9 +125,85 @@ function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowd
 
 				d3.select('#selectButton').remove()
 				d3.select('#StationLineTS').remove()
-				d3.select('#EachLineChart').html('<select id="selectButton"></select><div id="StationLineTS"></div>')
+				d3.select('#EachLineChart').html('<select id="selectButton" class="btn btn-outline-dark btn-sm"></select><div id="StationLineTS"></div>')
 				drawLineChart(d.properties.name, NoiseCrowdData);
 			})
+
+	var colors = [ d3.interpolateReds(0), d3.interpolateReds(1) ];
+
+	var grad = canvas.append('defs')
+	  .append('linearGradient')
+	  .attr('id', 'grad')
+	  .attr('x1', '0%')
+	  .attr('x2', '100%')
+	  .attr('y1', '0%')
+	  .attr('y2', '0%');
+
+	grad.selectAll('stop').data(colors).enter()
+	  .append('stop')
+	  .style('stop-color', function(d){ return d; })
+	  .attr('offset', function(d,i){
+	    return 100 * (i / (colors.length - 1)) + '%';
+	  })
+
+	// Draw the legend for bubble size and color
+	var legendWidth = 600 * 0.25,
+	legendHeight = 10;
+
+	//Color Legend container
+	var legendsvg = canvas.append("g")
+		.attr("class", "legendWrapper")
+		.attr("transform", "translate(" + 100 + "," + 10 + ")");
+	
+	//Draw the Rectangle
+	legendsvg.append("rect")
+		.attr("class", "legendRect")
+		.attr("x", -legendWidth/2)
+		.attr("y", 15)
+		//.attr("rx", legendHeight/2)
+		.attr("width", legendWidth)
+		.attr("height", legendHeight)
+		.style("fill",'url(#grad)' );
+
+	//Append title for noise
+	legendsvg.append("text")
+		.attr("class", "legendTitle")
+		.attr("x", -70)
+		.attr("y", 10)
+		.style("font-size","12px")
+		.style("text-align","left")
+		.text("Noise Intensity Levels (dB)");
+
+	//Set scale for x-axis
+	var xScale = d3.scaleLinear().domain([minMaxInten,maxMaxInten])
+		 .range([0, legendWidth]);
+
+	var xAxis = d3.axisBottom().scale(xScale).ticks(5); 
+	//Set up X axis
+	legendsvg.append("g")
+		.attr("class", "axis")  //Assign "axis" class
+		.attr("transform", "translate(" + -75 + "," + 25 + ")")
+		.call(xAxis);
+
+	// //Append title for people crowd
+	// legendsvg.append("text")
+	// 	.attr("class", "legendTitle")
+	// 	.attr("x", -70)
+	// 	.attr("y", 60)
+	// 	.style("font-size","12px")
+	// 	.style("text-align","left")
+	// 	.text("Crowd Density (person)");
+
+	// //Draw the Rectangle
+	// legendsvg.append("circle").attr("x", -60)
+	// 	.attr("y", 15).style('r',5).style('fill','none')
+	// 	.style('stroke','black')
+	// legendsvg.append("circle").attr("x", -70)
+	// 	.attr("y", 20).style('r',10).style('fill','none')
+	// 	.style('stroke','black')
+	// legendsvg.append("circle").attr("x", -80)
+	// 	.attr("y", 50).style('r',15).style('fill','none')
+	// 	.style('stroke','black')
 }
 // For transposing array in timeseries
 function transposeArr(A) {
