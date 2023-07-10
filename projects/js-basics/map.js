@@ -186,23 +186,46 @@ function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowd
 		.call(xAxis);
 
 	// //Append title for people crowd
-	// legendsvg.append("text")
-	// 	.attr("class", "legendTitle")
-	// 	.attr("x", -70)
-	// 	.attr("y", 60)
-	// 	.style("font-size","12px")
-	// 	.style("text-align","left")
-	// 	.text("Crowd Density (person)");
+
+	//Color Legend container
+	var legendSizesvg = canvas.append("g")
+		.attr("class", "legendSizeWrapper")
+		.attr("transform", "translate(" + 100 + "," + 30 + ")");
+	legendSizesvg.append("text")
+		.attr("class", "legendSizeTitle")
+		.attr("x", -70)
+		.attr("y", 60)
+		.style("font-size","12px")
+		.style("text-align","left")
+		.text("Crowd Density (person)");
 
 	// //Draw the Rectangle
-	// legendsvg.append("circle").attr("x", -60)
-	// 	.attr("y", 15).style('r',5).style('fill','none')
+	var valuetoShow = [5,10,15]
+	for (var i=0; i<valuetoShow.length; i++){
+		legendSizesvg.append("circle").attr("cx", -50)
+			.attr("cy", 100-valuetoShow[i]).style('r',valuetoShow[i]).style('fill','none')
+			.style('stroke','black')
+
+		legendSizesvg.append("line")
+		.attr('x1', -50+valuetoShow[i])
+		.attr('x2', 5)
+		.attr('y1', 100-valuetoShow[i])
+		.attr('y2', 100-valuetoShow[i])
+		.attr('stroke', 'black').style('stroke-dasharray', ('2,2'))
+
+		legendSizesvg.append("text")
+        .attr('x', 5)
+        .attr('y', 100-valuetoShow[i])
+        .text( valuetoShow[i] )
+        .style("font-size", 8)
+        .attr('alignment-baseline', 'middle')
+	}
+	
+	// legendSizesvg.append("circle").attr("cx", -80)
+	// 	.attr("cy", 65).style('r',10).style('fill','none')
 	// 	.style('stroke','black')
-	// legendsvg.append("circle").attr("x", -70)
-	// 	.attr("y", 20).style('r',10).style('fill','none')
-	// 	.style('stroke','black')
-	// legendsvg.append("circle").attr("x", -80)
-	// 	.attr("y", 50).style('r',15).style('fill','none')
+	// legendSizesvg.append("circle").attr("cx", -80)
+	// 	.attr("cy", 60).style('r',15).style('fill','none')
 	// 	.style('stroke','black')
 }
 // For transposing array in timeseries

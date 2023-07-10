@@ -27,22 +27,6 @@ svg{
     min-height: 700px
 }
 
-/*#tooltip{
-    visibility: hidden;
-    height: auto;
-    width: auto;
-    margin-top: 2px;
-    color: #FDF1E7;
-    font-size: 24px;
-    margin-bottom: 5px;
-}*/
-/*
-#container{
-    display: flex;
-    align-items: center;
-    width: 100%;
-}*/
-
 .flex-parent-element {
   display: flex;
   width: 50%;
