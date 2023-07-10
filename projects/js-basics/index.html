@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="style.css">
 	<script src="static/jquery/jquery-3.5.1.js"></script>
@@ -18,6 +18,15 @@
 </head>
 
 <body>
+
+<div class="loading-area">
+	<div class="loader">
+	<div class="row" style="justify-content:center;">
+	<img src="static/loadingIcon.png" style="width: 100px;height: 90px;">
+	</div>
+	<div class="row" style="justify-content:center; font-size: 25px;"><b>Loading...</b></div>
+	</div>
+</div>
 
 <div class="container-fluid">
 	<br>
@@ -49,5 +58,9 @@
 	
 </body>
 <script defer src="map.js"></script>
-
+<script>
+	setTimeout(function(){
+		$('.loading-area').fadeToggle();
+	},1500);
+</script>
 </html>
