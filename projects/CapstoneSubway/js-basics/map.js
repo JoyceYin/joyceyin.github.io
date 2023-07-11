@@ -1,12 +1,12 @@
 
 let zipcodeURL = 'https://data.beta.nyc/dataset/3bf5fb73-edb5-4b05-bb29-7c95f4a727fc/resource/894e9162-871c-4552-a09c-c6915d8783fb/download/zip_code_040114.geojson'
 let stationURL = 'https://data.cityofnewyork.us/api/geospatial/arq3-7z49?method=export&format=GeoJSON'
-let stationNameURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/js-basics/data/StructSta.json'
+let stationNameURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/CapstoneSubway/js-basics/data/StructSta.json'
 
-let crowdDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/js-basics/data/CrowdData.json'
-let noiseDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/js-basics/data/NoiseData.json'
+let crowdDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/CapstoneSubway/js-basics/data/CrowdData.json'
+let noiseDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/CapstoneSubway/js-basics/data/NoiseData.json'
 
-let overviewDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/js-basics/data/StationOverview.json'
+let overviewDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/CapstoneSubway/js-basics/data/StationOverview.json'
 
 // only analyze the subway station with structure images 
 // combine station locations with the same structure (connected stations)
