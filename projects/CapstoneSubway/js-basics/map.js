@@ -120,12 +120,12 @@ function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowd
 				d3.select('a.imageurl').attr("href",d.properties.url)
 				d3.select("#picShow")
 				.attr("src", d.properties.url)
-				.attr("width", 400)
-				.attr("height", 400);
+				.attr("width", 500)
+				.attr("height", 500);
 
 				d3.select('#selectButton').remove()
 				d3.select('#StationLineTS').remove()
-				d3.select('#EachLineChart').html('<select id="selectButton" class="btn btn-outline-dark btn-sm"></select><div id="StationLineTS"></div>')
+				d3.select('#EachLineChart').html('<select id="selectButton" class="btn btn-dark btn-sm"></select><div id="StationLineTS"></div>')
 				drawLineChart(d.properties.name, NoiseCrowdData);
 			})
 
@@ -220,13 +220,7 @@ function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowd
         .style("font-size", 8)
         .attr('alignment-baseline', 'middle')
 	}
-	
-	// legendSizesvg.append("circle").attr("cx", -80)
-	// 	.attr("cy", 65).style('r',10).style('fill','none')
-	// 	.style('stroke','black')
-	// legendSizesvg.append("circle").attr("cx", -80)
-	// 	.attr("cy", 60).style('r',15).style('fill','none')
-	// 	.style('stroke','black')
+
 }
 // For transposing array in timeseries
 function transposeArr(A) {
