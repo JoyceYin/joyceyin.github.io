@@ -120,12 +120,12 @@ function drawCircleInMap(container, canvas, selectedData, projection, NoiseCrowd
 				d3.select('a.imageurl').attr("href",d.properties.url)
 				d3.select("#picShow")
 				.attr("src", d.properties.url)
-				.attr("width", 500)
-				.attr("height", 500);
+				.attr("width", 450)
+				.attr("height", 450);
 
 				d3.select('#selectButton').remove()
 				d3.select('#StationLineTS').remove()
-				d3.select('#EachLineChart').html('<select id="selectButton" class="btn btn-dark btn-sm"></select><div id="StationLineTS"></div>')
+				d3.select('#EachLineChart').html('<select id="selectButton" class="btn btn-dark"></select><div id="StationLineTS"></div>')
 				drawLineChart(d.properties.name, NoiseCrowdData);
 			})
 
