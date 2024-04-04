@@ -1,3 +1,4 @@
+
 .btnown {
 background-color: #4717f6; 
 color: #e7dfdd; 
@@ -30,3 +31,8 @@ color: #4717f6;
 .navele:link {color:#4717f6; text-decoration: none; text-align: center;}
 .navele:visited{color: #4717f6; }
 .navele:hover {color:#a239ca; font-weight: bold; font-size: larger;}
+
+
+.alink:link {color:#e7dfdd; text-decoration: none; text-align: center;}
+.alink:visited{color: #e7dfdd; }
+.alink:hover {color:#e7dfdd; font-weight: bold; font-size: larger;}
