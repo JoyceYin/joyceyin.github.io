@@ -7,8 +7,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 	<!-- <link rel="stylesheet" href="statics/bootstrap/css/bootstrap.min.css"> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<!-- Icon -->
 	<link type="text/css" rel="stylesheet" href="https://unpkg.com/octicons-html@1/dist/octicons-html.css">
 	<script src="https://unpkg.com/octicons-html@1/dist/octicons-html.min.js"></script>
@@ -17,6 +17,8 @@
 	<!-- Chart -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
+	<!-- style -->
+	<link type="text/css" rel="stylesheet" href="statics/css/index.css">
 	<style>
 		td {
 			border:none;
@@ -25,105 +27,197 @@
 
 </head>
 
-<body style="background-color: black; color: black">
-	<div class="container-fluid">
+<body style="background-color: #0e0b16d1; color:#e7dfdd;">
 
-			<div class="row">
-				<div class="col align-self-center" style="padding: 20px;border: solid; border-color: black;"></div>
-			</div>
+	<nav class="navbar bg-body-tertiary fixed-top" style="background-color: #0e0b16;">
+        <div class="container">
+			
+            <a class="navbar-brand" href="#" style="color: #e7dfdd; font:bolder;">Joyce Yin</a>
+			<button class="btnown" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+				<i class="bi bi-list" style="font-size: 1rem; padding: 2px; color: antiquewhite;"></i>
+			</button>
 
-			<!-- Main content col-6 d-flex justify-content-center-->
-			<div class="container flexBox" style="display: flex; flex-flow:row nowrap; justify-content:center;">
-					
-					<!-- Left Column -->
-					<div class="border-left-0 align-self-start" style="width: 25%; float: left; padding: 20px; background-color: white; opacity: 0.7; border:10px solid;border-radius: 25px;"> 
-						<div class="d-inline-block">
-
-							<div class="card">
-								<div class="card-body">
-
-							    <img src="statics/images/mood.jpg" class="img-responsive"> 
-							    <br>
-							    <p style="font-size: 20px; text-align: center;">Joyce Yin</p>
-							    <p style="text-align: center; font-size: 15px; border-radius: 10px;background-color: lightblue; opacity: 0.8; padding: 5px; margin:20px;">NYU Grad Student</p>
-
-							    <!-- Personal Information -->
-							    <table class="table">
-							    	<thead><tr><th scope="col" style="font-size: 15px;"><span data-octicon="mail" style="margin-right: 10px;"></span>Email</th></tr>
-							    	</thead>
-							    	<tbody><tr><td>joyceyinxh@gmail.com</td></tr></tbody>
-							    </table>
-
-							    <table class="table">
-							    	<thead><tr><th scope="col" style="font-size: 15px;"><span data-octicon="location" style="margin-right: 10px;"></span>Location</th></tr></thead>
-							    	<tbody><tr><td>New York, NY</td></tr></tbody>
-							    </table>
-
-							    <div class="text-center">
-							    	<a href="https://github.com/JoyceYin"><span data-octicon="mark-github" style="width:24px; height:24px;"></span></a>
-							    	<a href="https://www.linkedin.com/in/xiaohe-yin-85618324a/"><i class="bi bi-linkedin" style="font-size: 2rem; padding: 20px;"></i></a>
-							    </div>
-
-
-								</div>
+			<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel" style="background-color: #e7dfdd;">
+				<div class="offcanvas-header">
+				  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+					<div class="container">
+						<div class="row">
+							<div class="col-8">
+								<h4 style="color: #0e0b16;">About Me</h4>
+								<p style="color: #0e0b16;">I am a graduate student from NYU, CUSP. I enjoy providing data-driven insights for urban problems to shape the future of the city.</p>
+								<p style="color: #0e0b16;">With a strong foundation in statistics, programming, and data analysis skills, I have gained hands-on experience with complex large datasets and extracted valuable insights.</p>
+								
 							</div>
-							
+							<!-- <div class="col-2"></div> -->
+							<div class="col-4">
+								<ul class="nav flex-column">
+									<li class="nav-item">
+									  <a class="navele nav-link active" aria-current="page" href="#">HOME</a>
+									</li>
+									<li class="nav-item">
+									  <a class="navele nav-link" href="#">RESUME</a>
+									</li>
+									<li class="nav-item">
+									  <a class="navele nav-link" href="#project">PROJECTS</a>
+									</li>
+									<li class="nav-item">
+										<a class="navele nav-link" href="#">CONTACT ME</a>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
 
-					<!-- Right Columns -->
+	<div class="container">
+		<div class="introbody jumbotron" style="height: 800px;">
+			<div style="height: 50%;"></div>
+			<div class="row">
+				<h4>Xiaohe(Joyce) Yin</h4>
+				<h1 class="display-4"><b>Data Scientist, Software Developer, <br>and Urban Technologist</b></h1>
+			</div>
+			
+			<hr class="my-4">
+			<p><i class="bi bi-geo-fill" style="text-shadow: 1px 1px 2px #fb691d;"></i> New York, NY</p>
+			<p>Data-driven solutions make life better!</p>
+			<p class="lead">
+			<a class="btnown" href="#project" role="button">Check out my Contribution<i class="bi bi-arrow-down"></i></a>
+			</p>
+		</div>
+
+		<br><br><br>
+
+		<section id="project">
+			<br><br>
+			<h2>What I did before?</h2>
+
+			<hr class="my-4" style="height: 3px;color: #e7dfdd;">
+
+			<!-- Project1 -->
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+					<h3 class="card-title" style="color:#0e0b16; text-shadow: 1px 1px 1px #f2f617;">DocHub: A Full-stack Web App with Django and LlamaIndex</h3>
+					<br>
+					<div class="row">
+						<div class="col-4">
+							<img src="statics/images/dochub.gif" class="img-fluid rounded-start" alt="...">
+						</div>
+						<div class="col-8 center-block" >
+							<p class="card-text" style="color: #0e0b16; font-size: 17px;">This web application aims to manage the documents and extract the information efficiently by using Large Language Models (LLM). 
+								By uploading your resource/document, you are able to ask anything on the chatbox that combines uploaded data. 
+								In the meantime, LLM enables us to summarize each document to grab its main idea.</p>
+							<p class="card-text" style="color: #0e0b16; text-shadow: #f2f617 1px 0 10px;"><small><b>#FullStackWeb #LLamaIndex #Django</b></small></p>
+							<a href="https://github.com/JoyceYin/DocHub-Web-App-with-Django-and-LlamaIndex" class="btnown float-end">More Details  <i class="bi bi-arrow-right"></i></a>
+						</div>
+					</div>	
+					</div>
+				</div>
+			</div>
+
+			<br><br>
+
+			<!-- Project2 -->
+			<div class="row">
+				<div class="card text-end">
+					<div class="card-body">
+					<h3 class="card-title" style="color:#0e0b16; text-shadow: 1px 1px 1px rgb(246, 168, 23);" >NYC Subway Station Noise Analysis</h3>
+					<br>
+					<div class="row">
+						<div class="col-8">
+							<p class="card-text text-start" style="color: #0e0b16; font-size: 17px; text-align: left;">NYC Subway is NOISY! But where does the noise come from? This project aims to gain a basic understanding by analyzing multiple subway videos.
+							We use an innovative movement detection to extract informative clips and apply computer vision techniques such as DETIC to track noise sources.
+							Combining audio analysis, we delivered a dashboard to visualize analysis spatially and temporally.</p>
+							<p class="card-text" style="color: #0e0b16; text-shadow: rgb(246, 168, 23) 1px 0 10px;"><small><b>#ComputerVision #DETIC #GeoAnalytics #JavaScript</b></small></p>
+							<a href="projects/CapstoneSubway/intro.html" class="btnown">More Details  <i class="bi bi-arrow-right"></i></a>
+						</div>
+
+						<div class="col-4">
+							<img src="statics/images/nycsubway.gif" class="img-fluid rounded-start" alt="...">
+						</div>
+					</div>	
+					</div>
+				</div>
+			</div>
+
+			<br><br>
+
+			<!-- Project3 -->
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+						<h3 class="card-title" style="color:#0e0b16; text-shadow: 1px 1px 1px #7ff617;">NYU Restaurant Inspection Grading Prediction</h3>
+						<br>
+						<div class="row">
+							<div class="col-4">
+								<img src="statics/images/nycrest.png" class="img-fluid rounded-start" alt="...">
+							</div>
+							<div class="col-8">
+								<p class="card-text" style="color: #0e0b16; font-size: 17px;">We noticed that every restaurant in New York City post their inspection grade 
+								at the entrance (it could be A, B, C, or pending). Diving into NYC Open Data, we utilized the inspection data as a main dataset and connect it with 
+								other socio-economic factors (i.e. Food Drop-off Location, Rodent Inspect). With 50,000+ records in the dataset, we managed to run baseline machine Learning
+								to predict grades in the following year. </p>
+								<p class="card-text" style="color: #0e0b16; text-shadow: #7ff617 1px 0 10px;"><small><b>#MachineLearning #ComplexDatasets #GeoAnalytics #PolicyAnalysis</b></small></p>
+								<a href="https://github.com/JoyceYin/Predictions-on-Restaurant-Inspection-Letter-Grading" class="btnown float-end">
+									More Details  <i class="bi bi-arrow-right"></i>
+								</a>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+
+			<br><br>
+
+			<!-- Project4 -->
+			<div class="row">
+				<div class="card">
+					<div class="card-body">
+						<h3 class="card-title" style="color:#0e0b16; text-shadow: 1px 1px 1px rgb(23, 94, 246);" >ChinaVis2021: Air Pollutions Analysis</h3>
+						<br>
+					<div class="row">
+						
+						<div class="col-8">
+							<p class="card-text" style="color: #0e0b16; font-size: 17px;">I know AIR QUALITY is a critial problem. How can we live with a good air quality in China? 
+								First thing we need to know is what kind of air pollutants matter most? So check out this air pollutants analysis dashboard :)</p>
+							<p class="card-text" style="color: #0e0b16; text-shadow: rgb(23, 94, 246) 1px 0 10px;"><small><b>#ClimateTech #DataProcessing #Visualization #JavaScript</b></small></p>
+							<a href="projects/ChinaVis2021/home.html" class="btnown">More Details  <i class="bi bi-arrow-right"></i></a>
+						</div>
+
+						<div class="col-4">
+							<img src="statics/images/dataviz.gif" class="img-fluid rounded-start" alt="...">
+						</div>
+					</div>	
+					</div>
+				</div>
+			</div>
+
+		</section>
+	</div>
+</body>
+
+<!-- <body style="background-color: black; color: black">
+	<div class="container-fluid">
+
+			<div class="container flexBox" style="display: flex; flex-flow:row nowrap; justify-content:center;">
+
+					
 					<div class="border-right-0" style="width: 60%; float: left; padding: 20px;background-color: white; opacity: 0.7;border:10px solid;border-radius: 25px;">
-						<!-- <div class="d-inline-block"> -->
+							
 
-							<!-- navbar -->
-							<ul class="nav nav-tabs navbar-right">
-							<li class="active"><a href="#aboutme" data-toggle="tab">About Me</a></li>
-							<li><a href="#resume" data-toggle="tab">Resume</a></li>
-							<li><a href="#projects" data-toggle="tab">Projects</a></li>
-							</ul>
-
-							<!-- Main Content -->
-							<div class="tab-content">
-
-								<!-- First Section: About Me -->
-								<div id="aboutme" class="tab-pane fade in active">
-									<br>
-									<table class="table">
-										<tbody>
-											<tr><td style="border:none;"><h3><b> About Me</b></h3></td></tr>
-											<tr>
-												<td style="border:none;">
-												<p style="font-size:14px; text-align: justify;">I am a graduate student from NYU, CUSP with a background in data science and urban science. I enjoy providing data-driven insights for urban problems to shape the future of the city.</p>
-												<p style="font-size:14px; text-align: justify;">I have developed a strong foundation in statistics, programming, and data analysis skills. I have also had the opportunity to utilize these skills through various projects and internships, where I have gained hands-on experience with large datasets and extracted valuable insights from them.</p>
-												</td>
-											</tr>
-											<tr></tr>
-											<tr><td style="border:none;"><h3><b>WHAT I'M DOING</b></h3></td></tr>
-											<tr><td style="border:none;">
-												<div class="row">
-													<div class="col-md-5 .col-md-offset-2" style="background-color: grey; border-radius: 25px;"><p style="text-align:center;"><b>Overview of NYC Building Stock</b></p></div>
-													<div class="col-md-5" style="background-color: grey; border-radius: 25px;"><p style="text-align:center;"><b>Big Data</b></p></div>
-												</div>
-
-												<br>
-												<div class="row">
-													<div class="col-md-5 .col-md-offset-2" style="background-color: grey; border-radius: 25px;"><p style="text-align:center;"><b>Kaggle Competition: Parkinson's Freezing of Gait Prediction</b></p></div>
-													<div class="col-md-5" style="background-color: grey; border-radius: 25px;"><p style="text-align:center;"><b>Capstone Project: Multimodal Machine Learning for Sound Sources in the NYC Subway System</b></p></div>
-												</div>
-
-											</td></tr>
-										</tbody>
-									</table>
-								</div>
-
-								<!-- Second Section: Resume -->
+								
 								<div id="resume" class="tab-pane fade">
 									<br>
 									<table class="table border-0">
-										<!-- Education -->
+										
 										<tbody>
 
-											<!-- Undergraduate -->
+											
 											<tr><td style="border:none;"><h4><b>Education</b></h4></td></tr>
 											<tr>
 											<th scope="row" style="border:none; border-right: 3px solid; ">Sep. 2018 – May 2022</th>
@@ -147,7 +241,7 @@
 												</td>
 											</tr>
 
-											<!-- Master -->
+											
 											<tr>
 											<th scope="row" style="border:none; border-right: 3px solid">Sept. 2022 – Current</th>
 											<td style="border:none;">
@@ -169,7 +263,7 @@
 												</td>
 											</tr>
 
-											<!-- Work Experience -->
+											
 											<tr>
 												<td style="border:none;"><h4><b>Work Experience</b></h4></td>
 											</tr>
@@ -190,10 +284,10 @@
 										</tbody>
 									</table>
 
-									<!-- Skills -->
+									
 									<div class="container-fluid">
 										<div class="row">
-											<!-- Programming Language -->
+											
 											<div class="col-md-6" style="background-color:aliceblue; border: solid 2px skyblue; border-radius: 25px;">
 												<h5><b>Programming Language</b></h5>
 												<hr>
@@ -231,7 +325,7 @@
 												</div>
 											</div>
 
-											<!-- Data Storage -->
+											
 											<div class="col-md-6" style="background-color:aliceblue; border: solid 2px skyblue; border-radius: 25px;">
 												<h5><b>Data Storage</b></h5>
 												<hr>
@@ -349,26 +443,6 @@
 									</div>
 								</div>
 
-								<!-- Third Section: Projects -->
-								<div id="projects" class="tab-pane fade">
-									<br>
-
-									<table class="table">
-										<tbody>
-											<tr><td style="border:none;"><h4><b>Projects</b></h4></td></tr>
-											<tr>
-												<td style="border:none;">
-												<p style="font-size:15px; text-align: justify;"><a href="projects/ChinaVis2021/home.html" style="color:purple;">ChinaVis2021: Air Pollutants Analysis in China</a></p>
-												</td>
-											</tr>
-											<tr>
-												<td style="border:none;">
-												<p style="font-size:15px; text-align: justify;"><a href="projects/CapstoneSubway/intro.html" style="color:purple;">Capstone: Multimodal Machine Learning for Spatiotemporal Identification of Sound Sources in the NYC Subway System</a></p>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
 
 							</div>
 
@@ -383,5 +457,5 @@
 </script>
 
 
-</body>
+</body> -->
 </html>

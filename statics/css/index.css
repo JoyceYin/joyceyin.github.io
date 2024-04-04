@@ -1,0 +1,32 @@
+.btnown {
+background-color: #4717f6; 
+color: #e7dfdd; 
+/* border: 3px solid #4717f6; */
+border-radius: 20px;
+padding: 8px 20px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 4px 2px;
+transition-duration: 0.4s;
+cursor: pointer;
+}
+
+.btnown:hover {
+background-color: #e7dfdd;
+color: #4717f6;
+}
+
+.vl {
+    border-left: 6px solid #4717f6;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    margin-left: -3px;
+    top: 0;
+  }
+
+.navele:link {color:#4717f6; text-decoration: none; text-align: center;}
+.navele:visited{color: #4717f6; }
+.navele:hover {color:#a239ca; font-weight: bold; font-size: larger;}

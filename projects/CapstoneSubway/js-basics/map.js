@@ -1,5 +1,5 @@
 
-let zipcodeURL = 'https://data.beta.nyc/dataset/3bf5fb73-edb5-4b05-bb29-7c95f4a727fc/resource/894e9162-871c-4552-a09c-c6915d8783fb/download/zip_code_040114.geojson'
+let zipcodeURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/CapstoneSubway/js-basics/data/zipcodenyc.geojson'
 let stationURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/CapstoneSubway/js-basics/data/Subway%20Stations.geojson'
 let stationNameURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/projects/CapstoneSubway/js-basics/data/StructSta.json'
 
