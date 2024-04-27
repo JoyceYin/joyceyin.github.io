@@ -119,6 +119,13 @@
 					related to charging stations. This analysis will encompass an evaluation of accessibility at different levels, especially Level 2 charging stations, 
 					ensuring a comprehensive understanding of the equity and opportunities associated with EV infrastructure development.</p>
 					
+					<div class="row">
+						<div class="col-6">EV adoption across borough as of 2023</div>
+						<div class="col-6">
+							<div id="ev_adoption_boro"></div>
+						</div>
+					</div>
+
 					<h5 class="card-text" style="color: #0e0b16;">EV Adoption in the city</h5>
 
 						<div class='tableauPlaceholder' id='viz1714054722921' style='position: relative'>
@@ -132,7 +139,10 @@
         </div>
     </div>
 
+	<script src="statics/js/ev_adoption.js"></script>
 	<script type='text/javascript'>
+
+		// loading tableau
 		var divElement = document.getElementById('viz1714054722921');                    
 		var vizElement = divElement.getElementsByTagName('object')[0];                    
 		if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} 
@@ -140,7 +150,10 @@
 		else { vizElement.style.width='100%';vizElement.style.height='1277px';}                     
 		var scriptElement = document.createElement('script');                    
 		scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
-		vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+		vizElement.parentNode.insertBefore(scriptElement, vizElement);   
+
+		//loading time series chart across borough
+
 	</script>
 </body>
 
