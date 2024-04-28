@@ -128,6 +128,27 @@ function EVadoption_line(id, data){
 
 }
 
+function Chorepleth_map(id){
+    //set svg parameters
+    const width = 450, height=350;
+    const svg = d3.select(id).append("svg")
+                .attr("width", "100%").attr("height","100%")
+                .attr("viewBox","0 0 450 350")
+                .attr("perserveAspectRatio", "xMinYMin")
+
+    //set map scale, location and its projection
+    const projection = d3.geoMercator().scale(70).center([0,20]).translate([width/2, height/2]);
+
+    //path generator
+    const path = d3.geoPath();
+
+    //data and color scale
+    var data = d3.map();
+    var colorScale = d3.scaleThreshold().domain([0.1, 0.3, 0.5, 1, 2]).range(d3.schemeBlues[5]);
+
+    d3.queue().defer(d3.json, )
+}
+
 var ev_adopt_boro = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_adoption_boro_year.csv'
 var ev_adopt_id = '#ev_adoption_boro'
 EVadoption_line(ev_adopt_id, ev_adopt_boro)
