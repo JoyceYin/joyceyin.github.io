@@ -1,0 +1,36 @@
+svg {
+    width: 100%;
+    height: 100%;
+  }
+  text {
+    font-family: lato;
+    font-size: 11px;
+    fill: #666666;
+  }
+  .grid path {
+    stroke-width: 0;
+    stroke: #333333;
+  }
+  .grid .tick line {
+    stroke: #333333;
+    stroke-width: 0.3px;
+    stroke-opacity: 0.3;
+  }
+  text.chart-title {
+    font-size: 15px;
+    font-weight: 600;
+    fill:#222222
+  }
+  text.chart-label {
+    font-size: 11px;
+    font-weight: 400;
+    fill: #999999;
+  }
+  text.chart-source {
+    font-size: 9px;
+    fill: #999999;
+  }
+  text.copyright {
+    font-size: 9px;
+    fill: #999999;
+  }

@@ -1,63 +1,128 @@
+function transition(path) {
+    path.transition()
+        .duration(2000)
+        .attrTween("stroke-dasharray", tweenDash)
+  }
+
+function tweenDash() {
+    const l = this.getTotalLength(),
+        i = d3.interpolateString("0," + l, l + "," + l);
+    return function(t) { return i(t) };
+  }
 
 function EVadoption_line(id, data){
-    var margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
 
-    // append the svg object to the body of the page
-    var svg = d3.select(id)
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
-
+    const margin = {top: 80, right: 20, bottom: 50, left: 40};
+    const width = 450 - margin.left - margin.right;
+    const height = 350 - margin.top - margin.bottom;
+    const svg = d3.select(id).append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("viewBox", "0 0 450 350")
+        .attr("preserveAspectRatio", "xMinYMin")
+        .append("g")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+          
     //Read the data
     d3.csv(data, function(data) {
 
-        console.log(data)
-    // group the data: I want to draw one line per group
-    var sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
-    .key(function(d) { return d.Borough;})
-    .entries(data);
+        const parseTime = d3.timeParse("%Y")
+        //nest function allows to group the calculation
+        const dataGrouped = d3.nest().key(d => d.Borough).entries(data);
+        console.log(dataGrouped)
 
-    // Add X axis --> it is a date format
-    var x = d3.scaleLinear()
-    .domain(d3.extent(data, function(d) { return d.Year; }))
-    .range([ 0, width ]);
-    svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).ticks(13));
+        // list of value keys
+        const typeKeys = ["Brooklyn", "Manhattan", "Bronx", "Queens", "Staten Island"];
 
-    // Add Y axis
-    var y = d3.scaleLinear()
-    .domain([0, d3.max(data, function(d) { return +d['Vehicle Count']; })])
-    .range([ height, 0 ]);
-    svg.append("g")
-    .call(d3.axisLeft(y));
+        //x scale and axis
+        var xExtent = d3.extent(data, d => parseTime(d.Year))
+        const xScale = d3.scaleTime().domain( [xExtent[0].setFullYear(xExtent[0].getFullYear() - 1), xExtent[1].setFullYear(xExtent[1].getFullYear()+1)] )
+                        .range([0, width]);
+        svg.append('g')
+            .attr("transform", "translate(0," + height + ")" )
+            .call(d3.axisBottom(xScale).tickValues( [... new Set(data.map(item => parseTime(item.Year)))] ).tickSize(0).tickPadding(8))
+            .selectAll("text")
+            .attr("transform", "rotate(0)")
 
-    // color palette
-    var res = sumstat.map(function(d){ return d.key }) // list of group names
-    var color = d3.scaleOrdinal()
-    .domain(res)
-    .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00'])
+        //y scale and axis
+        const formatter = d3.format(".2s")
+        const yScale = d3.scaleLinear().domain( [0, d3.max(data, d => +d['Vehicle Count'])] )
+                        .range([height, 0]);
+        svg.append("g")
+            .call(d3.axisLeft(yScale).ticks(8).tickSize(0).tickPadding(8).tickFormat(formatter) )
+            .call(d => d.select(".domain").remove())
 
-    // Draw the line
-    svg.selectAll(".line")
-        .data(sumstat)
-        .enter()
-        .append("path")
-            .attr("fill", "none")
-            .attr("stroke", function(d){ return color(d.key) })
-            .attr("stroke-width", 3)
-            .attr("d", function(d){
-            return d3.line()
-                .x(function(d) { return x(d.Year); })
-                .y(function(d) { return y(+d['Vehicle Count']); })
-                (d.values)
-            })
+        // set horizontal grid line
+        const GridLine = () => d3.axisLeft().scale(yScale);
+        svg.append("g")
+            .attr("class", "grid")
+            .call( GridLine().tickSize(-width,0,0).tickFormat("").ticks(6) )
+            
 
+        // color palette
+        const color = d3.scaleOrdinal().domain(typeKeys).range(d3.schemeCategory10.slice(0,5));
+
+        //add transition
+        const transitionPath = d3.transition().duration(2500);
+
+        // create line
+        const lines = svg.selectAll(".line").data(dataGrouped).enter().append("path")
+                        .attr("fill", "none")
+                        .attr("stroke", function(d){ return color(d.key) })
+                        .attr("stroke-width", 2)
+                        .attr("d", function(d) {
+                            return d3.line()   //.curve(d3.curveCardinal)
+                                .x(function(d) { return xScale(parseTime(d.Year)); })
+                                .y(function(d) { return yScale(+d['Vehicle Count']); })
+                                (d.values)
+                        })
+                        .attr('class', 'temperature-line')
+                        .call(transition);;
+
+
+        //add vertical line
+        svg.append("line")
+            .attr("x1", xScale(parseTime('2019')))  //<<== change your code here
+            .attr("y1", height - margin.top - margin.bottom)
+            .attr("x2", xScale(parseTime('2019')))  //<<== and here
+            .attr("y2", height)
+            .style("stroke-dasharray", 3)
+            .style("stroke-width", 2)
+            .style("stroke", "#999999")
+            .style("opacity", 0.6)
+            .style("fill", "#999999");
+
+        //set title
+        svg.append("text").attr("class", "chart-title")
+                        .attr("x", -(margin.left)*0.7)
+                        .attr("y", -(margin.top)/1.5)
+                        .attr("text-anchor", "start")
+                        .text("EV Adoption across Borough as of 2023")
+
+        // set Y axis label
+        svg.append("text").attr("class", "chart-label")
+                        .attr("x", -(margin.left)*0.7)
+                        .attr("y", -(margin.top)/9)
+                        .attr("text-anchor", "start")
+                        .text("Number of Electric Vehicle (thousands)")
+
+        //set copyright
+        svg.append("text").attr("class", "copyright")
+                        .attr("x", -(margin.left)*0.7)
+                        .attr("y", height+margin.bottom*0.9)
+                        .attr("text-anchor", "start")
+                        .text("©New York Stats DOT, organized by Atlas")
+
+        for (let i=0; i<typeKeys.length; i++ ){
+            svg.append('circle').attr("cx", -(margin.left)*(0.6-1.9*i) )
+                .attr("cy", -(margin.top/2.5))
+                .attr("r", 5)
+                .style("fill", color(typeKeys[i]) )
+            svg.append("text").attr("class", "legend")
+                .attr("x", -(margin.left)*(0.6-1.9*i)+10)
+                .attr("y", -(margin.top/2.5))
+                .attr("alignment-baseline", "middle").text(typeKeys[i])
+        }
     })
 
 }
