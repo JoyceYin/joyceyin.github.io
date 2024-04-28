@@ -61,6 +61,7 @@ function EVadoption_line(id, data){
 
         // color palette
         const color = d3.scaleOrdinal().domain(typeKeys).range(d3.schemeCategory10.slice(0,5));
+        console.log(d3.schemeCategory10.slice(0,5))
 
         //add transition
         const transitionPath = d3.transition().duration(2500);
@@ -111,7 +112,7 @@ function EVadoption_line(id, data){
                         .attr("x", -(margin.left)*0.7)
                         .attr("y", height+margin.bottom*0.9)
                         .attr("text-anchor", "start")
-                        .text("©New York Stats DOT, organized by Atlas")
+                        .text("©New York State DOT, organized by Atlas")
 
         for (let i=0; i<typeKeys.length; i++ ){
             svg.append('circle').attr("cx", -(margin.left)*(0.6-1.9*i) )
