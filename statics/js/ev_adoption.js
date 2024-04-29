@@ -130,70 +130,85 @@ function EVadoption_line(id, data){
 
 // Chorepleth Map
 function Chorepleth_map(id, year) {
+
+    //if canvas existed, remove first
+    d3.select("#map_svg_id").remove();
+
     //set svg parameters
-    const width = 450, height=350;
+    const width = 350, height=350;
     const svg = d3.select(id).append("svg")
+                .attr("id","map_svg_id")
                 .attr("width", "100%").attr("height","100%")
                 .attr("viewBox","0 0 450 350")
                 .attr("perserveAspectRatio", "xMinYMin")
 
-    //set map scale, location and its projection
-    const projection = d3.geoMercator().scale(70).center([0,20]).translate([width/2, height/2]);
+    // Map and projection
+    var path = d3.geoPath();
+    // Data and color scale
+    var data = d3.map();
+    var colorScale = d3.scaleThreshold()
+    .domain([0.1, 0.3, 0.5, 1, 2])
+    .range(d3.schemeBlues[5]);
 
-    //path generator
-    const path = d3.geoPath();
-
-    //set color scale
-    var colorScale = d3.scaleThreshold(d3.schemeBlues[5])
-                        .domain([0.1, 0.3, 0.5, 1, 2]);
-
-    //decalre polygon
-    const poly = svg.append("g")
-
-    //declare URL
-    const dataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_per_household/ev_adoption_'+ year.toString() +'.csv'
-    const polygonURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/modified_zipcode.geojson'
-
-    console.log(d3.choropleth())
-
+    // Load external data and boot
     d3.queue()
-    .defer(d3.json, polygonURL)
-    .defer(d3.csv, dataURL, function(d) { data.set(d.MODZCTA, +d['ev_per_household']); })
+    .defer(d3.json, "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/modified_zipcode.geojson")
+    .defer(d3.csv, 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_per_household/ev_adoption_'+ year.toString() +'.csv', function(d) { data.set(d.MODZCTA, +d.ev_per_household); })
     .await(ready);
 
+    console.log(data)
+
     function ready(error, topo) {
+        var projection = d3.geoMercator()
+                .fitSize([width,height], {type:'FeatureCollection',features:topo.features});
 
-    let mouseOver = function(d) {
-        d3.selectAll(".areas").transition().duration(200).style("opacity", .5)
-        d3.select(this).transition().duration(200).style("opacity", 1).style("stroke", "black")
-    }
+        let mouseOver = function(d) {
+            d3.selectAll(".Country")
+                .transition()
+                .duration(100)
+                .style("opacity", .3)
+            d3.select(this)
+                .transition()
+                .duration(100)
+                .style("opacity", 1)
+            }
+        
+        let mouseLeave = function(d) {
+            d3.selectAll(".Country")
+                .transition()
+                .duration(100)
+                .style("opacity", 1)
+            d3.select(this)
+                .transition()
+                .duration(100)
+                .style("opacity", 1)
+            }
 
-    let mouseLeave = function(d) {
-        d3.selectAll(".areas").transition().duration(200).style("opacity", .8)
-        d3.select(this).transition().duration(200).style("stroke", "transparent")
-    }
-
-    console.log(topo)
-    // Draw the map
-    poly.selectAll("path")
-        .data(topo.features)
-        .enter().append("path")
-        // draw each country
-        .attr( "d", d3.geoPath().projection(projection) )
-        // set the color of each country
-        .attr("fill", function (d) {
-            d.total = data.get(d.id) || 0;
-            console.log(d)
-            return colorScale(d.total);
-        })
-        .style("stroke", "transparent")
-        .attr("class", function(d){ return "area" } )
-        .style("opacity", .8)
-        .on("mouseover", mouseOver )
-        .on("mouseleave", mouseLeave )
+        // Draw the map
+        svg.append("g")
+            .selectAll("path")
+            .data(topo.features)
+            .enter()
+            .append("path")
+            // draw each country
+            .attr("d", path.projection(projection))
+            // set the color of each country
+            .attr("fill", function (d) {
+                // console.log(d)
+                // console.log(d.properties.MODZCTA, typeof(d.properties.MODZCTA))
+                d.total = data.get(d.properties.MODZCTA) || 0;
+                return colorScale(d.total);
+            })
+            .style("stroke", "grey")
+            .style("stroke-width", 0.5)
+            .attr("class", function(d){ return "Country" } )
+            .style("opacity", .8)
+            .on("mouseover", mouseOver )
+            .on("mouseleave", mouseLeave );
         }
 
 }
+
     
 
 var ev_adopt_boro = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_adoption_boro_year.csv'
@@ -202,46 +217,12 @@ EVadoption_line(ev_adopt_id, ev_adopt_boro)
 
 
 
-var ev_map_id = '#ev_chorepleth_map', year=2017
-// Chorepleth_map(ev_map_id, year)
+var ev_map_id = '#ev_chorepleth_map', year=2023
+Chorepleth_map(ev_map_id, year)
 
-const width = 450, height=350;
-const svg = d3.select(ev_map_id).append("svg")
-            .attr("width", "100%").attr("height","100%")
-            .attr("viewBox","0 0 450 350")
-            .attr("perserveAspectRatio", "xMinYMin")
-
-// Map and projection
-var path = d3.geoPath();
-// Data and color scale
-var data = d3.map();
-var colorScale = d3.scaleThreshold()
-  .domain([0.1, 0.3, 0.5, 1, 2])
-  .range(d3.schemeBlues[5]);
-
-// Load external data and boot
-d3.queue()
-  .defer(d3.json, "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/modified_zipcode.geojson")
-  .defer(d3.csv, 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_per_household/ev_adoption_'+ year.toString() +'.csv', function(d) { data.set(d.MODZCTA, +d.ev_per_household); })
-  .await(ready);
-
-function ready(error, topo) {
-    var projection = d3.geoMercator()
-			.fitSize([width,height], {type:'FeatureCollection',features:topo.features});
-
-    // Draw the map
-    svg.append("g")
-        .selectAll("path")
-        .data(topo.features)
-        .enter()
-        .append("path")
-        // draw each country
-        .attr("d", path.projection(projection))
-        // set the color of each country
-        .attr("fill", function (d) {
-            // console.log(d)
-            d.total = data.get(d.id) || 0;
-            console.log(d.total)
-            return colorScale(d.total);
-        });
-    }
+//update chorepleth map when the slider is moved
+d3.select("#mapSlider").on("change", function(d){
+    selectedValue = this.value
+    console.log(selectedValue)
+    Chorepleth_map(ev_map_id, selectedValue)
+  })

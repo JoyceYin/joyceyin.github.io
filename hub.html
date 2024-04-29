@@ -147,8 +147,18 @@
 						</div>
 					</div>
 					<br>
-					<div id="ev_chorepleth_map"></div>
-
+					<div class="row">
+						<div class="col-5">
+							<div id="ev_chorepleth_map"></div>
+							<br>
+							<div class="range" style="--step:1; --min:2016; --max:2023">
+								<input type="range" name="mapSlider" id="mapSlider" min="2016" max="2023", step="1", value="2023">
+							</div>
+						</div>
+						<div class="col-7"></div>
+					</div>
+					
+					<br>
 					<h5 class="card-text" style="color: #0e0b16;">EV Adoption in the city</h5>
 
 						<div class='tableauPlaceholder' id='viz1714054722921' style='position: relative'>
@@ -197,6 +207,13 @@
 		vizElement.parentNode.insertBefore(scriptElement, vizElement);   
 
 		//loading time series chart across borough
+
+		//time range slider color update
+		document.getElementById("mapSlider").oninput = function() {
+			// console.log(this.value, this.min, this.max)
+			var value = (this.value-this.min)/(this.max-this.min)*100
+			this.style.background = 'linear-gradient(to right, #82CFD0 0%, #82CFD0 ' + value + '%, #fff ' + value + '%, white 100%)'
+			};
 
 	</script>
 </body>
