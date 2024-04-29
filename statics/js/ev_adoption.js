@@ -128,7 +128,8 @@ function EVadoption_line(id, data){
 
 }
 
-function Chorepleth_map(id){
+// Chorepleth Map
+function Chorepleth_map(id, year) {
     //set svg parameters
     const width = 450, height=350;
     const svg = d3.select(id).append("svg")
@@ -142,13 +143,105 @@ function Chorepleth_map(id){
     //path generator
     const path = d3.geoPath();
 
-    //data and color scale
-    var data = d3.map();
-    var colorScale = d3.scaleThreshold().domain([0.1, 0.3, 0.5, 1, 2]).range(d3.schemeBlues[5]);
+    //set color scale
+    var colorScale = d3.scaleThreshold(d3.schemeBlues[5])
+                        .domain([0.1, 0.3, 0.5, 1, 2]);
 
-    d3.queue().defer(d3.json, )
+    //decalre polygon
+    const poly = svg.append("g")
+
+    //declare URL
+    const dataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_per_household/ev_adoption_'+ year.toString() +'.csv'
+    const polygonURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/modified_zipcode.geojson'
+
+    console.log(d3.choropleth())
+
+    d3.queue()
+    .defer(d3.json, polygonURL)
+    .defer(d3.csv, dataURL, function(d) { data.set(d.MODZCTA, +d['ev_per_household']); })
+    .await(ready);
+
+    function ready(error, topo) {
+
+    let mouseOver = function(d) {
+        d3.selectAll(".areas").transition().duration(200).style("opacity", .5)
+        d3.select(this).transition().duration(200).style("opacity", 1).style("stroke", "black")
+    }
+
+    let mouseLeave = function(d) {
+        d3.selectAll(".areas").transition().duration(200).style("opacity", .8)
+        d3.select(this).transition().duration(200).style("stroke", "transparent")
+    }
+
+    console.log(topo)
+    // Draw the map
+    poly.selectAll("path")
+        .data(topo.features)
+        .enter().append("path")
+        // draw each country
+        .attr( "d", d3.geoPath().projection(projection) )
+        // set the color of each country
+        .attr("fill", function (d) {
+            d.total = data.get(d.id) || 0;
+            console.log(d)
+            return colorScale(d.total);
+        })
+        .style("stroke", "transparent")
+        .attr("class", function(d){ return "area" } )
+        .style("opacity", .8)
+        .on("mouseover", mouseOver )
+        .on("mouseleave", mouseLeave )
+        }
+
 }
+    
 
 var ev_adopt_boro = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_adoption_boro_year.csv'
 var ev_adopt_id = '#ev_adoption_boro'
 EVadoption_line(ev_adopt_id, ev_adopt_boro)
+
+
+
+var ev_map_id = '#ev_chorepleth_map', year=2017
+// Chorepleth_map(ev_map_id, year)
+
+const width = 450, height=350;
+const svg = d3.select(ev_map_id).append("svg")
+            .attr("width", "100%").attr("height","100%")
+            .attr("viewBox","0 0 450 350")
+            .attr("perserveAspectRatio", "xMinYMin")
+
+// Map and projection
+var path = d3.geoPath();
+// Data and color scale
+var data = d3.map();
+var colorScale = d3.scaleThreshold()
+  .domain([0.1, 0.3, 0.5, 1, 2])
+  .range(d3.schemeBlues[5]);
+
+// Load external data and boot
+d3.queue()
+  .defer(d3.json, "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/modified_zipcode.geojson")
+  .defer(d3.csv, 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_per_household/ev_adoption_'+ year.toString() +'.csv', function(d) { data.set(d.MODZCTA, +d.ev_per_household); })
+  .await(ready);
+
+function ready(error, topo) {
+    var projection = d3.geoMercator()
+			.fitSize([width,height], {type:'FeatureCollection',features:topo.features});
+
+    // Draw the map
+    svg.append("g")
+        .selectAll("path")
+        .data(topo.features)
+        .enter()
+        .append("path")
+        // draw each country
+        .attr("d", path.projection(projection))
+        // set the color of each country
+        .attr("fill", function (d) {
+            // console.log(d)
+            d.total = data.get(d.id) || 0;
+            console.log(d.total)
+            return colorScale(d.total);
+        });
+    }
