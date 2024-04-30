@@ -1,0 +1,5 @@
+Vehicle Make,Type1,Type2,Type3,Type1_val,Type2_val,Type3_val
+FORD,142.0,0.0,0.0,FOCUS,,
+GEM,545.0,0.0,0.0,GEM,,
+NISSAN,3909.0,0.0,0.0,LEAF,,
+TESLA,59.0,52.0,2.0,MODEL S,MODEL X,ROADSTER
