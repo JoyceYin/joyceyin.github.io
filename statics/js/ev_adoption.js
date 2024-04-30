@@ -145,10 +145,11 @@ function Chorepleth_map(id, year) {
     // Map and projection
     var path = d3.geoPath();
     // Data and color scale
+    // for Nan, grey
     var data = d3.map();
     var colorScale = d3.scaleThreshold()
-    .domain([0.1, 0.3, 0.5, 1, 2])
-    .range(d3.schemeBlues[5]);
+    .domain([0, 0.1, 0.3, 0.5, 1, 2])
+    .range(["#999999", '#eff3ff', '#bdd7e7', '#6baed6', '#3182bd', '#08519c']);
 
     // Load external data and boot
     d3.queue()
@@ -163,25 +164,29 @@ function Chorepleth_map(id, year) {
                 .fitSize([width,height], {type:'FeatureCollection',features:topo.features});
 
         let mouseOver = function(d) {
-            d3.selectAll(".Country")
-                .transition()
-                .duration(100)
-                .style("opacity", .3)
-            d3.select(this)
-                .transition()
-                .duration(100)
-                .style("opacity", 1)
+            if (data.get(d.properties.MODZCTA) || 0 != 0){
+                d3.selectAll(".Country")
+                    .transition()
+                    .duration(100)
+                    .style("opacity", .3)
+                d3.select(this)
+                    .transition()
+                    .duration(100)
+                    .style("opacity", 1)
+            }
             }
         
         let mouseLeave = function(d) {
-            d3.selectAll(".Country")
-                .transition()
-                .duration(100)
-                .style("opacity", 1)
-            d3.select(this)
-                .transition()
-                .duration(100)
-                .style("opacity", 1)
+            if (data.get(d.properties.MODZCTA) || 0 != 0){
+                d3.selectAll(".Country")
+                    .transition()
+                    .duration(100)
+                    .style("opacity", 1)
+                d3.select(this)
+                    .transition()
+                    .duration(100)
+                    .style("opacity", 1)
+            }
             }
 
         // Draw the map
@@ -197,16 +202,61 @@ function Chorepleth_map(id, year) {
                 // console.log(d)
                 // console.log(d.properties.MODZCTA, typeof(d.properties.MODZCTA))
                 d.total = data.get(d.properties.MODZCTA) || 0;
-                return colorScale(d.total);
+                
+                if (d.total == 0){
+                    return "#999999"
+                }else{
+                    return colorScale(d.total);
+                }
             })
             .style("stroke", "grey")
             .style("stroke-width", 0.5)
             .attr("class", function(d){ return "Country" } )
             .style("opacity", .8)
             .on("mouseover", mouseOver )
-            .on("mouseleave", mouseLeave );
+            .on("mouseleave", mouseLeave )
+            .append("title")
+            .text(function(d) {
+                return "Area: " + d.properties.MODZCTA + "\nEV per Household: " + Number((data.get(d.properties.MODZCTA)).toFixed(3))
+            });
+
         }
 
+    //set legend
+    svg.append("g")
+        .attr("class", "legendThreshold")
+        .attr("transform", "translate("+ (width-10) +",240)");
+
+    const legend = d3.legendColor().labels(['No data', 'Less than 0.1', '0.1 to 0.3', '0.3 to 0.5', '0.5 to 1', '1 or more'])
+                    .labelOffset(3)
+                    .shapePadding(2)
+                    .scale(colorScale)
+    svg.select(".legendThreshold").call(legend);
+
+    //set note 
+    svg.append('text').attr('class', 'note')
+        .attr('x', width*0.4)
+        .attr('y', height)
+        .attr("text-anchor", "start")
+        .style("font-size", 7)
+        .text("Source: EV adoption from NYSDOT, Household data from ACS 5-Year Data in 2017 and 2022")
+
+    //add title
+    svg.append('text').attr('class', 'maptitle')
+        .attr('x', 0)
+        .attr('y', 10)
+        .attr("text-anchor", "start")
+        .style("font-size", 15)
+        .style("font-weight", 600)
+        .text("EV per car-owning household")
+
+    svg.append('text').attr('class', 'maptitle')
+        .attr('x', 0)
+        .attr('y', 30)
+        .attr("text-anchor", "start")
+        .style("font-size", 15)
+        .style("font-weight", 600)
+        .text("in "+year)
 }
 
     
