@@ -235,10 +235,11 @@ function Chorepleth_map(id, year) {
 
     //set note 
     svg.append('text').attr('class', 'note')
-        .attr('x', width*0.4)
+        .attr('x', width*0.3)
         .attr('y', height)
         .attr("text-anchor", "start")
-        .style("font-size", 7)
+        .style("font-size", 8)
+        .style("fill", "#999999")
         .text("Source: EV adoption from NYSDOT, Household data from ACS 5-Year Data in 2017 and 2022")
 
     //add title

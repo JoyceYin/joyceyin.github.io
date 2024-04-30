@@ -116,6 +116,8 @@
 					<p class="card-text" style="color: #0e0b16;">The transition from non-renewable energy sources to electric alternatives, particularly for private car owners, 
 						represents a monumental shift. Thus, the imperative of educating and promoting EVs assumes paramount importance in facilitating this transition.</p>
 					
+					<!-- Benefit of EV -->
+					
 					<h5 class="card-text" style="color: #0e0b16;">Objectives</h5>
 					
 					<p class="card-text" style="color: #0e0b16;">In this report, I will delve into various datasets to gain insight into the current state of EV adoption within the city. 
@@ -124,7 +126,9 @@
 					related to charging stations. This analysis will encompass an evaluation of accessibility at different levels, especially Level 2 charging stations, 
 					ensuring a comprehensive understanding of the equity and opportunities associated with EV infrastructure development.</p>
 					
-
+					<hr>
+					
+					<h5 class="card-text" style="color: #0e0b16;">Electric Vehicle Adoption Patterns Across Neighborhoods</h5>
 					<div class="row align-items-center">
 						<div class="col-6">
 							<p class="card-text" style="color: #0e0b16;">
@@ -147,15 +151,25 @@
 						</div>
 					</div>
 					<br>
-					<div class="row">
+					<div class="row align-items-center">
 						<div class="col-5">
 							<div id="ev_chorepleth_map"></div>
 							<br>
-							<div class="range" style="--step:1; --min:2016; --max:2023">
+							<div class="range center-block" style="--step:1; --min:2016; --max:2023">
 								<input type="range" name="mapSlider" id="mapSlider" min="2016" max="2023", step="1", value="2023">
 							</div>
 						</div>
-						<div class="col-7"></div>
+						<div class="col-7">
+							<p class="card-text" style="color: #0e0b16;">
+								To gain deeper insights into EV adoption across different areas, the choropleth map showcases the <b>EV density among car-owning households from 2016 to 2023</b>. 
+								A striking trend emerges: nearly every zip-code level area witnessed an increase in EV adoption among car-owning households by 2023 compared to EV dessert in 2016. 
+								While the adoption may not yet be ubiquitous, a notable shift is evident, with more individuals now considering EV as a viable option. 
+								Apparently, certain neighborhoods stand out as key contributors to the city's EV adoption landscape, including 
+								<mark style="background-color: #3182bd; color: beige;">FiDi and some East Harlem areas in Manhattan</mark>, 
+								as well as <mark style="background-color: #3182bd; color: beige;">areas spanning from Long Island City to Flushing in Queens</mark>. 
+								However, <b>regional disparities</b> persist within the EV market despite overall progress.
+							</p>
+						</div>
 					</div>
 					
 					<br>
