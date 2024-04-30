@@ -61,7 +61,7 @@ function EVadoption_line(id, data){
 
         // color palette
         const color = d3.scaleOrdinal().domain(typeKeys).range(d3.schemeCategory10.slice(0,5));
-        console.log(d3.schemeCategory10.slice(0,5))
+        // console.log(d3.schemeCategory10.slice(0,5))
 
         //add transition
         const transitionPath = d3.transition().duration(2500);

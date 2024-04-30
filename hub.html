@@ -94,44 +94,47 @@
                 <div class="card-body">
                     <h3 class="card-title" style="color:#0e0b16;">EV Adoption and Infrastructure Location Equity</h3>
 					<br>
-					<div class="row align-items-center">
-					<div class="col-8 ">
+					<div class="row align-items-center justify-content-center">
+					<div class="col-6 ">
 						<p class="card-text" style="color: #0e0b16;">The <a href="https://s-media.nyc.gov/agencies/mocej/PlaNYC-2023-Full-Report.pdf">2023 PlaNYC report</a> delineates pivotal strategies aimed at curbing greenhouse gas (GHG) 
 						emissions. Within this comprehensive framework, transportation emerges as a focal point alongside building energy consumption, undersoring its indispensable role in realizing environmental sustainability.</p>
 						</div>
 						<div class="col-4"><img src="statics/images/ghg_inventory.png" class="img-fluid rounded-start" alt="..."></div>
 					</div>
 					
-					<p class="card-text" style="color: #0e0b16;">Among these strategies, No.23 (Page 53 in the report), titled <b>"Help New Yorkers who must drive to drive electric"</b> clarifies the goals tailored to advance
-					 the widespread adoption of electric vehicles (EVs) within NYC diverse transportation landscape, specifically, focusing on personal vehicles, for-hire vehicles, and school bus.</p>
-
-					<p class="card-text" style="color: #0e0b16;">
-						<ol style="color: #0e0b16;">
+					<div class="row justify-content-center">
+					<p class="card-text col-10 " style="color: #0e0b16;">Among these strategies, No.23 (Page 53 in the report), titled <b>"Help New Yorkers who must drive to drive electric"</b> clarifies the goals tailored to advance
+					 the widespread adoption of electric vehicles (EVs) within NYC diverse transportation landscape, specifically, focusing on personal vehicles, for-hire vehicles, and school bus.
+					
+						<ol class="card-text col-10" style="color: #0e0b16;">
 							<li>Ensure every New Yorker is no more than 2.5 miles from an electric vehicle fast charging hub by 2035</li>
 							<li>Mandate private parking garages and lots to make electric vehicle charging available by 2030</li>
 							<li>Transition taxis and for-hire vehicles to electric vehicles</li>
 							<li>Electrify school buses by 2035</li>
 						</ol>
 					</p>
-
-					<p class="card-text" style="color: #0e0b16;">The transition from non-renewable energy sources to electric alternatives, particularly for private car owners, 
+					<p class="card-text col-10" style="color: #0e0b16;">The transition from non-renewable energy sources to electric alternatives, particularly for private car owners, 
 						represents a monumental shift. Thus, the imperative of educating and promoting EVs assumes paramount importance in facilitating this transition.</p>
 					
+					</div>
+
+					
 					<!-- Benefit of EV -->
+					<br>
+					<h4 class="card-text" style="color: #0e0b16; font-weight: 600;">Objectives</h4>
 					
-					<h5 class="card-text" style="color: #0e0b16;">Objectives</h5>
-					
-					<p class="card-text" style="color: #0e0b16;">In this report, I will delve into various datasets to gain insight into the current state of EV adoption within the city. 
+					<div class="row justify-content-center">
+					<p class="card-text col-10" style="color: #0e0b16;">In this report, I will delve into various datasets to gain insight into the current state of EV adoption within the city. 
 					By examining EV ownership preferences, I aim to discern trends regarding car models and features that are most favored by consumers. 
 					Given that infrasturcture plays an essential role in facilitating EV adoption, I will also analyze the existing infrasturcture plans 
 					related to charging stations. This analysis will encompass an evaluation of accessibility at different levels, especially Level 2 charging stations, 
 					ensuring a comprehensive understanding of the equity and opportunities associated with EV infrastructure development.</p>
-					
+					</div>
 					<hr>
 
-					<h5 class="card-text" style="color: #0e0b16;">Electric Vehicle Adoption Patterns Across Neighborhoods</h5>
-					<div class="row align-items-center">
-						<div class="col-6">
+					<h4 class="card-text" style="color: #0e0b16; font-weight: 600;">Electric Vehicle Adoption Patterns Across Neighborhoods</h4>
+					<div class="row align-items-center justify-content-center">
+						<div class="col-5">
 							<p class="card-text" style="color: #0e0b16;">
 								As of 2023, there has been a noticeable increase in EV adoption across the boroughs, with <mark style="background-color: #d62728; color: beige;">Queens resident</mark> displaying 
 								a particularly robust demand for EVs, likely due to the high number of car-owning households, as indicated
@@ -147,12 +150,13 @@
 								</ol>
 							</p>
 						</div>
-						<div class="col-6">
+						<div class="col-5">
 							<div id="ev_adoption_boro"></div>
 						</div>
 					</div>
+
 					<br>
-					<div class="row align-items-center">
+					<div class="row align-items-center justify-content-center">
 						<div class="col-5">
 							<div id="ev_chorepleth_map"></div>
 							<br>
@@ -160,7 +164,7 @@
 								<input type="range" name="mapSlider" id="mapSlider" min="2016" max="2023", step="1", value="2023">
 							</div>
 						</div>
-						<div class="col-7">
+						<div class="col-5">
 							<p class="card-text" style="color: #0e0b16;">
 								To gain deeper insights into EV adoption across different areas, the choropleth map showcases the <b>EV density among car-owning households from 2016 to 2023</b>. 
 								A striking trend emerges: nearly every zip-code level area witnessed an increase in EV adoption among car-owning households by 2023 compared to EV dessert in 2016. 
@@ -175,28 +179,54 @@
 
 					<br><br>
 
-					<h5 class="card-text" style="color: #0e0b16;">EV Market</h5>
+					<h4 class="card-text" style="color: #0e0b16; font-weight: 600;">EV Market</h4>
+
+					<div class="row justify-content-center">
+						<div class="col-5">
+							<h6 class="card-text" style="color: #0e0b16; font-weight: 600;">Battery Electric Vehicles (BEVs)</h6>
+							<p style="color: #0e0b16;">A BEV runs on electricity alone without gas engine part. Zero emissions. Most BEVs are capable of fast charging and L2 charging. 
+							<a href="https://www.evgo.com/ev-drivers/types-of-evs/">(More)</a></p>
+						</div>
+
+						<div class="col-5">
+							<h6 class="card-text" style="color: #0e0b16; font-weight: 600;">Plug-in Hybrid Electric Vehicles (PHEVs)</h6>
+							<p style="color: #0e0b16;">PHEVs use both eletric power (with a larger battery compared with the conventional hybrid) and gas power. A PHEV can travel short distances solely on electric power, 
+								while gas-powered engine work as a backup, taking over when the battery becomes depleted.
+							<a href="https://www.evgo.com/ev-drivers/types-of-evs/">(More)</a></p>
+						</div>
+					</div>
+
+					<div class="row justify-content-center" id="stacked_body">
+						<div class="col-5" id="bev_stacked_bar"></div>
+						<div class="col-5" id="phev_stacked_bar"></div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-4 range" style="--step:1; --min:2016; --max:2023">
+							<input type="range" name="barSlider" id="barSlider" min="2016" max="2023", step="1", value="2023">
+						</div>
+					</div>
 					
 					<hr>
-
-					<div class='tableauPlaceholder' id='viz1714054722921' style='position: relative'>
-						<noscript>
-						<a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;EV&#47;EVMarketNYC&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a>
-						</noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='EVMarketNYC&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;EV&#47;EVMarketNYC&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object>
-					</div>  
+					<div class="row justify-content-center">
+						<div class='col-10 tableauPlaceholder' id='viz1714054722921' style='position: relative'>
+							<noscript>
+							<a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;EV&#47;EVMarketNYC&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a>
+							</noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='EVMarketNYC&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;EV&#47;EVMarketNYC&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object>
+						</div>  
+					</div>
 					
 					<br>
 					
-					<h5 class="card-text" style="color: #0e0b16">How the City Can Facilitate EV Adoption</h5>
-					<div class="row">
-						<div class="col-6">
+					<h4 class="card-text" style="color: #0e0b16; font-weight: 600;">How the City Can Facilitate EV Adoption</h4>
+					<div class="row justify-content-center">
+						<div class="col-5">
 							<p class="card-text" style="color: #0e0b16"><b>Purchase Promotion Offered by Government: </b>
 								<br>
 								<a href="https://www.nyserda.ny.gov/All-Programs/Drive-Clean-Rebate-For-Electric-Cars-Program">NYS Drive Clean Rebate For Elctric Car Program</a>
 							</p>
 						</div>
 					
-						<div class="col-6">
+						<div class="col-5">
 							<p class="card-text" style="color: #0e0b16"><b>investment in EV infrastructure: </b>
 								<br>
 								ensuring that adequate infrastructure is available in all neighbourhoods. So far, EV models from Tesla contribute a lot in the market across the Borough. 
@@ -234,6 +264,7 @@
 	</div>
 
 	<script src="statics/js/ev_adoption.js"></script>
+	<script src="statics/js/bev_phev_market.js"></script>
 	<script type='text/javascript'>
 
 		// loading tableau
@@ -250,6 +281,12 @@
 
 		//time range slider color update
 		document.getElementById("mapSlider").oninput = function() {
+			// console.log(this.value, this.min, this.max)
+			var value = (this.value-this.min)/(this.max-this.min)*100
+			this.style.background = 'linear-gradient(to right, #82CFD0 0%, #82CFD0 ' + value + '%, #fff ' + value + '%, white 100%)'
+			};
+
+		document.getElementById("barSlider").oninput = function() {
 			// console.log(this.value, this.min, this.max)
 			var value = (this.value-this.min)/(this.max-this.min)*100
 			this.style.background = 'linear-gradient(to right, #82CFD0 0%, #82CFD0 ' + value + '%, #fff ' + value + '%, white 100%)'
