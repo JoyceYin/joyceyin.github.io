@@ -57,6 +57,8 @@ function market_stacked_bar(id, type, year){
         const color  = d3.scaleOrdinal().domain(subgroups)
                     .range(d3.schemeTableau10.slice(0, subgroups.length))
 
+        console.log(d3.schemeTableau10.slice(0, subgroups.length))
+
         //set vertical grid line
         const GridLine = function() {return d3.axisBottom().scale(xScale)};
         svg.append("g").attr("class", "grid")
@@ -104,7 +106,7 @@ function market_stacked_bar(id, type, year){
             .attr("x", -(margin.left)*0.5)
             .attr("y", -(margin.top)/2)
             .attr("text-anchor", "start")
-            .text(type + " Market in "+year)
+            .text(year + " Top 5 Companies in " + type + " Market")
 
         //set Y axis label
         svg.append("text")
