@@ -10,10 +10,12 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<!-- Load d3.js & color scale -->
-	<script src="https://d3js.org/d3.v7.min.js"></script>
+	<script src="https://d3js.org/d3.v4.js"></script>
+	<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+	<!-- <script src="https://d3js.org/d3.v7.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/d3-geo@"></script>
-	<script src="https://cdn.jsdelivr.net/npm/d3-geo-projection@4"></script>
-	<script src="https://unpkg.com/topojson@3"></script>
+	<script src="https://cdn.jsdelivr.net/npm/d3-geo-projection@4"></script> -->
+	<!-- <script src="https://unpkg.com/topojson@3"></script> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
 	<!-- Icon -->
 	<link type="text/css" rel="stylesheet" href="https://unpkg.com/octicons-html@1/dist/octicons-html.css">
@@ -333,6 +335,14 @@
 							<p class="card-text" style="color: #0e0b16;">Feature Analysis</p>
 						</div>
 						<div class="col-5">
+							<div>
+								<input type="radio" class="btn-check checkbox" value="level2" name="options-outlined" id="primary-outlined" autocomplete="off" checked>
+								<label class="btn btn-outline-primary btn-sm" for="primary-outlined">Level 2</label>
+
+								<input type="radio" class="btn-check checkbox" value="DCFC" name="options-outlined" id="success-outlined"autocomplete="off">
+								<label class="btn btn-outline-success btn-sm" for="success-outlined">DCFC</label>
+							</div>
+							
 							<div id="ev_station_level"></div>
 						</div>
 					</div>
