@@ -185,7 +185,7 @@ d3.selectAll(".checkbox").on("click", function(){
 
 function InvestmentPie(id){
     // set the dimensions and margins of the graph
-    const margin = 80, height = 450, width = 450
+    const margin = 80, height = 500, width = 500
 
     // append the svg object to the body of the page
     const svg = d3.select(id).append("svg")
@@ -194,11 +194,140 @@ function InvestmentPie(id){
                     .attr("viewBox", "0 0 450 450")
                     .attr("preserveAspectRatio", "xMinYMin")
                     .append("g")
-                    .attr("transform", `translate(${width / 2}, ${height / 2})`);
+                    .attr("transform", "translate("+ width / 2 + "," + height / 2 +")");
 
     const radius = Math.min(width, height) / 2 - margin
 
-    var data = {"Private Charging": 52, "Public Fast Charging": 39, "Public Destination Charing":9}
+    var data = {"Public Destination Charging":9, "Private Charging": 52, "Public Fast Charging": 39}
+    var port_data = {"Private Charging": 26762000, "Public Fast Charging": 182000, "Public Destination Charging": 1067000}
+
+    // set the color scale
+    var color = d3.scaleOrdinal()
+                    .domain(data)
+                    .range(["#8EBEFF","#191970","#0072BC"]);
+
+    // Compute the position of each group on the pie:
+    var pie = d3.pie().value(function(d) {return d.value; })
+    var data_ready = pie(d3.entries(data))
+
+    // shape helper to build arcs:
+    var arcGenerator = d3.arc()
+        .innerRadius(0)
+        .outerRadius(radius)
+
+    var inarc = d3.arc()
+        .innerRadius(radius * 0.5)         
+        .outerRadius(radius * 0.8)
+    var outerArc = d3.arc()
+        .innerRadius(radius*1)
+        .outerRadius(radius*1)
+
+    // create a tooltip
+    const tooltip = d3.select("body")
+                    .append("div").attr("class", "tooltip");
+
+    // tooltip events
+    const mouseover = function(d) {
+                    tooltip.style("opacity", 1)
+                    d3.select(this).style("opacity", .5)
+    };
+    // const mousemove = function(event,d) {
+    //     tooltip
+    //     .html(`<b>${d.data.key}</b>: `+ d.data.value + '%')
+    //     .style("top", event.pageY - 10 + "px")
+    //     .style("left", event.pageX + 10 + "px")
+    //     };
+    const mouseleave = function(d) {
+                    tooltip.style("opacity", 0)
+                    d3.select(this).style("opacity", 1)
+    };
+
+    svg.selectAll('mySlices')
+        .data(data_ready).enter()
+        .append('path')
+        .attr('d', arcGenerator)
+        .attr('fill', function(d){ return(color(d.data.key)) })
+        .attr("stroke", "white")
+        .style("stroke-width", "4px")
+        .style("opacity", 0.7)
+        .on("mouseover", mouseover)
+        .on("mouseleave", mouseleave)
+        .append("title").text( function (d) { return `${d.data.key} \n${d.data.value}% national investment` } );
+
+    svg.append("g")
+            .attr("text-anchor", "middle")
+            .selectAll("text")
+            .data(data_ready).enter()
+            .append('text')
+            .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
+            .style('font-size', 12)
+            .attr("fill", "#ffffff")
+            .call(text => text.append("tspan")
+                    .attr("x", "0.2em")
+                    .attr("y", "-0.6em")
+                    .text(function(d) {if (d.data.value>10) {return d.data.key;}} ))
+            .call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
+                .attr("x", 0)
+                .attr("y", "0.7em")
+                .text(function(d) {if (d.data.value>10) {return port_data[d.data.key].toLocaleString()+" ports";}} ))
+
+    // Add the polylines between chart and labels:
+    svg
+        .selectAll('allPolylines')
+        .data(data_ready).enter()
+        .append('polyline')
+        .attr("stroke", "#222222")
+        .style("fill", "none")
+        .attr("stroke-width", 2)
+        .attr('points', function(d) {
+            if (d.data.value < 10) {
+                var posA = inarc.centroid(d) // line insertion in the slice
+                var posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
+                var posC = outerArc.centroid(d); // Label position = almost the same as posB
+                var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
+                posC[0] = radius * 0.5 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
+                return [posA, posB, posC]
+            }
+        })
+
+    svg
+        .selectAll('allLabels')
+        .data(data_ready).enter()
+        .append('text')
+        .attr('transform', function(d) {
+              var pos = outerArc.centroid(d);
+              var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+              pos[0] = radius * 0.54 * (midangle < Math.PI ? 1 : -1);
+              return 'translate(' + pos + ')';
+          })
+        .style('text-anchor', function(d) {
+              var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+              return (midangle < Math.PI ? 'start' : 'end')
+          })
+        .style('font-size', 12)
+        .attr("fill", "#222222")
+        .call(text => text.append("tspan")
+                    .attr("x", "0.2em")
+                    .attr("y", "-0.6em")
+                    .text(function(d) { if (d.data.value<10) {return d.data.key; } }))
+        .call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
+                .attr("x", 0)
+                .attr("y", "0.7em")
+                .text(function(d) { if (d.data.value<10) {return port_data[d.data.key].toLocaleString()+" ports"; } } ))
+
+    // set title
+    svg
+    .append("text")
+    .attr("class", "chart-title")
+    .attr("text-anchor", "start")
+    .call( text => text.append("tspan")
+            .attr("x", -(margin))
+            .attr("y", -(margin/2+radius))
+            .text("National Charging Network Supporting"))
+    .call(text => text.append("tspan")
+            .attr("x", 0)
+            .attr("y", -(margin/2+radius-20))
+            .text( "33 Million LD PEVs by 2030" ))
 
 }
 
