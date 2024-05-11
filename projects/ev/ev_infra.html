@@ -330,20 +330,37 @@
 					<!-- Feature Analysis -->
 					<h4 class="card-text" style="color: #0e0b16; font-weight: 600;">EV Charging Station Feature Analysis</h4>
 					<div class="row justify-content-center align-items-center">
-						<div class="col-5">
+						<div class="col-7">
 							<p class="card-text" style="color: #0e0b16;">
-								According to data from the New York State Energy Research & Development Authority (NYSERDA), 
-								there are a total of <strong>660 publicly available charging stations</strong> in New York City. 
-								Among these, 625 are Level 2 stations, 43 are DC fast charging (DCFC) stations, and 8 stations offer both Level 2 and DCFC charging options. 
-								While reports often suggest that increased adoption of electric vehicles requires a corresponding expansion of infrastructure, 
-								we are unable to connect site patterns by adoption patterns in NYC. 
-								Distribution of EV charging stations reveals that Level 2 stations are particularly concentrated in <mark style="background-color: #589BE5; color: beige;">Manhattan and several neighborhoods in Brooklyn and Queens</mark>, 
-								such as downtown Brooklyn, which serve as daily hotspots for activities like shopping and work commutes. 
-								As for DC fast charging stations, they tend to align with their purpose, located on or near main traffic corridors (the yellow polylines on the map indicate existing arterial highways). 
-								It's also noteworthy that nearly half of the charging destinations cater to <mark style="background-color: #cc0000; color: beige;">Tesla vehicles</mark>.
+								In the <a href="https://www.nrel.gov/docs/fy23osti/85654.pdf" target="_blank" class="alink" style="color: cornflowerblue; font-size: 16px;">
+									2030 National Charging Network Report
+								</a> from NREL, researchers describe the entire network as a tree. 
+								Private charging, including charging at home and workplace, constitutes the invisible roots of the network. 
+								As the foundation of the network tree, it is estimated to require half (52%) of the national investment to achieve accessibility by 2030. 
+								Apart from private charging, the visible components of the tree belong to public charging. 
+								A reliable public fast charging network serves as the trunk to enhance the network accessibility. 
+								Given its high costs for utility upgrades and power procurement, an estimated 39% of the investment will be allocated to fast charging. 
+								The final component of the system is public destination charging, resembling branches that flourish in dense neighborhoods. 
+								The growth of public destination charging relies on support from charging infrastructure elsewhere. 
+								Approximately 9% of the investment will be directed towards these branches. 
+							</p>
+							<p class="card-text" style="color: #0e0b16;">
+								Using the estimation report and <a href="https://afdc.energy.gov/fuels/electricity-locations#/find/nearest?fuel=ELEC" target="_blank" class="alink" style="color: cornflowerblue; font-size: 16px;">
+									charging station locator data</a> from the Alternative Fuels Data Center (AFDC), 
+								this section will examine the tree structure: 
+								<strong>private charging, public fast charging (DCFC), and public destination charging (Level 2)</strong>, 
+								in terms of quantity, location, and budget.
 							</p>
 						</div>
-						<div class="col-5">
+						<div class="col-3">
+							<!-- Pie chart for investment illustration -->
+						</div>
+						
+					</div>
+
+					<br>
+					<div class="row justify-content-center align-items-center">
+						<div class="col-6">
 							<div>
 								<input type="radio" class="btn-check checkbox" value="level2" name="options-outlined" id="primary-outlined" autocomplete="off" checked>
 								<label class="btn btn-outline-primary btn-sm" for="primary-outlined">Level 2</label>
