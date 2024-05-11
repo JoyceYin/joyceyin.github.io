@@ -181,3 +181,26 @@ d3.selectAll(".checkbox").on("click", function(){
 
     }
 });
+
+
+function InvestmentPie(id){
+    // set the dimensions and margins of the graph
+    const margin = 80, height = 450, width = 450
+
+    // append the svg object to the body of the page
+    const svg = d3.select(id).append("svg")
+                    .attr("width", "100%")
+                    .attr("height", "100%")
+                    .attr("viewBox", "0 0 450 450")
+                    .attr("preserveAspectRatio", "xMinYMin")
+                    .append("g")
+                    .attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+    const radius = Math.min(width, height) / 2 - margin
+
+    var data = {"Private Charging": 52, "Public Fast Charging": 39, "Public Destination Charing":9}
+
+}
+
+var piechart_id = "#investment_piechart"
+InvestmentPie(piechart_id)
