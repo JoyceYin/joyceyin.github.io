@@ -231,12 +231,6 @@ function InvestmentPie(id){
                     tooltip.style("opacity", 1)
                     d3.select(this).style("opacity", .5)
     };
-    // const mousemove = function(event,d) {
-    //     tooltip
-    //     .html(`<b>${d.data.key}</b>: `+ d.data.value + '%')
-    //     .style("top", event.pageY - 10 + "px")
-    //     .style("left", event.pageX + 10 + "px")
-    //     };
     const mouseleave = function(d) {
                     tooltip.style("opacity", 0)
                     d3.select(this).style("opacity", 1)
