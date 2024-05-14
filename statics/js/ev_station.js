@@ -327,3 +327,143 @@ function InvestmentPie(id){
 
 var piechart_id = "#investment_piechart"
 InvestmentPie(piechart_id)
+
+function simulatedPorts(id, data, type){
+    // set the dimensions and margins of the graph
+    const margin = 80,height = 450,width = 450
+    // The radius of the pieplot is half the width or half the height (smallest one). subtract a bit of margin.
+    var radius = Math.min(width, height) / 2 - margin   
+    // append the svg object to the body of the page
+    const svg = d3.select(id).append("svg")
+            .attr("width", "100%").attr("height", "100%")
+            .attr("viewBox", "0 0 450 450")
+            .attr("preserveAspectRatio", "xMinYMin")
+            .append("g")
+            .attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+    // set the color scale
+    var color = d3.scaleOrdinal().domain(data)
+    .range(['#efb118','#ff725c','#6cc5b0','#97bbf5'].slice(0, data.length))
+
+    // Compute the position of each group on the pie:
+    var pie = d3.pie().value(function(d) {return d.value; })
+    var data_ready = pie(d3.entries(data))
+    const total = d3.sum(Object.values(data))
+    var arc = d3.arc().innerRadius(radius/2.2).outerRadius(radius)
+
+    var inarc = d3.arc()
+        .innerRadius(radius * 0.8)         
+        .outerRadius(radius * 0.8)
+    var outerArc = d3.arc()
+        .innerRadius(radius*1)
+        .outerRadius(radius*1.2)
+
+    // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+    svg.selectAll('path')
+        .data(data_ready).enter()
+        .append('path')
+        .attr('d', arc )
+        .attr('fill', function(d){ return(color(d.data.key)) })
+        .attr("stroke", "#ffffff")
+        .style("stroke-width", "2px")
+        .style("opacity", 0.7)
+
+    svg.append("g")
+        .attr("text-anchor", "middle").selectAll("text")
+        .data(data_ready).enter()
+        .append("text")
+        .attr("transform", d => `translate(${arc.centroid(d)})`)
+        .call(text => text.append("tspan")
+            .attr("x", "0.2em")
+            .attr("y", "-0.6em")
+            .attr("fill", "#222222")
+            .text(function(d) {if (d.data.value/total>0.1) {return d.data.key;}} ))
+        .call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.25).append("tspan")
+            .attr("x", 0)
+            .attr("y", "0.7em")
+            .attr("fill", "#222222")
+            .text(function(d) {if (d.data.value/total>0.1) {return d.data.value.toLocaleString();}} ))
+
+    //For small portion, extend label outside the circle with polyline
+    svg
+        .selectAll('allPolylines')
+        .data(data_ready).enter()
+        .append('polyline')
+        .attr("stroke", "#222222")
+        .style("fill", "none")
+        .attr("stroke-width", 2)
+        .attr('points', function(d) {
+            if (d.data.value/d3.sum(Object.values(data))<=0.1) {
+                var posA = inarc.centroid(d) // line insertion in the slice
+                var posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
+                var posC = outerArc.centroid(d); // Label position = almost the same as posB
+                var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
+                posC[0] = radius * 0.5 * (midangle > 6.1 ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
+                return [posA, posB, posC]
+            }
+        })
+
+    svg
+        .selectAll('allLabels')
+        .data(data_ready).enter()
+        .append('text')
+        .attr('transform', function(d) {
+              var pos = outerArc.centroid(d);
+              var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+              pos[0] = radius * 0.54 * (midangle > 6.1 ? 1 : -1);
+              return 'translate(' + pos + ')';
+          })
+        .style('text-anchor', function(d) {
+              var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+              return (midangle > 6.1 ? 'start' : 'end')
+          })
+        // .style('font-size', 12)
+        .attr("fill", "#222222")
+        .call(text => text.append("tspan")
+                    .attr("x", "0.2em")
+                    .attr("y", "-0.6em")
+                    .text(function(d) {if (d.data.value/total<=0.1) {return d.data.key;}} ))
+        .call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.1).append("tspan")
+                .attr("x", 0)
+                .attr("y", "0.7em")
+                .text(function(d) { if (d.data.value/total<=0.1) {return d.data.value.toLocaleString();} } ))
+
+    //data label for total
+    const f = d3.format(",.0f");
+    svg.append("text")
+        .attr("dy", "-1em")
+        .style("font-size", "12px").style("text-anchor", "middle")
+        .attr("class", "inner-circle")
+        .attr("fill", "#222222").text("Total ports");
+
+    svg.append("text")
+        .attr("dy", "0.5em")
+        .style("font-size", "16px").style("text-anchor", "middle")
+        .attr("class", "inner-circle")
+        .attr("fill", "#222222").text(f(total) + " ports");
+
+    // set title
+    svg.append("text")
+    .attr("class", "chart-title")
+    .attr("text-anchor", "start")
+    .style("font-size", "16px")
+    .style("font-weight", "bold")
+    .call( text => text.append("tspan")
+                    .attr("x", -(margin/2+radius))
+                    .attr("y", -(margin/1.2+radius))
+                    .text("Port Summary for Simulated 2023 "+type+" Network"))
+}
+
+
+var private_id = "#private_simulated"
+var private_data = {'Single-Family Homes': 1086000, 'Multi-Family Homes':53900,'Workplace':21400}
+
+var dcfcst_id = "#dcfc_simulated"
+var dcfcport_data = {'DC 150':2500,'DC 250':1800,'DC 350+':2000}
+
+var level2st_id = "#level2_simulated"
+var level2port_data = {'Neighborhood':14100,'Office':7200,'Retail':8600,'Other':15400}
+
+simulatedPorts(private_id, private_data, 'Private')
+simulatedPorts(dcfcst_id, dcfcport_data,'Public DC')
+simulatedPorts(level2st_id, level2port_data, 'Public L2')
