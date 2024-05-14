@@ -182,7 +182,6 @@ d3.selectAll(".checkbox").on("click", function(){
     }
 });
 
-
 function InvestmentPie(id){
     // set the dimensions and margins of the graph
     const margin = 80, height = 500, width = 500
@@ -330,7 +329,7 @@ InvestmentPie(piechart_id)
 
 function simulatedPorts(id, data, type){
     // set the dimensions and margins of the graph
-    const margin = 80,height = 450,width = 450
+    const margin = 100,height = 500,width = 500
     // The radius of the pieplot is half the width or half the height (smallest one). subtract a bit of margin.
     var radius = Math.min(width, height) / 2 - margin   
     // append the svg object to the body of the page
@@ -449,9 +448,19 @@ function simulatedPorts(id, data, type){
     .style("font-size", "16px")
     .style("font-weight", "bold")
     .call( text => text.append("tspan")
-                    .attr("x", -(margin/2+radius))
+                    .attr("x", -(margin+radius))
                     .attr("y", -(margin/1.2+radius))
-                    .text("Port Summary for Simulated 2023 "+type+" Network"))
+                    .text("NY Port Summary for Simulated 2023 "+type+" Network"))
+
+    // calculation
+    svg.append("text")
+        .attr("text-anchor", "middle")
+        .style("font-size", "18px")
+        .style("font-weight", "bold")
+        .attr("x", 0)
+        .attr("y", margin/3+radius)
+        .text(function(d) {if (type=='Private'){return "≈ "+ Math.round((((total-data['Single-Family Homes'])/1420000 )*100 )*10)/10+" ports/100 Plug-in EVs (exclude SFHs)";}
+                            else {return "≈ "+ Math.round(((total/1420000)*100)*10)/10+" ports/100 Plug-in EVs";} } )
 }
 
 
