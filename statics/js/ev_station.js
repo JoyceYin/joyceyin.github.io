@@ -397,7 +397,8 @@ function simulatedPorts(id, data, type){
                 var posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
                 var posC = outerArc.centroid(d); // Label position = almost the same as posB
                 var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
-                posC[0] = radius * 0.5 * (midangle > 6.1 ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
+                console.log(midangle)
+                posC[0] = radius * 0.5 * (midangle > 6.2 ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
                 return [posA, posB, posC]
             }
         })
@@ -409,12 +410,12 @@ function simulatedPorts(id, data, type){
         .attr('transform', function(d) {
               var pos = outerArc.centroid(d);
               var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-              pos[0] = radius * 0.54 * (midangle > 6.1 ? 1 : -1);
+              pos[0] = radius * 0.54 * (midangle > 6.2 ? 1 : -1);
               return 'translate(' + pos + ')';
           })
         .style('text-anchor', function(d) {
               var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-              return (midangle > 6.1 ? 'start' : 'end')
+              return (midangle > 6.2 ? 'start' : 'end')
           })
         // .style('font-size', 12)
         .attr("fill", "#222222")
@@ -422,7 +423,7 @@ function simulatedPorts(id, data, type){
                     .attr("x", "0.2em")
                     .attr("y", "-0.6em")
                     .text(function(d) {if (d.data.value/total<=0.1) {return d.data.key;}} ))
-        .call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.1).append("tspan")
+        .call(text => text.filter(d => (d.endAngle - d.startAngle) > 0.01).append("tspan")
                 .attr("x", 0)
                 .attr("y", "0.7em")
                 .text(function(d) { if (d.data.value/total<=0.1) {return d.data.value.toLocaleString();} } ))
@@ -450,7 +451,11 @@ function simulatedPorts(id, data, type){
     .call( text => text.append("tspan")
                     .attr("x", -(margin+radius))
                     .attr("y", -(margin/1.2+radius))
-                    .text("NY Port Summary for Simulated 2023 "+type+" Network"))
+                    .text("New York - Newark - Jersey City"))
+    .call( text => text.append("tspan")
+                    .attr("x", -(margin+radius))
+                    .attr("y", -(margin/1.7+radius))
+                    .text("Port Summary for Simulated 2023 "+type+" Network"))
 
     // calculation
     svg.append("text")
@@ -459,19 +464,19 @@ function simulatedPorts(id, data, type){
         .style("font-weight", "bold")
         .attr("x", 0)
         .attr("y", margin/3+radius)
-        .text(function(d) {if (type=='Private'){return "≈ "+ Math.round((((total-data['Single-Family Homes'])/1420000 )*100 )*10)/10+" ports/100 Plug-in EVs (exclude SFHs)";}
-                            else {return "≈ "+ Math.round(((total/1420000)*100)*10)/10+" ports/100 Plug-in EVs";} } )
+        .text(function(d) {if (type=='Private'){return "≈ "+ Math.round((((total-data['Single-Family Homes'])/1422000 )*100 )*10)/10+" ports/100 Plug-in EVs (exclude SFHs)";}
+                            else {return "≈ "+ Math.round(((total/1422000)*100)*10)/10+" ports/100 Plug-in EVs";} } )
 }
 
 
 var private_id = "#private_simulated"
-var private_data = {'Single-Family Homes': 1086000, 'Multi-Family Homes':53900,'Workplace':21400}
+var private_data = {'Single-Family Homes': 1048000, 'Multi-Family':7000,'Workplace':20000}
 
 var dcfcst_id = "#dcfc_simulated"
-var dcfcport_data = {'DC 150':2500,'DC 250':1800,'DC 350+':2000}
+var dcfcport_data = {'DC 150':1900,'DC 250':1400,'DC 350+':1500}
 
 var level2st_id = "#level2_simulated"
-var level2port_data = {'Neighborhood':14100,'Office':7200,'Retail':8600,'Other':15400}
+var level2port_data = {'Neighborhood':16000,'Office':8000,'Retail':6000,'Other':13000}
 
 simulatedPorts(private_id, private_data, 'Private')
 simulatedPorts(dcfcst_id, dcfcport_data,'Public DC')
