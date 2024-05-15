@@ -184,7 +184,7 @@ d3.selectAll(".checkbox").on("click", function(){
 
 function InvestmentPie(id){
     // set the dimensions and margins of the graph
-    const margin = 80, height = 500, width = 500
+    const margin = 100, height = 500, width = 500
 
     // append the svg object to the body of the page
     const svg = d3.select(id).append("svg")
@@ -309,19 +309,19 @@ function InvestmentPie(id){
                 .text(function(d) { if (d.data.value<10) {return port_data[d.data.key].toLocaleString()+" ports"; } } ))
 
     // set title
-    svg
-    .append("text")
-    .attr("class", "chart-title")
-    .attr("text-anchor", "start")
-    .call( text => text.append("tspan")
-            .attr("x", -(margin))
-            .attr("y", -(margin/2+radius))
-            .text("National Charging Network Supporting"))
-    .call(text => text.append("tspan")
-            .attr("x", 0)
-            .attr("y", -(margin/2+radius-20))
-            .text( "33 Million LD PEVs by 2030" ))
-
+    svg.append("text")
+        .attr("class", "chart-title")
+        .attr("text-anchor", "start")
+        .style("font-size", "16px")
+        .style("font-weight", "bold")
+        .call( text => text.append("tspan")
+                .attr("x", -(margin+radius))
+                .attr("y", -(margin/1.2+radius))
+                .text("National Charging Network Supporting"))
+        .call(text => text.append("tspan")
+                .attr("x", -(margin+radius))
+                .attr("y", -(margin/1.7+radius))
+                .text( "33 Million LD PEVs by 2030" ))
 }
 
 var piechart_id = "#investment_piechart"
@@ -417,7 +417,6 @@ function simulatedPorts(id, data, type){
               var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
               return (midangle > 6.2 ? 'start' : 'end')
           })
-        // .style('font-size', 12)
         .attr("fill", "#222222")
         .call(text => text.append("tspan")
                     .attr("x", "0.2em")
