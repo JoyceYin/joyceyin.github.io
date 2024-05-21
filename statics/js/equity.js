@@ -13,6 +13,14 @@ function equityBaseMap(type,id){
     const walk15URL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/EVSE_walk_within15.csv"
     const drive15URL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/EVSE_drive_within15.csv"
 
+    const ScenarioURL = [
+        {'classname': 'dac', 'url': "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/dac_nyc.csv", "pct":0, "col_ptg": "None"},
+        {'classname': 'people_color', 'url':'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/peopleOfcolor.csv', "pct":0.771, "col_ptg":"color_ptg"},
+        {"classname": "low_income", "url":"https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/low_income.csv", "pct":0.443, "col_ptg":"low_income_ptg"},
+        {"classname": "multifamily", "url":"https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/multifamily.csv", "pct": 0.622, "col_ptg":"mhf_ptg"},
+        {"classname": "rental", "url": "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/rental.csv", "pct":0.719, "col_ptg": "rental_ptg"}
+    ]
+
     d3.json(censustractURL, function(topo){
         //set map scale, location on screen and projection
         var projection = d3.geoMercator()
@@ -65,11 +73,55 @@ function equityBaseMap(type,id){
 
 
         })
+
+        // Scenario
+        for (let i = 0; i < ScenarioURL.length; i++) {
+            const url_element = ScenarioURL[i];
+
+            d3.csv(url_element['url'], function(data){
+
+                var filterArray = data.map(function (d) { return d.GEOID; })
+                svg.append("g").selectAll("path")
+                    .data( topo.features.filter((d) => filterArray.includes(d.properties['GEOID']) ) )
+                    .enter().append("path")
+                    .attr("class", url_element['classname'])
+                    .style("fill","none")
+                    .style("stroke", function(d){
+                        ptg = data.find((e) => e.GEOID == d.properties['GEOID'] )[ url_element['col_ptg'] ]
+                        if (url_element['classname']=='dac') { return "#74a9cf"; }
+                        else if (ptg >= url_element['pct']) {return "#74a9cf";}
+                        else {return "none"};
+                    })
+                    .style("stroke-width", 0.7)
+                    .style("stroke-opacity", 0)
+                    .attr("d", generator)
+            })
+            
+        }
+        
     })
+
+    return svg
 }
 
 var walk15_id = "#walk15_map"
-equityBaseMap('walk',walk15_id)
+walk_svg = equityBaseMap('walk',walk15_id)
 
 var drive15_id = "#drive15_map"
-equityBaseMap('drive',drive15_id)
+drive_svg = equityBaseMap('drive',drive15_id)
+
+var classArray=['dac','people_color','low_income','multifamily','rental']
+d3.selectAll(".scenarioBox").on("change", function(){
+    console.log(this.value)
+    for (let i = 0; i < classArray.length; i++){
+        const classN = classArray[i];
+        if (classN!=this.value){
+            console.log(classN)
+            walk_svg.selectAll("."+classN).transition().duration(100).style("stroke-opacity", 0 )
+            drive_svg.selectAll("."+classN).transition().duration(100).style("stroke-opacity", 0 )
+        }else{
+            walk_svg.selectAll("."+classN).transition().duration(100).style("stroke-opacity", 1 )
+            drive_svg.selectAll("."+classN).transition().duration(100).style("stroke-opacity", 1 )
+        }
+    }
+})
