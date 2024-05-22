@@ -5,8 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-	<!-- <link rel="stylesheet" href="statics/bootstrap/css/bootstrap.min.css"> -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<!-- Load d3.js & color scale -->
@@ -513,6 +512,7 @@
 
 					</div>
 
+					<br>
 					<div class="row justify-content-center align-items-center">
 						<div class="col-5">
 							<p class="card-text" style="color: #0e0b16;"><strong>Number of public EVSE ports within 15 driving minutes</strong></p>
@@ -529,6 +529,106 @@
 						</div>
 						<div class="col-5">
 							<div id="drive15_map"></div>
+						</div>
+						<div class="col-10"><hr style="color: #999999;"></div>
+					</div>
+
+					<div class="row justify-content-center align-items-center">
+						<div class="col-10">
+							<h5 class="card-text" style="color: #0e0b16; font-weight: 600;">Scenario B1: Disadvantaged Communities + Public EVSE Density Ranges</h5>
+							<div class="row justify-content-center align-items-center">
+								<div class="col-10" style="background-color: #e7dfdd;">
+									<p class="card-text" style="color: #0e0b16;">
+										<strong>Map Layers and Data Source:</strong>
+										<ol style="color: #0e0b16;">
+											<li>List of Disadvantaged Communities (identified be New York's Climate Act)</li>
+											<li>Public EVSE Density (L2 + DCFC):
+											<ul>
+												<li>Number of public EVSE ports within 15 driving minutes</li>
+												<li>Number of public EVSE ports within 15 walking minutes</li>
+											</ul>
+											</li>
+										</ol>
+									</p>
+								</div>
+							</div>
+							<p class="card-text" style="color: #0e0b16;">
+							<!-- Discussion Here -->
+							</p>
+						</div>
+					</div>
+
+					<div class="row justify-content-center align-items-center">
+						<div class="col-10">
+							<h5 class="card-text" style="color: #0e0b16; font-weight: 600;">Scenario B2: Low Income/Community of Color + Low Public EVSE Density</h5>
+							<div class="row justify-content-center align-items-center">
+								<div class="col-10" style="background-color: #e7dfdd;">
+									<p class="card-text" style="color: #0e0b16;">
+										<strong>Map Layers and Data Source:</strong>
+										<ol style="color: #0e0b16;">
+										<li>
+											Low-income census tract percentage >= statewide 80th percentile (2022 ACS 5-Year Estimates)
+											<p style="font-size: 12px;">
+											EPA EJScreen Definition: 
+												<i>Percent of individuals whose ratio of household income to poverty level in the past 12 months was less than 2.</i>
+											</p>
+										</li>
+										<li>
+											Community of color census tract percentage >= statewide 80th percentile (2022 ACS 5-Year Estimates)
+											<p style="font-size: 12px;">
+											EPA EJScreen Definition: 
+												<i>The percent of individuals in a block group who list their racial status as a race other than white alone and/or list their ethnicity as Hispanic or Latino.</i>
+											</p>
+										</li>
+										<li>
+											Low Public EVSE Density (L2 + DCFC):
+											<ul>
+												<li>0-10 public EVSE ports within 15 driving minutes</li>
+												<li>0-10 public EVSE ports within 15 walking minutes</li>
+											</ul>
+										</li>
+										</ol>
+									</p>
+								</div>
+							</div>
+							<p class="card-text" style="color: #0e0b16;">
+							<!-- Discussion Here -->
+							</p>
+						</div>
+					</div>
+
+					<div class="row justify-content-center align-items-center">
+						<div class="col-10">
+							<h5 class="card-text" style="color: #0e0b16; font-weight: 600;">Scenario B3: High MFH Density/High Rental Density + Low Public EVSE Density</h5>
+							<div class="row justify-content-center align-items-center">
+								<div class="col-10" style="background-color: #e7dfdd;">
+									<p class="card-text" style="color: #0e0b16;">
+										<strong>Map Layers and Data Source:</strong>
+										<ol style="color: #0e0b16;">
+											<li>
+												Multi-Family Homes density percentage >= statewide 80th percentile (2022 ACS 5-Year Estimates)
+												<p style="font-size: 12px;">
+													Definition: <i>Five units or more percentage by Units in Structure</i>
+												</p>
+											</li>
+											<li>Renter-occupied density percentage >= statewide 80th percentile (2022 ACS 5-Year Estimates)
+												<p style="font-size: 12px;">
+													Definition: <i>Renter-occupied percentage in Occupied Housing Units by Tenure by Units in Structure</i>
+												</p>
+											</li>
+											<li>
+												Low Public EVSE Density (L2 + DCFC):
+												<ul>
+													<li>0-10 public EVSE ports within 15 walking minutes</li>
+												</ul>
+											</li>
+										</ol>
+									</p>
+								</div>
+							</div>
+							<p class="card-text" style="color: #0e0b16;">
+							<!-- Discussion Here -->
+							</p>
 						</div>
 					</div>
 
@@ -564,7 +664,6 @@
 	<script src="../../statics/js/ev_station.js"></script>
 	<script src="../../statics/js/equity.js"></script>
 	<script type='text/javascript'>
-		
 	</script>
 
 </body>
