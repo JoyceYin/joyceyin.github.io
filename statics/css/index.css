@@ -36,3 +36,7 @@ color: #4717f6;
 .alink:link {color:#e7dfdd; text-decoration: none; text-align: center;}
 .alink:visited{color: #e7dfdd; }
 .alink:hover {color:#e7dfdd; font-weight: bold; font-size: larger;}
+
+.navlink:link {color:#c06c84; text-decoration: none;}
+.navlink:visited{color: #c06c84; }
+.navlink:hover {color:#c06c84; font-weight: bold; }
