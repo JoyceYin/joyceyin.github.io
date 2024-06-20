@@ -207,7 +207,30 @@
 										<div id="section22" class="col-11">     
 											<br>    
 											<h4 class="card-text">EV Charging Availability</h4>
-											<p>Squeezing!</p>
+											<p>Evaluate if public charging stations align with rideshare trip activity</p>
+
+											<div class="row justify-content-center align-items-center">
+
+												<div class="col-3">
+													<select class="form-select dayofweekBox" aria-label="Default select example">
+														<option value="0" selected>Monday</option>
+														<option value="1">Tuesday</option>
+														<option value="2">Wednesday</option>
+														<option value="3">Thursday</option>
+														<option value="4">Friday</option>
+														<option value="5">Saturaday</option>
+														<option value="6">Sunday</option>
+													</select>
+												</div>
+												<div class="col-9"></div>
+						
+											</div>
+
+											<div class="row justify-content-center align-items-center">
+												<div class="col-6"><img src="../../statics/images/hub/rideshare/avg_rideshare_dow_0.gif" id="dow_img" class="img-fluid rounded-start" alt="..."></div>
+											</div>
+											<br>
+
 										</div>
 									</div>
 
@@ -266,6 +289,10 @@
     </div>
 
     <script type='text/javascript'>
+		d3.selectAll(".dayofweekBox").on("change", function(){
+    		console.log(this.value)
+			document.getElementById("dow_img").src="../../statics/images/hub/rideshare/avg_rideshare_dow_"+this.value+".gif";
+		})
 	</script>
 </body>
 </html>
