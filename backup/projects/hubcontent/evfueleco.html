@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>EV Fuel Economy</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+	<!-- <link rel="stylesheet" href="statics/bootstrap/css/bootstrap.min.css"> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<!-- Load d3.js & color scale -->
+	<script src="https://d3js.org/d3.v4.js"></script>
+	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+	<!-- Icon -->
+	<link type="text/css" rel="stylesheet" href="https://unpkg.com/octicons-html@1/dist/octicons-html.css">
+	<script src="https://unpkg.com/octicons-html@1/dist/octicons-html.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
+	<!-- style -->
+	<link type="text/css" rel="stylesheet" href="../../statics/css/index.css">
+	<style>
+		h4 {
+			text-shadow: 1.5px 1.5px #83af9b;
+		}
+	</style>
+
+</head>
+
+<body style="color:#e7dfdd; background-image: url('../../statics/images/background.jpg'); background-size: 100% 100%; background-attachment: fixed;">
+
+	<nav class="navbar bg-body-tertiary fixed-top" style="background-color: #0e0b16;">
+        <div class="container">
+			
+            <a class="navbar-brand" href="../../index.html" style="color: #e7dfdd; font:bolder;">Joyce Yin</a>
+			<button class="btnown" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+				<i class="bi bi-list" style="font-size: 1rem; padding: 2px; color: antiquewhite;"></i>
+			</button>
+
+			<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel" style="background-color: #e7dfdd; height: 40%;">
+				<div class="offcanvas-header">
+				  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+					<div class="container">
+						<div class="row align-items-center">
+							<div class="col-8">
+								<h5 style="color: #0e0b16;">Hey there! Thanks for stopping by! <br> Here's a bit more than you probably need to know about me:)</h5>
+								<p style="color: #0e0b16;"><b>💻 Coding Connoisseur:</b> Programming isn't just a skill for me, it's a way of life. From Python to JS, I speak the language of data fluently.</p>
+								<p style="color: #0e0b16;"><b>🏙️ Urban Alchemist:</b> I live for diving into data to unearth those hidden gems that can help shape the future of our cities. Whether it's finding patterns in pedestrian traffic or unraveling the mysteries of public transportation efficiency, count me in!</p>
+								<p style="color: #0e0b16;"><b>🚴🏻‍♀️ Rapid Learner:</b> I excel at quickly adapting to trendy techniques and emerging technologies, ensuring I stay ahead of the curve in the dynamic world of data science and urban analytics.</p>
+							</div>
+							<!-- <div class="col-2"></div> -->
+							<div class="col-4">
+								<ul class="nav flex-column">
+									<li class="nav-item">
+									  <a class="navele nav-link active" aria-current="page" href="../../index.html">HOME</a>
+									</li>
+									<li class="nav-item">
+									  <a class="navele nav-link" href="../../resume.html">RESUME</a>
+									</li>
+									<li class="nav-item">
+									  <a class="navele nav-link" href="../../index.html#project">PROJECTS</a>
+									</li>
+									<li class="nav-item">
+										<a class="navele nav-link" href="../../hub.html">KNOWLEDGE HUB</a>
+									</li>
+									<li class="nav-item">
+										<a class="navele nav-link" href="#contact">CONTACT ME</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+
+        <div style="height: 150px;"></div>
+
+        <div class="row">
+            <div class="card" >
+                <div class="card-body" style="color:#0e0b16; ">
+					<a href="../../hub.html" class="btnown float-end" style="font-size: 12px;">Back to Knowledge Hub  <i class="bi bi-arrow-left"></i></a>
+					<a href="../ev/ev_infra.html" class="btnown float-end" style="font-size: 12px;">Back to EVSE  <i class="bi bi-arrow-left"></i></a>
+					<br><br>
+                    <h3 class="card-title" style="font-weight: 600;">All-Electric Vehicle Model Fuel Efficiency Performance from 2019 to 2024</h3>
+                    <div class="row justify-content-center">
+                        <hr style="color: #999999;"><br>
+                    </div>
+
+					<!-- Intro -->
+                    <div class="row justify-content-center">
+                        <div class="col-10" >
+							<h4 class="card-text"><strong>EPA Fuel Economy and Environment Label</strong></h4>
+                            <p class="card-text">
+								With the increasing adoption of cleaner energy sources, 
+								the US Environmental Protection Agency (EPA) has unveiled a new Fuel Economy and Environment Label for new vehicles since 2012. 
+								This label provides useful information on fuel economy, fuel cost, and environmental impact, 
+								helping drivers choose the most efficient vehicle that meets their needs. 
+								In addition, driving range and charging time are also displayed for electric vehicles.</p>
+
+							<!-- Label Pictures -->
+							<div class="row justify-content-center" >
+								<div class="col-4">
+									<figure>
+									<a href="https://www.epa.gov/fueleconomy/text-version-gasoline-label" target="_blank" ><img src="../../statics/images/hub/fuelLabel_gas.png" width="100%" alt="..."></a>
+									<figcaption style="color: #83AF9B; font-size: 14px;"><strong>Gasoline-powered Vehicle Label</strong></figcaption>
+									</figure>
+								</div>
+								<div class="col-4">
+									<figure>
+									<a href="https://www.epa.gov/fueleconomy/text-version-electric-vehicle-label" target="_blank" ><img src="../../statics/images/hub/fuelLabel_ev.png" width="100%" alt="..."></a>
+									<figcaption style="color: #83AF9B; font-size: 14px;"><strong>Electric Vehicle Label</strong></figcaption>
+									</figure>
+								</div>
+								<div class="col-4">
+									<figure>
+									<a href="https://www.epa.gov/fueleconomy/plug-hybrid-electric-vehicle-learn-more-about-new-label" target="_blank" ><img src="../../statics/images/hub/fuelLabel_phev.png" width="100%" alt="..."></a>
+									<figcaption style="color: #83AF9B; font-size: 14px;"><strong>Plug-in Hybrid Electric Vehicle Label</strong></figcaption>
+									</figure>
+								</div>
+							</div>
+                        </div>
+                    </div>
+
+					<!-- Fuel Efficiency -->
+					<br>
+                    <div class="row justify-content-center">
+                        <div class="col-10" >
+							<h4 class="card-text"><strong >Electric Vehicle Fuel Efficiency Performance</strong></h4>
+							<h5 class="card-text"><strong >Fuel Economy: </strong>Miles per gallon gasoline equivalent (MPGe)</h5>
+                            <p class="card-text">
+								The vehicle label normally starts by displaying miles per gallon (MPG) or miles per gallon of gasoline-equivalent (MPGe), with city, highway, and combined values. 
+								The combined fuel economy is the weighted average of city (55%) and highway (45%), which makes vehicle comparison easier.
+							</p>
+							<p class="card-text">
+								Similar to MPG used by gas-powered cars, electric-powered vehicles display fuel economy using MPGe to ensure accessible comparison across different power sources. 
+								MPGe could be easily understood as the number of miles the vehicle can travel using a quantity of fuel with the same energy content as a gallon of gasoline.
+							</p>
+							
+							<h5 class="card-text"><strong>Fuel Consumption Rate: </strong>Kilowatt-hours (kWh) / 100 miles</h5>
+							<p class="card-text">
+								Kilowatt-hours (kWh) is a unit used to measure electricity energy usage. 
+								The value on the Label indicates how many kilowatt-hours the vehicle uses to travel 100 miles. 
+								It is highly related to the amount of electricity consumption and thus to fuel costs. 
+								<mark style="background-color: #83AF9B; color: beige;">The lower the fuel consumption rate, the more fuel costs are saved annually.</mark> 
+								In conventional vehicles, unlike the linearity in Miles per Gallon (MPG), Gallons per 1000 Miles always decrease non-linearly as MPG increases linearly. 
+								Therefore, a fuel consumption metric allows for more accurate energy usage comparisons among vehicles.
+							</p>
+							<h5 class="card-text"><strong>Fuel Economy Rating</strong></h5>
+							<p class="card-text">
+								The Fuel Economy rating on the Label is accompanied by GHG rating. There is a positive relationship between these two factors: 
+								a higher fuel economy is associated with a better GHG emissions profile. However, as all-electric vehicles do not have 
+								tailpipe emissions (detailed in the next section), we can simply assess their fuel economy performance in general. 
+							</p>
+							<p class="card-text">
+								Prior to 2023, according to EPA data, fuel economy scores were consistently rated 10 (best) for all electric-powered car models. Starting in 2023, 
+								the EPA has assigned scores of 8 and 9 to some of them. By examining the distribution of combined MPGe and fuel consumption 
+								rate among different scores, it appears that the scoring rules have become stricter over the years.
+							</p>
+                        </div>
+                    </div>
+
+					<!-- Environmental Impact -->
+					<br>
+                    <div class="row justify-content-center">
+                        <div class="col-10" >
+							<h4 class="card-text"><strong>Electric Vehicle Environmental Impact</strong></h4>
+							<p class="card-text">
+								In the redesigned label, the EPA also provides ratings for vehicle emissions in terms of greenhouse gases and smog, 
+								with a scale of 1 (worst) to 10 (best).
+							</p>
+							<h5 class="card-text">Greenhouse Gas Rating</h5>
+                            <p class="card-text">
+								The GHG rating is a score that only reflects greenhouse gas emissions, with 99% of carbon dioxide, 
+								emitted from the tailpipes of cars and trucks that combust fuel. Based on the definition of the rating, 
+								all-electric vehicles are one of the cleanest vehicle groups as they are zero-emission ones. 
+								This means that <mark style="background-color: #83AF9B; color: beige;">they produce no tailpipe emissions</mark>, 
+								even though upstream emissions are generated during the production and distribution of electricity.
+							</p>
+							<p class="card-text">
+								<u>Check out upstream emissions in your neighborhood:</u> 
+								<a href="https://www.fueleconomy.gov/feg/Find.do?action=bt2" target="_blank" class="alink" style="color: #83AF9B; font-size: 16px;">Beyond Tailpipe Emissions Calculator</a>
+							</p>
+							<h5 class="card-text">Smog Rating</h5>
+							<p class="card-text">
+								Smog is a haze-like form of air pollution that threatens human health, produced by various compounds such as oxides of nitrogen and particulate matter (PM). 
+								These are emitted during fuel combustion as well. The smog rating is a measure for vehicle tailpipe emissions of those air pollutants. 
+								It follows either federal (Clean Air Act) or California (stricter regulations than CAA) emission standards that incorporate specific thresholds for covered compounds. 
+								Since electric vehicles have no tailpipe emissions, they also have no smog-forming emissions.
+							</p>
+                        </div>
+                    </div>
+
+                    <!-- Tableau -->
+                    <div class="row justify-content-center">
+                        <hr class="col-10" style="color: #999999;">
+						<div class="col-10">
+							<h4 class="card-text"><strong>All-Electric Vehicles Fuel Efficiency Dashboard</strong></h4>
+							<br>
+						</div>
+						
+                        <div class='tableauPlaceholder' id='viz1717681475986' style='position: relative'>
+                            <noscript>
+                            <a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Al&#47;All-ElectricVehiclesFuelEconomy&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a>
+                            </noscript>
+                            <object class='tableauViz'  style='display:none;'>
+                            <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /><param name='embed_code_version' value='3' /> 
+                            <param name='site_root' value='' /><param name='name' value='All-ElectricVehiclesFuelEconomy&#47;Dashboard1' />
+                            <param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Al&#47;All-ElectricVehiclesFuelEconomy&#47;Dashboard1&#47;1.png' /> 
+                            <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' />
+                            </object>
+                        </div>
+                    </div>
+
+					<!-- Reference -->
+					<br>
+                    <div class="row justify-content-center">
+                        <div class="col-10" >
+							<h4 class="card-text"><strong>Reference</strong></h4>
+                            <ul class="card-text">
+								<li><a href="https://www.epa.gov/greenvehicles/learn-about-fuel-economy-label#NewLabel" target="_blank" class="alink" style="color: #83AF9B; font-size: 16px;">EPA Fuel Economy Label Introduction</a></li>
+								<li><a href="https://www.fueleconomy.gov/feg/label/learn-more-electric-label.shtml" target="_blank" class="alink" style="color: #83AF9B; font-size: 16px;">Electric Vehicle: Learn More About the Label (EPA)</a></li>
+								<li><a href="https://driveclean.ca.gov/environmental-performance" target="_blank" class="alink" style="color: #83AF9B; font-size: 16px;">Environmental Impact: GHG Rating and Smog Rating (Drive Clean)</a></li>
+								<li><a href="https://afdc.energy.gov/fuels/electricity-benefits" target="_blank" class="alink" style="color: #83AF9B; font-size: 16px;">Electric Vehicle Benefits and Considerations (Alternative Fuel Data Center)</a></li>
+								<li><a href="https://www.epa.gov/greenvehicles/smog-vehicle-emissions" target="_blank" class="alink" style="color: #83AF9B; font-size: 16px;">Vehicles, Greenhouse Gases and Smong (EPA)</a></li>
+								<li><a href="https://www.fueleconomy.gov/feg/Find.do?action=bt2" target="_blank" class="alink" style="color: #83AF9B; font-size: 16px;">GHG Emissions Calculator - Beyond Tailpipe (EPA Fuel Economy)</a></li>
+							</ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <br>
+	<div class="container-fluid" style="background-color: #0e0b16;">
+		<section id="contact">
+			<div class="container">
+				<br>
+				<div class="row">
+					<div class="col-8">
+						Leave me a feedback :)
+					</div>
+					<div class="col-4 text-end">
+						<p style="font-size: 18px;">Welcome to reach out to me :) 
+							<a class="alink" href="https://www.linkedin.com/in/xiaohe-yin-joyce/" target="_blank"><i class="bi bi-linkedin" style="font-size: 2rem;"></i></a></p>
+						<br>
+						<p style="font-size: 18px;">More works on my GitHub -> 
+							<a class="alink" href="https://github.com/JoyceYin" target="_blank"><i class="bi bi-github" style="font-size: 2rem;"></i></a></p>
+					</div>
+				</div>
+				<br>
+			</div>
+		</section>
+	</div>
+
+    <script type='text/javascript'>
+        var divElement = document.getElementById('viz1717681475986');
+        var vizElement = divElement.getElementsByTagName('object')[0];
+        if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1255px';vizElement.style.height='1507px';}
+        else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1255px';vizElement.style.height='1507px';}
+        else { vizElement.style.width='100%';vizElement.style.height='2227px';}
+
+        var scriptElement = document.createElement('script'); 
+        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+        vizElement.parentNode.insertBefore(scriptElement, vizElement);
+	</script>
+
+</body>
+
+</html>

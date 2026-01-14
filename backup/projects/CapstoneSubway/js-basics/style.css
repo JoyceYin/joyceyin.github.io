@@ -1,0 +1,124 @@
+*,*:after.*:before{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html, body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('static/background.jpg');
+    background-color: rgba(255, 255, 255, 0.6);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+svg{
+/*    background-color: #305555;*/
+
+    background-color: whitesmoke;
+    /*box-shadow: 0px 3px 15px rgba(0,0,0,0.2); */
+    /*border-radius: 5px; */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#canvas{
+    display: flex;
+    justify-content: center;
+/*    align-items: center;*/
+    min-width: 1000px;
+    min-height: 700px
+}
+
+.flex-parent-element {
+  display: flex;
+  width: 50%;
+}
+
+.flex-child-element: {
+  flex: 1;
+  display: flex;
+/*  border: 2px solid blueviolet;*/
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+}
+
+.flex-child-element1: {
+  flex: 1;
+  display: flex;
+/*  border: 2px solid blueviolet;*/
+  justify-content: center;
+  margin: 20px;
+}
+
+
+.stationPt:hover{
+  stroke: black;
+  stroke-width: 4px;
+}
+
+.scatterPt:hover{
+  stroke: black;
+  stroke-width: 4px;
+}
+
+.loading-area {
+    position: fixed;
+    z-index: 9999999;
+    background: #fff;
+    width: 100%;
+    min-height: 110%;
+}
+
+.loader {
+    border: 0 solid transparent;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: calc(50vh - 75px);
+    left: calc(50vw - 75px);
+}
+.loader:before, .loader: after {
+    content:'';
+    border: lem solid #ff5733;
+    border-radius: 50%;
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: loader 3s linear infinite;
+    opacity: 1;
+}
+
+.loader:before{
+    animation-delay: .5s;
+}
+
+@keyframes loader{
+    0%{ 
+        transform: scale(0); 
+        opacity: 0;
+    }
+    50%{ 
+        opacity: 1; 
+    }
+    100%{
+        transform: scale(1);
+        opacity: 0;
+    }
+}
