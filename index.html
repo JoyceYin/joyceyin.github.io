@@ -20,10 +20,27 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/resume.css">
     <link rel="stylesheet" href="css/scroll.css">
+    <link rel="stylesheet" href="css/load.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
+    <!-- ===== LOADING OVERLAY ===== -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-container">
+            <!-- Spinner -->
+            <div class="loading-spinner"></div>
+            
+            <!-- Text -->
+            <p class="loading-text">Loading...</p>
+            
+            <!-- Progress Bar -->
+            <div class="loading-progress">
+                <div class="loading-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
     <main class="pt-5 mt-5">
         <!-- ===== HERO SECTION ===== -->
         <section class="hero-section">
@@ -152,10 +169,11 @@
 
     </main>
     
-    <script src="js/include.js"></script>
-    <script src="js/project-include.js"></script>
-    <script src="js/effect.js"></script>
-    <script src="js/cardData.js"></script>
+    <script src="/js/load.js"></script>
+    <script src="/js/include.js"></script>
+    <script src="/js/project-include.js"></script>
+    <script src="/js/effect.js"></script>
+    <script src="/js/cardData.js"></script>
 </body>
 
 </html>
