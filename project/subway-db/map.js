@@ -1,12 +1,12 @@
 
-let zipcodeURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/project/js-basics/data/zipcodenyc.geojson'
-let stationURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/project/js-basics/data/Subway%20Stations.geojson'
-let stationNameURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/project/js-basics/data/StructSta.json'
+let zipcodeURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/project/subway-db/data/zipcodenyc.geojson'
+let stationURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/project/subway-db/data/Subway%20Stations.geojson'
+let stationNameURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/project/subway-db/data/StructSta.json'
 
-let crowdDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/project/js-basics/data/CrowdData.json'
-let noiseDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/project/js-basics/data/NoiseData.json'
+let crowdDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/project/subway-db/data/CrowdData.json'
+let noiseDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/project/subway-db/data/NoiseData.json'
 
-let overviewDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/project/js-basics/data/StationOverview.json'
+let overviewDataURL = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/project/subway-db/data/StationOverview.json'
 
 // only analyze the subway station with structure images 
 // combine station locations with the same structure (connected stations)
