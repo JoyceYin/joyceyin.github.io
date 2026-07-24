@@ -1,0 +1,6 @@
+Vehicle Make,Type1,Type2,Type3,Type4,Type5,Type1_val,Type2_val,Type3_val,Type4_val,Type5_val
+CHEVROLET,5388.0,0.0,0.0,0.0,0.0,BOLT EV,,,,
+FORD,142.0,0.0,0.0,0.0,0.0,FOCUS,,,,
+GEM,745.0,0.0,0.0,0.0,0.0,GEM,,,,
+NISSAN,4314.0,0.0,0.0,0.0,0.0,LEAF,,,,
+TESLA,8767.0,175.0,1032.0,8869.0,2.0,MODEL 3,MODEL S,MODEL X,MODEL Y,ROADSTER

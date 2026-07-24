@@ -153,8 +153,8 @@ function Chorepleth_map(id, year) {
 
     // Load external data and boot
     d3.queue()
-    .defer(d3.json, "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/modified_zipcode.geojson")
-    .defer(d3.csv, 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_per_household/ev_adoption_'+ year.toString() +'.csv', function(d) { data.set(d.MODZCTA, +d.ev_per_household); })
+    .defer(d3.json, "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/modified_zipcode.geojson")
+    .defer(d3.csv, 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/ev_per_household/ev_adoption_'+ year.toString() +'.csv', function(d) { data.set(d.MODZCTA, +d.ev_per_household); })
     .await(ready);
 
     console.log(data)
@@ -262,7 +262,7 @@ function Chorepleth_map(id, year) {
 
     
 
-var ev_adopt_boro = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_adoption_boro_year.csv'
+var ev_adopt_boro = 'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/ev_adoption_boro_year.csv'
 var ev_adopt_id = '#ev_adoption_boro'
 EVadoption_line(ev_adopt_id, ev_adopt_boro)
 

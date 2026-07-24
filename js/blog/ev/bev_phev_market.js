@@ -21,7 +21,7 @@ function market_stacked_bar(id, type, year){
                 .attr("transform", "translate(" + margin.left + "," + margin.top+")")
 
     //prepare the data
-    d3.csv("https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/bev_phev_car_data/"+ type +"_top5_"+ year +".csv",function(data){
+    d3.csv("https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/bev_phev_car_data/"+ type +"_top5_"+ year +".csv",function(data){
         
         var subgroups = data.columns.slice(1).filter(d => !d.includes('_val'));
         //add columns for  total number

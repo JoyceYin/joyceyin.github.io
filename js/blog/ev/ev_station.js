@@ -12,9 +12,9 @@ function EVstationlevel(id){
     const line = svg.append("g");
 
     //declare URL
-    const dataURL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_station_feature/ev_station_ny.json"
-    const polygonsURL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/modified_zipcode.geojson"
-    const polylinesURL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_station_feature/ny_arterial_highway.json"
+    const dataURL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/ev_station_feature/ev_station_ny.json"
+    const polygonsURL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/modified_zipcode.geojson"
+    const polylinesURL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/ev_station_feature/ny_arterial_highway.json"
 
     
 

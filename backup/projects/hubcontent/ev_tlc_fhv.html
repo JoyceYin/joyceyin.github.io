@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>For-Hire Vehicles</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+	<!-- <link rel="stylesheet" href="statics/bootstrap/css/bootstrap.min.css"> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<!-- Load d3.js & color scale -->
+	<script src="https://d3js.org/d3.v4.js"></script>
+	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+	<!-- Icon -->
+	<link type="text/css" rel="stylesheet" href="https://unpkg.com/octicons-html@1/dist/octicons-html.css">
+	<script src="https://unpkg.com/octicons-html@1/dist/octicons-html.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
+	<!-- style -->
+	<link type="text/css" rel="stylesheet" href="../../statics/css/index.css">
+	<style>
+		h4 {
+			text-shadow: 1px 1.2px #c06c84;
+		}
+		body {
+			position: relative;
+		}
+
+		section {
+			background-color: #ffd3b54b;
+			width: 100%;
+		}
+
+		mark {
+			background-color: #c06c84; 
+			color: beige;
+		}
+		
+	</style>
+
+</head>
+
+<body style="color:#e7dfdd; background-image: url('../../statics/images/background.jpg'); background-size: 100% 100%; background-attachment: fixed;">
+
+	<nav class="navbar bg-body-tertiary fixed-top" style="background-color: #0e0b16;">
+        <div class="container">
+			
+            <a class="navbar-brand" href="../../index.html" style="color: #e7dfdd; font:bolder;">Joyce Yin</a>
+			<button class="btnown" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+				<i class="bi bi-list" style="font-size: 1rem; padding: 2px; color: antiquewhite;"></i>
+			</button>
+
+			<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel" style="background-color: #e7dfdd; height: 40%;">
+				<div class="offcanvas-header">
+				  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+					<div class="container">
+						<div class="row align-items-center">
+							<div class="col-8">
+								<h5 style="color: #0e0b16;">Hey there! Thanks for stopping by! <br> Here's a bit more than you probably need to know about me:)</h5>
+								<p style="color: #0e0b16;"><b>💻 Coding Connoisseur:</b> Programming isn't just a skill for me, it's a way of life. From Python to JS, I speak the language of data fluently.</p>
+								<p style="color: #0e0b16;"><b>🏙️ Urban Alchemist:</b> I live for diving into data to unearth those hidden gems that can help shape the future of our cities. Whether it's finding patterns in pedestrian traffic or unraveling the mysteries of public transportation efficiency, count me in!</p>
+								<p style="color: #0e0b16;"><b>🚴🏻‍♀️ Rapid Learner:</b> I excel at quickly adapting to trendy techniques and emerging technologies, ensuring I stay ahead of the curve in the dynamic world of data science and urban analytics.</p>
+							</div>
+							<!-- <div class="col-2"></div> -->
+							<div class="col-4">
+								<ul class="nav flex-column">
+									<li class="nav-item">
+									  <a class="navele nav-link active" aria-current="page" href="../../index.html">HOME</a>
+									</li>
+									<li class="nav-item">
+									  <a class="navele nav-link" href="../../resume.html">RESUME</a>
+									</li>
+									<li class="nav-item">
+									  <a class="navele nav-link" href="../../index.html#project">PROJECTS</a>
+									</li>
+									<li class="nav-item">
+										<a class="navele nav-link" href="../../hub.html">KNOWLEDGE HUB</a>
+									</li>
+									<li class="nav-item">
+										<a class="navele nav-link" href="#contact">CONTACT ME</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+
+        <div style="height: 150px;"></div>
+
+        <div class="row">
+            <div class="card" >
+                <div class="card-body" style="color:#0e0b16; ">
+					<a href="../../hub.html" class="btnown float-end" style="font-size: 12px;">Back to Knowledge Hub  <i class="bi bi-arrow-left"></i></a>
+					<br><br>
+                    <h3 class="card-title" style="font-weight: 600;">Case Study: Electrification on For-Hire Services</h3>
+                    <div class="row justify-content-center">
+                        <hr style="color: #999999;"><br>
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <div class="row" >
+							<nav id="myScrollspy" class="col-sm-3 navbar navbar-light bg-light flex-column align-items-stretch ">
+								<nav class="nav nav-pills flex-column" style="top: auto; position: fixed; ">
+    								<a class="navlink nav-link" href="#section1">FHV Electrification</a>
+									<nav class="nav nav-pills flex-column">
+										<a class="navlink nav-link ms-3 my-1" href="#section11">Why Electrification</a>
+										<a class="navlink nav-link ms-3 my-1" href="#section12">EV Expansion Barriers</a>
+										<a class="navlink nav-link ms-3 my-1" href="#section13">Green Rides Initiative</a>
+									</nav>
+									<a class="navlink nav-link" href="#section2">Demand Assessment</a>
+									<nav class="nav nav-pills flex-column">
+										<a class="navlink nav-link ms-3 my-1" href="#section21">EV Availability</a>
+										<a class="navlink nav-link ms-3 my-1" href="#section22">EV Charger Availability</a>
+									</nav>
+									<a class="navlink nav-link" href="#refer">Reference</a>
+								</nav>
+							</nav>
+
+							<main class="col-sm-9 "> 
+								<section id="section1" class="section">
+
+									<div class="row justify-content-center">
+										<div class="col-11">
+											<br>
+											<h3 class="card-text"><strong>For-Hire Vehicles Electrification in the City</strong></h3>
+											<p class="card-text">For-Hire Vehicles provide a service with pre-arranged transportation throughout NYC. 
+												Within the vast transportation system in the city, for-hire services have been a key component, with an increasing number of registrations yearly. 
+												For individuals without a car, such services provide a high level of mobility where public transportation cannot reach. 
+												To better regulate the service, there are four classes categorized by the Taxi & Limousine Commission (TLC): Livery Base, Black Car Base, Luxury Limousine Base, and High Volume For-Hire Service (HVFHS) Base. 
+												Among those categories, <mark>the HVFHS includes bases that dispatch more than 10,000 trips per day</mark>, which tend to be app-based transportation companies such as Uber and Lyft.
+											</p>
+										</div>
+										
+										<div id="section11" class="col-11">  
+											<br>       
+											<h4 class="card-text">Why Electrification</h4>
+											<p class="card-text">
+												There are approximately 96,000 for-hire vehicles, completing 250 million trips annually. 
+												Such a large volume of trips can produce at least 600,000 metric tons of carbon dioxide, accounting for 4% of the transportation emission sector. 
+												Due to the considerable mileage, electrifying FHVs has a greater impact than electrifying personal ICE vehicles in terms of emission reduction. 
+												Researchers show that <mark>one rideshare EV can have a comparable impact to that of three personal EVs</mark>. 
+												Thus, the electrification transition of FHVs, especially HVFHS, can better help the city move toward the ZEV goal and substantially reduce GHG emissions. 
+											</p>
+										</div>    
+
+										<div id="section12" class="col-11">    
+											<br>       
+											<h4 class="card-text">TLC's Roadmap: EV Expansion Barriers</h4>
+											<p class="card-text">In the <i>Charged Up!</i> Report, the TLC highlights the challenges facing the expansion of for-hire EVs from three dimensions.</p>
+											<p class="card-text">
+												<strong>1. Cost:</strong> The higher upfront cost of EVs and EVSE, along with a limited used vehicle market, makes it difficult for some TLC licensees to start the transition, 
+												even though maintenance expenses and fuel costs are much lower compared to ICE vehicles within a few years.
+											</p>
+											<p class="card-text">
+												<strong>2. Charger Coverage:</strong> There is a gap between the existing charging infrastructure and drivers' charging needs. 
+												DCFCs are not efficiently distributed in frequent drop-off areas, 
+												while the Level 2 network does not align well with the concentration of driver residency neighborhoods.
+											</p>
+											<p class="card-text">
+												<strong>3. EV-centric Regulations:</strong> The report suggests that the TLC can implement regulation to issue new EV licenses 
+												(only WAVs and EVs are eligible for new FHV license currently) 
+												and work with other public stakeholders to set electrification targets (Green Rides Initiative).
+											</p>
+										</div>
+
+										<div id="section13" class="col-11">  
+											<br>         
+											<h4 class="card-text">Rideshare Fleet Benchmarks: Green Rides Initiative</h4>
+											<p>The Green Ride Initiative aims to smoothly transition rideshare fleets, namely HVHFS, to <mark>either electric vehicles or wheelchair accessible vehicles (WAVs) by 2030</mark>. 
+												It sets benchmark yearly by evaluating the percentage of trips dispatched to either ZEVs or WAVs.</p>
+											<p>
+												As of April 2024, Year-to-Date statistics showcase that <mark>17.20% of trips in Lyft and 17.75% in Uber are completed by EVs and WAVs</mark>, 
+												which is a promising start towards reaching the annual goal.
+											</p>
+											<p><strong>Check out TLC Full Dashboard: </strong><a href="https://app.powerbigov.us/view?r=eyJrIjoiY2FlNjI3YWQtMDkzOS00MjliLTk0MTQtODc2NzU4OTYwNjFiIiwidCI6IjMyZjU2ZmM3LTVmODEtNGUyMi1hOTViLTE1ZGE2NjUxM2JlZiJ9&pageName=ReportSection28c004ce23fc37acd783" target="_blank" class="alink" style="color: #c06c84; font-size: 16px;">TLC FactBook</a></p>
+										</div>
+
+									</div>
+
+								</section>
+
+								<br>
+								
+								<section id="section2"> 
+
+									<div class="row justify-content-center">
+										<div class="col-11">
+											<br>
+											<h3 class="card-text"><strong>Charging Infrastructure Needs Assessment</strong></h3>
+											<p>Squeezing</p>
+										</div>
+
+										<div id="section21" class="col-11">   
+											<br>      
+											<h4 class="card-text">EV Availability</h4>
+											<p>Squeezing</p>
+										</div>      
+										<div id="section22" class="col-11">     
+											<br>    
+											<h4 class="card-text">EV Charging Availability</h4>
+											<p>Evaluate if public charging stations align with rideshare trip activity</p>
+
+											<div class="row justify-content-center align-items-center">
+
+												<div class="col-3">
+													<select class="form-select dayofweekBox" aria-label="Default select example">
+														<option value="0" selected>Monday</option>
+														<option value="1">Tuesday</option>
+														<option value="2">Wednesday</option>
+														<option value="3">Thursday</option>
+														<option value="4">Friday</option>
+														<option value="5">Saturaday</option>
+														<option value="6">Sunday</option>
+													</select>
+												</div>
+												<div class="col-9"></div>
+						
+											</div>
+
+											<div class="row justify-content-center align-items-center">
+												<div class="col-6"><img src="../../statics/images/hub/rideshare/avg_rideshare_dow_0.gif" id="dow_img" class="img-fluid rounded-start" alt="..."></div>
+											</div>
+											<br>
+
+										</div>
+									</div>
+
+								</section>   
+
+								<br>
+								<section id="refer">
+									<div class="row justify-content-center">
+										<div class="col-11" >
+											<br>
+											<h3 class="card-text"><strong>Reference</strong></h3>
+											<ul class="card-text">
+												<li><a href="https://www.nyc.gov/site/tlc/businesses/for-hire-vehicles.page" target="_blank" class="alink" style="color: #c06c84; font-size: 16px;">NYC TLC: For-Hire Vehicle Bases</a></li>
+												<li><a href="https://www.nyc.gov/assets/tlc/downloads/pdf/Charged_Up!_TLC_Electrification_Report-2022.pdf" target="_blank" class="alink" style="color: #c06c84; font-size: 16px;">NYC TLC Electrification Report 2022: Charged Up!</a></li>
+												<li><a href="https://climate.cityofnewyork.us/wp-content/uploads/2023/06/PlaNYC-2023-Full-Report.pdf" target="_blank" class="alink" style="color: #c06c84; font-size: 16px;">PlaNYC: Getting Substainability Done</a></li>
+												<li><a href="https://escholarship.org/content/qt15s1h1kn/qt15s1h1kn.pdf?t=pw4rht" target="_blank" class="alink" style="color: #c06c84; font-size: 16px;">Jenn A. (UC Davis): Emissions Benefits of Electric Vehicles in Uber and Lyft Services</a></li>
+												<li><a href="https://www.nyc.gov/assets/tlc/downloads/pdf/green_rides_initiative_%20with_certifications_8_14_23.pdf" target="_blank" class="alink" style="color: #c06c84; font-size: 16px;">TLC: Green Rides Initiative</a></li>
+												<li><a href="https://www.lyft.com/impact/economic-impact-report" target="_blank" class="alink" style="color: #c06c84; font-size: 16px;">Lyft: Lyft Economic Impact Report</a></li>
+												<li><a href="https://www.uber.com/us/en/about/sustainability/" target="_blank" class="alink" style="color: #c06c84; font-size: 16px;">Uber: Environmental, Social, and Governance Report</a></li>
+												
+											</ul>
+										</div>
+									</div>
+								</section>
+
+							</main>
+						</div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="container-fluid" style="background-color: #0e0b16;">
+        <section id="contact" style="background-color: #0e0b16;">
+            <div class="container">
+                <br>
+                <div class="row">
+                    <div class="col-8">
+                        Leave me a feedback :)
+                    </div>
+                    <div class="col-4 text-end">
+                        <p style="font-size: 18px;">Welcome to reach out to me :) 
+                            <a class="alink" href="https://www.linkedin.com/in/xiaohe-yin-joyce/" target="_blank"><i class="bi bi-linkedin" style="font-size: 2rem;"></i></a></p>
+                        <br>
+                        <p style="font-size: 18px;">More works on my GitHub -> 
+                            <a class="alink" href="https://github.com/JoyceYin" target="_blank"><i class="bi bi-github" style="font-size: 2rem;"></i></a></p>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </section>
+    </div>
+
+    <script type='text/javascript'>
+		d3.selectAll(".dayofweekBox").on("change", function(){
+    		console.log(this.value)
+			document.getElementById("dow_img").src="../../statics/images/hub/rideshare/avg_rideshare_dow_"+this.value+".gif";
+		})
+	</script>
+</body>
+</html>

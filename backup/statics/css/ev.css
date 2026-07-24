@@ -1,0 +1,112 @@
+svg {
+    width: 100%;
+    height: 100%;
+  }
+  text {
+    font-family: lato;
+    font-size: 11px;
+    fill: #666666;
+  }
+  .grid path {
+    stroke-width: 0;
+    stroke: #333333;
+  }
+  .grid .tick line {
+    stroke: #333333;
+    stroke-width: 0.3px;
+    stroke-opacity: 0.3;
+  }
+  text.chart-title {
+    font-size: 15px;
+    font-weight: 600;
+    fill:#222222
+  }
+  text.chart-label {
+    font-size: 11px;
+    font-weight: 400;
+    fill: #999999;
+  }
+  text.chart-source {
+    font-size: 9px;
+    fill: #999999;
+  }
+  text.copyright {
+    font-size: 9px;
+    fill: #999999;
+  }
+
+
+/* For Range Slider */
+  .range {
+    --ticksThickness: 2px;
+    --ticksHeight: 30%;
+    --ticksColor: #333333;
+    
+    display: inline-block;
+    background: #333333;
+    background: linear-gradient(to right, var(--ticksColor) var(--ticksThickness), transparent 1px) repeat-x;
+    background-size: calc(100%/((var(--max) - var(--min)) / var(--step)) - .1%) var(--ticksHeight);
+    background-position: 0 bottom;
+    position: relative;
+  }
+  
+  
+  /* min / max labels at the edges */
+  .range::before, .range::after {
+    font: 12px monospace;
+    color: #333333;
+    content: counter(x);
+    position: absolute;
+    bottom: -2ch;
+  }
+  
+  .range::before {
+    counter-reset: x var(--min);
+    transform: translateX(-50%);
+  }
+  
+  .range::after {
+    counter-reset: x var(--max);
+    right: 0;
+    transform: translateX(50%);
+  }
+  
+  
+  .range > input {
+    width: 100%;
+    margin: 8 8px; /* Critical adjustment */
+  }
+
+  #mapSlider {
+    background: linear-gradient(to right, #82CFD0 0%, #82CFD0 100%, #fff 100%, #fff 0%);
+    border: solid 1px #82CFD0;
+    border-radius: 8px;
+    height: 7px;
+    width: 356px;
+    outline: none;
+    transition: background 450ms ease-in;
+    -webkit-appearance: none;
+  }
+
+  #barSlider {
+    background: linear-gradient(to right, #82CFD0 0%, #82CFD0 100%, #fff 100%, #fff 0%);
+    border: solid 1px #82CFD0;
+    border-radius: 8px;
+    height: 7px;
+    width: 100%;
+    outline: none;
+    transition: background 450ms ease-in;
+    -webkit-appearance: none;
+  }
+
+
+/* Tooltip */
+.tooltip {
+  background-color: #ffffff;
+  font-family: lato;
+  font-size: 11px;
+  padding: 4px;
+  color: #666666;
+  border: none;
+  box-shadow: 0px 0px 3px 0px #E6E6E6;
+}

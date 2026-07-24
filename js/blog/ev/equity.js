@@ -9,16 +9,16 @@ function equityBaseMap(type,id){
     const poly = svg.append("g");
 
     //declare URL
-    const censustractURL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/census_tract.geojson"
-    const walk15URL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/EVSE_walk_within15.csv"
-    const drive15URL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/EVSE_drive_within15.csv"
+    const censustractURL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/ev_equity_data/census_tract.geojson"
+    const walk15URL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/ev_equity_data/EVSE_walk_within15.csv"
+    const drive15URL = "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/ev_equity_data/EVSE_drive_within15.csv"
 
     const ScenarioURL = [
-        {'classname': 'dac', 'url': "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/dac_nyc.csv", "pct":0, "col_ptg": "None"},
-        {'classname': 'people_color', 'url':'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/peopleOfcolor.csv', "pct":0.771, "col_ptg":"color_ptg"},
-        {"classname": "low_income", "url":"https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/low_income.csv", "pct":0.443, "col_ptg":"low_income_ptg"},
-        {"classname": "multifamily", "url":"https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/multifamily.csv", "pct": 0.622, "col_ptg":"mhf_ptg"},
-        {"classname": "rental", "url": "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/statics/data/ev_equity_data/rental.csv", "pct":0.719, "col_ptg": "rental_ptg"}
+        {'classname': 'dac', 'url': "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/ev_equity_data/dac_nyc.csv", "pct":0, "col_ptg": "None"},
+        {'classname': 'people_color', 'url':'https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/ev_equity_data/peopleOfcolor.csv', "pct":0.771, "col_ptg":"color_ptg"},
+        {"classname": "low_income", "url":"https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/ev_equity_data/low_income.csv", "pct":0.443, "col_ptg":"low_income_ptg"},
+        {"classname": "multifamily", "url":"https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/ev_equity_data/multifamily.csv", "pct": 0.622, "col_ptg":"mhf_ptg"},
+        {"classname": "rental", "url": "https://raw.githubusercontent.com/JoyceYin/joyceyin.github.io/main/assets/data/ev_equity_data/rental.csv", "pct":0.719, "col_ptg": "rental_ptg"}
     ]
 
     d3.json(censustractURL, function(topo){
