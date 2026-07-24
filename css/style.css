@@ -1,0 +1,347 @@
+body {
+    background: #E6EFE5;
+}
+
+.card-link {
+    color: #2D5A27;
+    text-decoration: none;
+    padding: 0.5rem 1.2rem;
+    /* border:  #2D5A27; */
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.card-link:hover {
+    background: #D5E3D3;
+    color: #000000;
+}
+
+/* Index: Hero Section */
+.hero-section {
+    padding: 100px 0 60px;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-title {
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.hero-description {
+    color: #6c757d;
+    line-height: 1.8;
+    max-width: 500px;
+}
+
+/* ===== FLIP CARD ===== */
+.flip-card {
+    background: transparent;
+    width: 100%;
+    min-height: 400px;
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    min-height: 400px;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.flip-card-front {
+    background: transparent;
+    transform: rotateY(0deg);
+}
+
+.flip-card-front .front-content {
+    width: 100%;
+}
+
+.flip-card-back {
+    /* background: linear-gradient(135deg, #2D5A27, #1a3d18);
+    color: #ffffff; */
+    transform: rotateY(180deg);
+    justify-content: center;
+}
+
+.back-content {
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+
+/* Primary Button */
+.btn-primary {
+    background-color: #2D5A27;
+    border-color: #2D5A27;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    color: #1a3d18;
+    background-color: #E6EFE5;
+    border-color: #1a3d18;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(45, 90, 39, 0.3);
+}
+
+.btn-primary:active {
+    transform: scale(0.97);
+}
+
+/* Secondary Button */
+.btn-outline-secondary {
+    color: #1a1a2e;
+    border-color: #d0d5dd;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-outline-secondary:hover {
+    color: #1a1a2e;
+    background-color: #E6EFE5;
+    border-color: #2D5A27;
+    border-width: 2px;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.btn-outline-secondary:active {
+    transform: scale(0.97);
+}
+
+/* Back Button */
+.back-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+/* Hero Image */
+
+.hero-image-container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* ===== PROFILE WRAPPER ===== */
+.profile-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    animation: floatProfile 4s ease-in-out infinite;
+}
+
+/* Outer Ring - Pulsing Border */
+.profile-ring {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    padding: 6px;
+    /* background: conic-gradient(from 0deg, #2D5A27, #4A8A42, #6BAF5A, #2D5A27); */
+    animation: spinRing 8s linear infinite;
+    box-shadow: 0 0 40px rgba(45, 90, 39, 0.2);
+}
+
+/* Inner Ring - White Border */
+.profile-ring-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    padding: 4px;
+    background: #ffffff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Profile Image - Circle Cropped */
+.profile-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 60%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+/* ===== OVERLAY CARDS ===== */
+.overlay-card {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 0.75rem 1.25rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+.overlay-card:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    background: #ffffff;
+}
+
+.overlay-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.overlay-label {
+    font-size: 0.8rem;
+    color: #6c757d;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.overlay-number {
+    font-size: 2rem;
+}
+
+/* Overlay 1 - Top Right */
+.overlay-1 {
+    top: 15%;
+    right: 15%;
+    animation-delay: 0s;
+}
+
+/* Overlay 2 - Bottom Left */
+.overlay-2 {
+    bottom: 15%;
+    left: 5%;
+    animation-delay: 0.5s;
+}
+
+/* Overlay 3 - Bottom Right */
+.overlay-3 {
+    bottom: 30%;
+    right: 10%;
+    animation-delay: 1s;
+}
+
+/* Overlay 4 - Top Left */
+.overlay-4 {
+    top: 25%;
+    left: 12%;
+    animation-delay: 1.5s;
+    padding: 0.5rem 1rem;
+}
+
+.overlay-4 {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+}
+
+.overlay-4 .overlay-label {
+    font-size: 0.65rem;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Individual animation delays for varied floating */
+.overlay-1 {
+    animation-delay: 0s;
+}
+.overlay-2 {
+    animation-delay: 0.5s;
+}
+.overlay-3 {
+    animation-delay: 1s;
+}
+.overlay-4 {
+    animation-delay: 1.5s;
+}
+
+
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 991.98px) {
+    .hero-section {
+        padding: 100px 0 40px;
+        min-height: auto;
+        text-align: center;
+    }
+    
+    .hero-description {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .hero-image {
+        max-width: 400px;
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 80px 0 30px;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem !important;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .hero-image {
+        max-width: 100%;
+    }
+}
